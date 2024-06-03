@@ -4,16 +4,24 @@ Powerful tools for 3Dmigoto and game modding enhanced version of 3Dmigoto.
 This tool will open source if it gets 666 stars.
 # MMT
 MMT is a tool for analysis 3Dmigoto dumped FrameAnalysis folder.
+
+It's designed works with our modified fork version of blender_3dmigoto.py forked from DarkStarSword's 3DFix repo, download link: https://github.com/StarBobis/MMT-Blender-Plugin
+
+It's designed works with our modified fork version of 3Dmigoto originally forked from 3Dmigoto repo, download link: https://github.com/StarBobis/3Dmigoto-GameMod-Fork
+
+
 Features:
 - Support as many game's model extract and buffer mod make as it can.
 - Save your time with user frendly GUI.
 - Detailed log system, easy to debug and solve problems.
-- Reverse any 3Dmigoto mod with a simple click.
+- Reverse any 3Dmigoto mod with a simple click, reverse extract model from game dump files.
 
 # 3Dmigoto-Armor
 3Dmigoto-Armor is a special version of 3Dmigoto which supports a huge lots of new features. 
 
-Features:
+SourceCode: https://github.com/StarBobis/3Dmigoto-GameMod-Fork
+
+Features(WIP):
 - No crush problem in GI even with hundreds GigaBytes mods installed.
 - Compatible with GIMI's d3d11.dll, "store" command supported.
 - Access control system(MMT-ACP) supported, can specify who is allowed to loading your mod and who is not.
