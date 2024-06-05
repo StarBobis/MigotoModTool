@@ -1,7 +1,7 @@
 # MigotoModTool
 Powerful tools for 3Dmigoto and game modding enhanced version of 3Dmigoto.
 
-This tool will open source if it gets 666 stars.
+This tool will open source if it gets enough stars.
 # MMT
 MMT is a tool for analysis 3Dmigoto dumped FrameAnalysis folder.
 
