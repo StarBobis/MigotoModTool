@@ -1,10 +1,11 @@
 # MigotoModTool
-Powerful tools for 3Dmigoto and game modding enhanced version of 3Dmigoto.
+MMT is a toy for analysis 3Dmigoto Dumped FrameAnalysis Folder.
 
-This tool will open source if it gets enough stars.
+Notice: 
+- This tool is developed only for fun and it's a big toy.
+- This tool will open source if it gets 666 stars.
+
 # MMT
-MMT is a tool for analysis 3Dmigoto dumped FrameAnalysis folder.
-
 It's designed works with our modified fork version of blender_3dmigoto.py forked from DarkStarSword's 3DFix repo, download link: https://github.com/StarBobis/MMT-Blender-Plugin
 
 It's designed works with our modified fork version of 3Dmigoto originally forked from 3Dmigoto repo, download link: https://github.com/StarBobis/3Dmigoto-GameMod-Fork
