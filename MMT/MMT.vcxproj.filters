@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{95e25f05-f0ef-4c9f-8812-7c61c37e0678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataModel">
+      <UniqueIdentifier>{eb263831-6f81-41b7-baea-8fe39542c4ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\ThirdParty">
+      <UniqueIdentifier>{c088ef43-21fc-40d3-9cbf-87a668aadd66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sword-Lv4">
+      <UniqueIdentifier>{7b111c10-a0b9-4c34-b1d9-10f95fed13b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataModel\IndexBuffer">
+      <UniqueIdentifier>{64ff23be-f294-42af-9578-cf1187da023f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataModel\ConstantBuffer">
+      <UniqueIdentifier>{bf2c23d6-7ad1-40ed-bbe0-6f23c8cb902b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{9d1a0189-3b61-46f0-a5f2-a7458f4a2215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataModel\VertexBuffer">
+      <UniqueIdentifier>{44463c7c-fb0a-47ec-b08e-804292e1c72e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sword-Lv3">
+      <UniqueIdentifier>{fd2fc426-9f5c-4b0b-b253-d2f8a26e94e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games">
+      <UniqueIdentifier>{c4cca096-fc1f-4222-a6e5-7dd45efeb866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\Extract-Deprecated">
+      <UniqueIdentifier>{747e3e7d-b6f0-46e5-8d69-0c491f624cd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\Wuthering Wave">
+      <UniqueIdentifier>{e4a8d541-4643-42c5-a17a-99f606373c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GI_HI3_HSR_ZZZ">
+      <UniqueIdentifier>{daf0467c-c0e7-4b2b-8bfb-9325cee93f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\Deprecated">
+      <UniqueIdentifier>{583242b5-ba3a-4a2e-9262-c51419d081cb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MMTFileUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MMTFormatUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MMTJsonUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MMTStringUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="D3d11GameType.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="FmtData.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="MigotoFormat.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
+    <ClCompile Include="easylogging++.cc">
+      <Filter>Utils\ThirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalConfigs.cpp" />
+    <ClCompile Include="IniParserMerged.cpp">
+      <Filter>Sword-Lv3</Filter>
+    </ClCompile>
+    <ClCompile Include="IniParserSingle.cpp">
+      <Filter>Sword-Lv3</Filter>
+    </ClCompile>
+    <ClCompile Include="ReverseEntry.cpp">
+      <Filter>Sword-Lv3</Filter>
+    </ClCompile>
+    <ClCompile Include="MMTLogUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MigotoParseUtil.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
+    <ClCompile Include="ModFormatGIMI.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
+    <ClCompile Include="ReverseOutfitCompilerCompressed.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBufferTxtFile.cpp">
+      <Filter>DataModel\IndexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBufferBufFile.cpp">
+      <Filter>DataModel\IndexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBufferBufFile.cpp">
+      <Filter>DataModel\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferTxtFileDetect.cpp">
+      <Filter>DataModel\VertexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferTxtFile.cpp">
+      <Filter>DataModel\VertexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferBufFile.cpp">
+      <Filter>DataModel\VertexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameAnalysisData.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="UE4Extract.cpp">
+      <Filter>Games\Extract-Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractFromBuffer_CS_WW_Body.cpp">
+      <Filter>Games\Wuthering Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractFromWW.cpp">
+      <Filter>Games\Wuthering Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="Generate_VS.cpp">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="GenerateUtil.cpp">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="MigotoFormatUtils.cpp">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="MigotoIniGenerateCS.cpp">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="MigotoIniGenerateGIMI.cpp">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractFromBuffer_VS.cpp">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractFromBuffer_VS_Reverse.cpp">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractUtil.cpp">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClCompile>
+    <ClCompile Include="Generate_CS_WW.cpp">
+      <Filter>Games\Wuthering Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractFromBuffer_VS_WW_Object.cpp">
+      <Filter>Games\Wuthering Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractFromBuffer_VS_WW_ObjectType2.cpp">
+      <Filter>Games\Wuthering Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="UE4Generate.cpp">
+      <Filter>Games\Extract-Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityExtractFromBufferNaraka.cpp">
+      <Filter>Games\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractFromBuffer_VS_SnB_SnB_Body.cpp">
+      <Filter>Games\Extract-Deprecated</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MMTFileUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MMTFormatUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MMTJsonUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MMTStringUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="D3d11GameType.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="FmtData.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="MigotoFormat.h">
+      <Filter>Sword-Lv4</Filter>
+    </ClInclude>
+    <ClInclude Include="easylogging++.h">
+      <Filter>Utils\ThirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Utils\ThirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalConfigs.h" />
+    <ClInclude Include="IniParser.h">
+      <Filter>Sword-Lv3</Filter>
+    </ClInclude>
+    <ClInclude Include="MMTLogUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MigotoParseUtil.h">
+      <Filter>Sword-Lv4</Filter>
+    </ClInclude>
+    <ClInclude Include="ModFormatGIMI.h">
+      <Filter>Sword-Lv4</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalFunctions.h" />
+    <ClInclude Include="IndexBufferTxtFile.h">
+      <Filter>DataModel\IndexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBufferBufFile.h">
+      <Filter>DataModel\IndexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferBufFile.h">
+      <Filter>DataModel\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferTxtFileDetect.h">
+      <Filter>DataModel\VertexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferTxtFile.h">
+      <Filter>DataModel\VertexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferBufFile.h">
+      <Filter>DataModel\VertexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameAnalysisData.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerateUtil.h">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClInclude>
+    <ClInclude Include="MigotoFormatUtils.h">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClInclude>
+    <ClInclude Include="MigotoIniFile.h">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtractUtil.h">
+      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MMT.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\3Dmigoto-Wheel-GUI\NicoMico.ico">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

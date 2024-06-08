@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{0c9bd946-6f0b-4477-8afe-77dbbfc899a7}</ProjectGuid>
+    <RootNamespace>MMT</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\AppLibraries\boost_1_84_0\boost;C:\AppLibraries\boost_1_84_0;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\AppLibraries\boost_1_84_0\stage\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\AppLibraries\boost_1_84_0\boost;C:\AppLibraries\boost_1_84_0;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\AppLibraries\boost_1_84_0\stage\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\AppLibraries\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\AppLibraries\VMPWindows;C:\AppLibraries\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ConstantBufferBufFile.cpp" />
+    <ClCompile Include="D3d11GameType.cpp" />
+    <ClCompile Include="easylogging++.cc" />
+    <ClCompile Include="ExtractFromBuffer_CS_WW_Body.cpp" />
+    <ClCompile Include="ExtractFromBuffer_VS.cpp" />
+    <ClCompile Include="ExtractFromBuffer_VS_Reverse.cpp" />
+    <ClCompile Include="ExtractFromBuffer_VS_SnB_SnB_Body.cpp" />
+    <ClCompile Include="ExtractFromBuffer_VS_WW_Object.cpp" />
+    <ClCompile Include="ExtractFromBuffer_VS_WW_ObjectType2.cpp" />
+    <ClCompile Include="ExtractFromWW.cpp" />
+    <ClCompile Include="FmtData.cpp" />
+    <ClCompile Include="FrameAnalysisData.cpp" />
+    <ClCompile Include="Generate_CS_WW.cpp" />
+    <ClCompile Include="Generate_VS.cpp" />
+    <ClCompile Include="IndexBufferBufFile.cpp" />
+    <ClCompile Include="MigotoFormatUtils.cpp" />
+    <ClCompile Include="MigotoParseUtil.cpp" />
+    <ClCompile Include="MMTLogUtils.cpp" />
+    <ClCompile Include="ModFormatGIMI.cpp" />
+    <ClCompile Include="ReverseEntry.cpp" />
+    <ClCompile Include="GenerateUtil.cpp" />
+    <ClCompile Include="IndexBufferTxtFile.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="IniParserMerged.cpp" />
+    <ClCompile Include="MigotoIniGenerateCS.cpp" />
+    <ClCompile Include="MigotoIniGenerateGIMI.cpp" />
+    <ClCompile Include="MigotoFormat.cpp" />
+    <ClCompile Include="MMTFileUtils.cpp" />
+    <ClCompile Include="MMTFormatUtils.cpp" />
+    <ClCompile Include="MMTJsonUtils.cpp" />
+    <ClCompile Include="MMTStringUtils.cpp" />
+    <ClCompile Include="ReverseOutfitCompilerCompressed.cpp" />
+    <ClCompile Include="IniParserSingle.cpp" />
+    <ClCompile Include="UE4Extract.cpp" />
+    <ClCompile Include="UE4Generate.cpp" />
+    <ClCompile Include="UnityExtractFromBufferNaraka.cpp" />
+    <ClCompile Include="ExtractUtil.cpp" />
+    <ClCompile Include="VertexBufferBufFile.cpp" />
+    <ClCompile Include="VertexBufferTxtFileDetect.cpp" />
+    <ClCompile Include="VertexBufferTxtFile.cpp" />
+    <ClCompile Include="GlobalConfigs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConstantBufferBufFile.h" />
+    <ClInclude Include="D3d11GameType.h" />
+    <ClInclude Include="easylogging++.h" />
+    <ClInclude Include="ExtractUtil.h" />
+    <ClInclude Include="FmtData.h" />
+    <ClInclude Include="FrameAnalysisData.h" />
+    <ClInclude Include="GlobalFunctions.h" />
+    <ClInclude Include="IndexBufferBufFile.h" />
+    <ClInclude Include="ModFormatGIMI.h" />
+    <ClInclude Include="GenerateUtil.h" />
+    <ClInclude Include="IndexBufferTxtFile.h" />
+    <ClInclude Include="IniParser.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="MigotoFormat.h" />
+    <ClInclude Include="MigotoFormatUtils.h" />
+    <ClInclude Include="MigotoIniFile.h" />
+    <ClInclude Include="MigotoParseUtil.h" />
+    <ClInclude Include="MMTFileUtils.h" />
+    <ClInclude Include="MMTFormatUtils.h" />
+    <ClInclude Include="MMTJsonUtils.h" />
+    <ClInclude Include="MMTLogUtils.h" />
+    <ClInclude Include="MMTStringUtils.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="VertexBufferBufFile.h" />
+    <ClInclude Include="VertexBufferTxtFileDetect.h" />
+    <ClInclude Include="VertexBufferTxtFile.h" />
+    <ClInclude Include="GlobalConfigs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MMT.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\3Dmigoto-Wheel-GUI\NicoMico.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
