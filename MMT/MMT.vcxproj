@@ -218,6 +218,9 @@
   <ItemGroup>
     <Image Include="..\3Dmigoto-Wheel-GUI\NicoMico.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
