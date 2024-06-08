@@ -15,14 +15,15 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
     LOG.Info("GameType: " + d3d11GameType.GameType);
     std::wstring OutputDrawIBFolder = G.OutputFolder + DrawIB + L"\\";
     std::filesystem::create_directories(OutputDrawIBFolder);
+
     FrameAnalysisData FAData(G.WorkFolder);
     std::vector<std::wstring> FrameAnalyseFileNameList = FAData.FrameAnalysisFileNameList;
 
-    // 从vs-t0中读取到顶点数量然后在下面的过程中
+    // 从vb0中读取到顶点数量然后在下面的过程中，UE4的VB0一般固定为POSITION长度固定为2
     // 限制顶点数量匹配到我们的DrawNumber来设置对应的索引
     std::map<int, std::wstring> matchFirstIndexIBFileNameMap;
     std::wstring VSExtractIndex;
-    std::wstring TexcoordExtractFileName = L"";
+    std::wstring PositionExtractFileName = L"";
     int MatchNumber = 0;
     for (std::wstring filename : FrameAnalyseFileNameList) {
         if (!filename.ends_with(L".txt")) {
@@ -33,9 +34,9 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
         }
         IndexBufferTxtFile ibFileData(G.WorkFolder + filename, false);
         VSExtractIndex = ibFileData.Index;
-        TexcoordExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + L"-vs-t0=", L".buf")[0];
-        int TexcoordFileSize = MMTFile_GetFileSize(G.WorkFolder + TexcoordExtractFileName);
-        MatchNumber = TexcoordFileSize / 4;
+        PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + L"-vb0=", L".buf")[0];
+        int TexcoordFileSize = MMTFile_GetFileSize(G.WorkFolder + PositionExtractFileName);
+        MatchNumber = TexcoordFileSize / 12;
         LOG.Info("Match DrawNumber: " + std::to_string(MatchNumber));
 
         LOG.Info(filename);
@@ -53,45 +54,92 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
     LOG.NewLine();
 
 
-
-    std::wstring PositionExtractSlot = L"-vb0=";
-    std::wstring NormalExtractSlot = L"-vs-t1=";
-    LOG.Info(L"Position Extract Slot: " + PositionExtractSlot);
+    std::wstring NormalExtractSlot = L"-" + MMTString_ToWideString(d3d11GameType.CategorySlotMap["Normal"]) + L"=";
+    std::wstring TexcoordExtractSlot = L"-"+ MMTString_ToWideString(d3d11GameType.CategorySlotMap["Texcoord"]) + L"=";
+    std::wstring ColorExtractSlot = L"-" + MMTString_ToWideString(d3d11GameType.CategorySlotMap["Color"]) + L"=";
+    std::wstring BlendExtractSlot = L"-" + MMTString_ToWideString(d3d11GameType.CategorySlotMap["Blend"]) + L"=";
+    LOG.Info(L"Normal Extract Slot: " + NormalExtractSlot);
+    LOG.Info(L"Texcoord Extract Slot: " + TexcoordExtractSlot);
+    LOG.Info(L"Color Extract Slot: " + ColorExtractSlot);
+    LOG.Info(L"Blend Extract Slot: " + BlendExtractSlot);
     LOG.NewLine();
     //收集各个槽位的内容，并组合成VB0的内容
-    std::wstring PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + PositionExtractSlot, L".buf")[0];
     std::wstring NormalExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + NormalExtractSlot, L".buf")[0];
+    std::wstring TexcoordExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + TexcoordExtractSlot, L".buf")[0];
+    std::wstring ColorExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + ColorExtractSlot, L".buf")[0];
+    std::wstring BlendExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + BlendExtractSlot, L".buf")[0];
 
     //这里的变量名放到上面初始化了
     LOG.Info(L"PositionExtractFileName: " + PositionExtractFileName);
     LOG.Info(L"NormalExtractFileName: " + NormalExtractFileName);
     LOG.Info(L"TexcoordExtractFileName: " + TexcoordExtractFileName);
+    LOG.Info(L"ColorExtractFileName: " + ColorExtractFileName);
+    LOG.Info(L"BlendExtractFileName: " + BlendExtractFileName);
+    LOG.NewLine();
 
     std::unordered_map<int, std::vector<std::byte>> PositionBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + PositionExtractFileName, MatchNumber);
     std::unordered_map<int, std::vector<std::byte>> NormalBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + NormalExtractFileName, MatchNumber);
     std::unordered_map<int, std::vector<std::byte>> TexcoordBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + TexcoordExtractFileName, MatchNumber);
+    std::unordered_map<int, std::vector<std::byte>> ColorBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + ColorExtractFileName, MatchNumber);
+    std::unordered_map<int, std::vector<std::byte>> BlendBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + BlendExtractFileName, MatchNumber );
+    //移除Blend中的位于BLENDINDICES和BLENDWEIGHTS之后的00空白
+    std::unordered_map<int, std::vector<std::byte>> BlendBufMap_Clean;
+    for (const auto& pair: BlendBufMap) {
+        std::vector<std::byte> BlendTmpBuf = pair.second;
+        std::vector<std::byte> BlendTmpBufNew;
+
+        for (int i = 0; i < BlendTmpBuf.size(); i++) {
+            if (i < 4) {
+                BlendTmpBufNew.push_back(BlendTmpBuf[i]);
+            }
+            else if(i > 7 && i < 12){
+                BlendTmpBufNew.push_back(BlendTmpBuf[i]);
+            }
+        }
+        BlendBufMap_Clean[pair.first] = BlendTmpBufNew;
+    }
+
 
     std::wstring CategoryHash_Position = PositionExtractFileName.substr(11, 8);
-    std::wstring CategoryHash_Normal = NormalExtractFileName.substr(13, 8);
-    std::wstring CategoryHash_Texcoord = TexcoordExtractFileName.substr(13, 8);
+    std::wstring CategoryHash_Normal = NormalExtractFileName.substr(11, 8);
+    std::wstring CategoryHash_Texcoord = TexcoordExtractFileName.substr(11, 8);
+    std::wstring CategoryHash_Color = ColorExtractFileName.substr(11, 8);
+    std::wstring CategoryHash_Blend = BlendExtractFileName.substr(11, 8);
 
     extractConfig.CategoryHashMap["Position"] = MMTString_ToByteString(CategoryHash_Position);
     extractConfig.CategoryHashMap["Normal"] = MMTString_ToByteString(CategoryHash_Normal);
     extractConfig.CategoryHashMap["Texcoord"] = MMTString_ToByteString(CategoryHash_Texcoord);
+    extractConfig.CategoryHashMap["Color"] = MMTString_ToByteString(CategoryHash_Color);
+    extractConfig.CategoryHashMap["Blend"] = MMTString_ToByteString(CategoryHash_Blend);
 
+    LOG.Info(L"Position Category Hash: " + CategoryHash_Position);
+    LOG.Info(L"Normal Category Hash: " + CategoryHash_Normal);
+    LOG.Info(L"Texcoord Category Hash: " + CategoryHash_Texcoord);
+    LOG.Info(L"Color Category Hash: " + CategoryHash_Color);
+    LOG.Info(L"Blend Category Hash: " + CategoryHash_Blend);
+    LOG.NewLine();
 
     std::vector<std::byte> finalVB0Buf;
     for (int i = 0; i < MatchNumber; i++) {
         finalVB0Buf.insert(finalVB0Buf.end(), PositionBufMap[i].begin(), PositionBufMap[i].end());
         finalVB0Buf.insert(finalVB0Buf.end(), NormalBufMap[i].begin(), NormalBufMap[i].end());
         finalVB0Buf.insert(finalVB0Buf.end(), TexcoordBufMap[i].begin(), TexcoordBufMap[i].end());
+        finalVB0Buf.insert(finalVB0Buf.end(), ColorBufMap[i].begin(), ColorBufMap[i].end());
+
+        //如果Blend槽位提取的长度为16，则这里要用清洗过之后的Blend值
+        if (BlendBufMap[0].size() == 16) {
+            finalVB0Buf.insert(finalVB0Buf.end(), BlendBufMap_Clean[i].begin(), BlendBufMap_Clean[i].end());
+        }
+        else {
+            finalVB0Buf.insert(finalVB0Buf.end(), BlendBufMap[i].begin(), BlendBufMap[i].end());
+        }
     }
+
 
     FmtFileData fmtFileData;
     fmtFileData.ElementNameList = d3d11GameType.OrderedFullElementList;
     fmtFileData.d3d11GameType = d3d11GameType;
     LOG.NewLine();
-
     LOG.Info("Start to go through every IB file:");
     //遍历每一个IB，输出
     int outputCount = 1;

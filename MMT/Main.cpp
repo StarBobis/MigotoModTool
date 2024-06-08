@@ -42,6 +42,7 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
     ReverseOutfitCompilerCompressed();
     //combineMods(L"");
 #else
+    //正常提取模型
     if (G.RunCommand == L"merge") {
         if (G.GameName == L"WW") {
             ExtractFromWW();
@@ -58,11 +59,17 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
         else if (G.GameName == L"ZZZ") {
             ExtractFromBuffer_VS();
         }
+        else if (G.GameName == L"SnB") {
+            ExtractFromSnB();
+        }
     }
+    //生成Mod
     else if (G.RunCommand == L"split") {
         if (G.GameName == L"WW") {
-            //TODO 
             Generate_CS_WW_Body();
+        }
+        else if (G.GameName == L"SnB") {
+            Generate_VS_SnB();
         }
         else {
             UnityGenerate();

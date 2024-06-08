@@ -8,7 +8,8 @@
 #include "GlobalFunctions.h"
 #include "FrameAnalysisData.h"
 
-void ExtractFromBuffer_SnB() {
+
+void ExtractFromSnB() {
     for (const auto& pair : G.DrawIB_ExtractConfig_Map) {
         std::wstring DrawIB = pair.first;
         ExtractConfig extractConfig = pair.second;
@@ -22,7 +23,9 @@ void ExtractFromBuffer_SnB() {
         else if (extractConfig.GameType == L"SnB_Body") {
             ExtractFromBuffer_VS_SnB_SnB_Body(DrawIB);
         }
-        
+        else if (extractConfig.GameType == L"SnB_BodyType2") {
+            ExtractFromBuffer_VS_SnB_SnB_Body(DrawIB);
+        }
         else {
             LOG.Error(L"Unknown GameType!");
         }

@@ -250,5 +250,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
+    <None Include="CODE_STANDARD.md" />
   </ItemGroup>
 </Project>

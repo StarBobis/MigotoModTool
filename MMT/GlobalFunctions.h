@@ -12,8 +12,8 @@ void Generate_CS_WW_Body();
 
 //尘白禁区 SnowBreak
 void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB);
-void ExtractFromBuffer_SnB();
-
+void ExtractFromSnB();
+void Generate_VS_SnB();
 
 //原神,崩坏:星穹铁道,崩坏三,绝区零
 void ExtractFromBuffer_VS();
