@@ -31,17 +31,14 @@
     <Filter Include="Games">
       <UniqueIdentifier>{c4cca096-fc1f-4222-a6e5-7dd45efeb866}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Games\Extract-Deprecated">
-      <UniqueIdentifier>{747e3e7d-b6f0-46e5-8d69-0c491f624cd6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Games\Wuthering Wave">
-      <UniqueIdentifier>{e4a8d541-4643-42c5-a17a-99f606373c3c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Games\GI_HI3_HSR_ZZZ">
       <UniqueIdentifier>{daf0467c-c0e7-4b2b-8bfb-9325cee93f4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Games\Deprecated">
-      <UniqueIdentifier>{583242b5-ba3a-4a2e-9262-c51419d081cb}</UniqueIdentifier>
+    <Filter Include="Games\SnB">
+      <UniqueIdentifier>{747e3e7d-b6f0-46e5-8d69-0c491f624cd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\WuWa">
+      <UniqueIdentifier>{e4a8d541-4643-42c5-a17a-99f606373c3c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -113,14 +110,14 @@
     <ClCompile Include="FrameAnalysisData.cpp">
       <Filter>DataModel</Filter>
     </ClCompile>
-    <ClCompile Include="UE4Extract.cpp">
-      <Filter>Games\Extract-Deprecated</Filter>
+    <ClCompile Include="ExtractFromSnB.cpp">
+      <Filter>Games\SnB</Filter>
     </ClCompile>
     <ClCompile Include="ExtractFromBuffer_CS_WW_Body.cpp">
-      <Filter>Games\Wuthering Wave</Filter>
+      <Filter>Games\WuWa</Filter>
     </ClCompile>
     <ClCompile Include="ExtractFromWW.cpp">
-      <Filter>Games\Wuthering Wave</Filter>
+      <Filter>Games\WuWa</Filter>
     </ClCompile>
     <ClCompile Include="Generate_VS.cpp">
       <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
@@ -147,22 +144,19 @@
       <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
     </ClCompile>
     <ClCompile Include="Generate_CS_WW.cpp">
-      <Filter>Games\Wuthering Wave</Filter>
+      <Filter>Games\WuWa</Filter>
     </ClCompile>
     <ClCompile Include="ExtractFromBuffer_VS_WW_Object.cpp">
-      <Filter>Games\Wuthering Wave</Filter>
+      <Filter>Games\WuWa</Filter>
     </ClCompile>
     <ClCompile Include="ExtractFromBuffer_VS_WW_ObjectType2.cpp">
-      <Filter>Games\Wuthering Wave</Filter>
+      <Filter>Games\WuWa</Filter>
     </ClCompile>
-    <ClCompile Include="UE4Generate.cpp">
-      <Filter>Games\Extract-Deprecated</Filter>
-    </ClCompile>
-    <ClCompile Include="UnityExtractFromBufferNaraka.cpp">
-      <Filter>Games\Deprecated</Filter>
+    <ClCompile Include="Generate_VS_SnB.cpp">
+      <Filter>Games\SnB</Filter>
     </ClCompile>
     <ClCompile Include="ExtractFromBuffer_VS_SnB_SnB_Body.cpp">
-      <Filter>Games\Extract-Deprecated</Filter>
+      <Filter>Games\SnB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -174,9 +174,8 @@
     <ClCompile Include="MMTStringUtils.cpp" />
     <ClCompile Include="ReverseOutfitCompilerCompressed.cpp" />
     <ClCompile Include="IniParserSingle.cpp" />
-    <ClCompile Include="UE4Extract.cpp" />
-    <ClCompile Include="UE4Generate.cpp" />
-    <ClCompile Include="UnityExtractFromBufferNaraka.cpp" />
+    <ClCompile Include="ExtractFromSnB.cpp" />
+    <ClCompile Include="Generate_VS_SnB.cpp" />
     <ClCompile Include="ExtractUtil.cpp" />
     <ClCompile Include="VertexBufferBufFile.cpp" />
     <ClCompile Include="VertexBufferTxtFileDetect.cpp" />

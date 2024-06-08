@@ -10,6 +10,11 @@ void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB);
 void ExtractFromBuffer_VS_WW_ObjectType2(std::wstring DrawIB);
 void Generate_CS_WW_Body();
 
+//尘白禁区 SnowBreak
+void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB);
+void ExtractFromBuffer_SnB();
+
+
 //原神,崩坏:星穹铁道,崩坏三,绝区零
 void ExtractFromBuffer_VS();
 void UnityGenerate();
