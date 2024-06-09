@@ -38,7 +38,9 @@ void Generate_VS_SnB() {
         else if (extractConfig.WorkGameType == "SnB_BodyType2") {
             CategoryStrideMap["Blend"] = 8;
         }
-
+        else if (extractConfig.WorkGameType == "SnB_BodyType2") {
+            CategoryStrideMap["Blend"] = 8;
+        }
         std::vector<std::string> CategoryList = d3d11GameType.getCategoryList(extractConfig.TmpElementList);
         //输出查看每个Category的步长
         for (const auto& pair : CategoryStrideMap) {

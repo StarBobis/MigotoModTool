@@ -26,6 +26,9 @@ void ExtractFromSnB() {
         else if (extractConfig.GameType == L"SnB_BodyType2") {
             ExtractFromBuffer_VS_SnB_SnB_Body(DrawIB);
         }
+        else if (extractConfig.GameType == L"SnB_BodyType3") {
+            ExtractFromBuffer_VS_SnB_SnB_Body(DrawIB);
+        }
         else {
             LOG.Error(L"Unknown GameType!");
         }
