@@ -146,7 +146,7 @@ void Generate_VS_SnB() {
                         finalCategoryData.insert(finalCategoryData.end(), tmpCategoryData.begin(), tmpCategoryData.end());
                     }
                     //普通UE4需要补齐Blend中的00
-                    else if (category == "Blend") {
+                    else if (category == "Blend" && extractConfig.WorkGameType == "SnB_Body") {
                         std::vector<std::byte> tmpCategoryDataNew;
                         for (int index = 0; index < tmpCategoryData.size(); index = index + 8) {
                             //1.获取NORMAL和TANGENT值
@@ -167,12 +167,14 @@ void Generate_VS_SnB() {
                             tmpCategoryDataNew.push_back(std::byte(0x00));
                             tmpCategoryDataNew.push_back(std::byte(0x00));
                             tmpCategoryDataNew.push_back(std::byte(0x00));
+                            
 
                             tmpCategoryDataNew.push_back(BlendWeightValueX);
                             tmpCategoryDataNew.push_back(BlendWeightValueY);
                             tmpCategoryDataNew.push_back(BlendWeightValueZ);
                             tmpCategoryDataNew.push_back(BlendWeightValueW);
 
+                            
                             tmpCategoryDataNew.push_back(std::byte(0x00));
                             tmpCategoryDataNew.push_back(std::byte(0x00));
                             tmpCategoryDataNew.push_back(std::byte(0x00));
