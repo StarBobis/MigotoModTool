@@ -44,6 +44,12 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
 #else
     //正常提取模型
     if (G.RunCommand == L"merge") {
+        //如果运行为Merge，则确保存在至少一个FrameAnalysis文件夹
+        if (G.FrameAnalyseFolder == L"") {
+            LOG.Error("Can't find any FrameAnalysis folder in your 3Dmigoto folder,please try press F8 to dump a new one with Hunting open.");
+        }
+
+        //由于每个游戏的提取过程都不一样，所以分开处理
         if (G.GameName == L"WW") {
             ExtractFromWW();
         }
@@ -60,7 +66,7 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
             ExtractFromBuffer_VS();
         }
         else if (G.GameName == L"SnB") {
-            ExtractFromSnB();
+            Extract_VS_UE4();
         }
     }
     //生成Mod
@@ -69,7 +75,7 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
             Generate_CS_WW_Body();
         }
         else if (G.GameName == L"SnB") {
-            Generate_VS_SnB();
+            Generate_VS_UE4();
         }
         else {
             UnityGenerate();

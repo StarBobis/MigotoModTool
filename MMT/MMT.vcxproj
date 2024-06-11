@@ -147,7 +147,7 @@
     <ClCompile Include="ExtractFromBuffer_CS_WW_Body.cpp" />
     <ClCompile Include="ExtractFromBuffer_VS.cpp" />
     <ClCompile Include="ExtractFromBuffer_VS_Reverse.cpp" />
-    <ClCompile Include="ExtractFromBuffer_VS_SnB_SnB_Body.cpp" />
+    <ClCompile Include="ExtractFromBuffer_VS_UE4.cpp" />
     <ClCompile Include="ExtractFromBuffer_VS_WW_Object.cpp" />
     <ClCompile Include="ExtractFromBuffer_VS_WW_ObjectType2.cpp" />
     <ClCompile Include="ExtractFromWW.cpp" />
@@ -174,8 +174,8 @@
     <ClCompile Include="MMTStringUtils.cpp" />
     <ClCompile Include="ReverseOutfitCompilerCompressed.cpp" />
     <ClCompile Include="IniParserSingle.cpp" />
-    <ClCompile Include="ExtractFromSnB.cpp" />
-    <ClCompile Include="Generate_VS_SnB.cpp" />
+    <ClCompile Include="Extract_VS_UE4.cpp" />
+    <ClCompile Include="Generate_VS_UE4.cpp" />
     <ClCompile Include="ExtractUtil.cpp" />
     <ClCompile Include="VertexBufferBufFile.cpp" />
     <ClCompile Include="VertexBufferTxtFileDetect.cpp" />

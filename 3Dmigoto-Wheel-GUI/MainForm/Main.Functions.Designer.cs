@@ -115,8 +115,8 @@ namespace NMBT_GUI
 
             if (runResult != "success")
             {
-                ShowMessageBox("Run result: " + runResult + ". \n1.Please check your config.\n2.Please check log for more information.\n3.Please ask NicoMico for help.",
-                    "运行结果: " + runResult + ". \n1.请检查你的配置是否正确.\n2.请查看日志获取更多细节信息.\n3.请联系NicoMico寻求帮助或反馈BUG.");
+                ShowMessageBox("Run result: " + runResult + ". \n1.Please check your config.\n2.Please check log for more information.\n3.Please ask NicoMico for help, remember to send him the latest log file.\n4.Ask @Developer in ShaderFreedom for help.\n5.Read the source code of MMT and try analyse the reason for Error with latest log file.",
+                    "运行结果: " + runResult + ". \n1.请检查你的配置是否正确.\n2.请查看日志获取更多细节信息.\n3.请联系NicoMico寻求帮助或反馈BUG, 别忘了把最新的日志文件也发送给他.\n4.尝试联系ShaderFreedom中具有开发者角色的人获取帮助.\n5.结合日志阅读源码并尝试分析问题产生原因");
                 //MessageBox.Show("Run result: " + runResult + ". \n1.Please check your config.\n2.Please check log for more information.\n3.Please ask NicoMico for help.");
                 openLatestLogFile();
                 return false;

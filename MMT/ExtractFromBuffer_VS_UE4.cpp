@@ -9,15 +9,19 @@
 #include "ExtractUtil.h"
 
 
-void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
+void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
     ExtractConfig extractConfig = G.DrawIB_ExtractConfig_Map[DrawIB];
-    D3D11GameType d3d11GameType = G.GameTypeName_D3d11GameType_Map[MMTString_ToByteString(extractConfig.GameType)];
+
+    D3D11GameType d3d11GameType = G.GameTypeName_D3d11GameType_Map[MMTString_ToByteString(GameType)];
     LOG.Info("GameType: " + d3d11GameType.GameType);
+
     std::wstring OutputDrawIBFolder = G.OutputFolder + DrawIB + L"\\";
     std::filesystem::create_directories(OutputDrawIBFolder);
+    LOG.Info(L"Create output folder for DrawIB: " + DrawIB + L"  Path:" + OutputDrawIBFolder);
 
     FrameAnalysisData FAData(G.WorkFolder);
     std::vector<std::wstring> FrameAnalyseFileNameList = FAData.FrameAnalysisFileNameList;
+    LOG.Info("Read FrameAnalysis file name list success.");
 
     // 从vb0中读取到顶点数量然后在下面的过程中，UE4的VB0一般固定为POSITION长度固定为2
     // 限制顶点数量匹配到我们的DrawNumber来设置对应的索引
@@ -25,6 +29,7 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
     std::wstring VSExtractIndex;
     std::wstring PositionExtractFileName = L"";
     int MatchNumber = 0;
+    int POSITION_ByteWidth = d3d11GameType.ElementNameD3D11ElementMap["POSITION"].ByteWidth;
     for (std::wstring filename : FrameAnalyseFileNameList) {
         if (!filename.ends_with(L".txt")) {
             continue;
@@ -35,8 +40,8 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
         IndexBufferTxtFile ibFileData(G.WorkFolder + filename, false);
         VSExtractIndex = ibFileData.Index;
         PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + L"-vb0=", L".buf")[0];
-        int TexcoordFileSize = MMTFile_GetFileSize(G.WorkFolder + PositionExtractFileName);
-        MatchNumber = TexcoordFileSize / 12;
+        int POSITION_FileSize = MMTFile_GetFileSize(G.WorkFolder + PositionExtractFileName);
+        MatchNumber = POSITION_FileSize / POSITION_ByteWidth;
         LOG.Info("Match DrawNumber: " + std::to_string(MatchNumber));
 
         LOG.Info(filename);
@@ -45,7 +50,6 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
             continue;
         }
         int matchFirstIndex = std::stoi(ibFileData.FirstIndex);
-
         matchFirstIndexIBFileNameMap[matchFirstIndex] = filename;
     }
     for (const auto& pair : matchFirstIndexIBFileNameMap) {
@@ -82,6 +86,27 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
     std::unordered_map<int, std::vector<std::byte>> TexcoordBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + TexcoordExtractFileName, MatchNumber);
     std::unordered_map<int, std::vector<std::byte>> ColorBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + ColorExtractFileName, MatchNumber);
     std::unordered_map<int, std::vector<std::byte>> BlendBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + BlendExtractFileName, MatchNumber );
+    
+    std::unordered_map<std::string, int> CategoryStrideMap = d3d11GameType.getCategoryStrideMap(d3d11GameType.OrderedFullElementList);
+    //判断Texcoord槽位长度是否正确
+    int RealTexcoordStride = TexcoordBufMap[0].size();
+    int TexcoordPresetStride = CategoryStrideMap["Texcoord"];
+    LOG.Info("RealTexcoordStride:" + std::to_string(RealTexcoordStride));
+    LOG.Info("TexcoordPresetStride:" + std::to_string(TexcoordPresetStride));
+    if (RealTexcoordStride != TexcoordPresetStride) {
+        LOG.Error("Current Processing Texcoord stride: " + std::to_string(RealTexcoordStride) + " can't match with GameType's Texcoord stride: " + std::to_string(TexcoordPresetStride) + " \nPlease try use other GameType to extract.");
+    }
+
+    LOG.NewLine();
+    //判断Blend槽位长度是否正确
+    int RealBlendStride = BlendBufMap[0].size();
+    int BlendPresetStride = CategoryStrideMap["Blend"];
+    LOG.Info("RealBlendStride:" + std::to_string(RealBlendStride));
+    LOG.Info("BlendPresetStride:" + std::to_string(BlendPresetStride));
+    if (RealBlendStride != BlendPresetStride) {
+        LOG.Error("Current Processing Blend stride: " + std::to_string(RealBlendStride) + " can't match with GameType's Blend stride: " + std::to_string(BlendPresetStride) + " \nPlease try use other GameType to extract.");
+    }
+    LOG.NewLine();
     //移除Blend中的位于BLENDINDICES和BLENDWEIGHTS之后的00空白
     std::unordered_map<int, std::vector<std::byte>> BlendBufMap_Clean;
     for (const auto& pair: BlendBufMap) {
@@ -127,7 +152,7 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
         finalVB0Buf.insert(finalVB0Buf.end(), ColorBufMap[i].begin(), ColorBufMap[i].end());
 
         //如果Blend槽位提取的长度为16，则这里要用清洗过之后的Blend值
-        if (BlendBufMap[0].size() == 16) {
+        if (RealBlendStride == 16) {
             finalVB0Buf.insert(finalVB0Buf.end(), BlendBufMap_Clean[i].begin(), BlendBufMap_Clean[i].end());
         }
         else {
@@ -202,7 +227,7 @@ void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB) {
     extractConfig.MatchFirstIndexList = MatchFirstIndexList;
     extractConfig.PartNameList = PartNameList;
     extractConfig.TmpElementList = d3d11GameType.OrderedFullElementList;
-    extractConfig.WorkGameType = MMTString_ToByteString(extractConfig.GameType);
+    extractConfig.WorkGameType = MMTString_ToByteString(GameType);
 
     extractConfig.saveTmpConfigs(OutputDrawIBFolder);
 

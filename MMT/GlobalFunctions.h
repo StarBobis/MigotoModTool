@@ -2,7 +2,6 @@
 #include "GlobalConfigs.h"
 //这个类里只允许放程序入口调用的方法
 
-
 //鸣潮
 void ExtractFromWW();
 void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB);
@@ -11,9 +10,9 @@ void ExtractFromBuffer_VS_WW_ObjectType2(std::wstring DrawIB);
 void Generate_CS_WW_Body();
 
 //尘白禁区 SnowBreak
-void ExtractFromBuffer_VS_SnB_SnB_Body(std::wstring DrawIB);
-void ExtractFromSnB();
-void Generate_VS_SnB();
+void ExtractFromBuffer_VS_UE4(std::wstring DrawIB, std::wstring GameType);
+void Extract_VS_UE4();
+void Generate_VS_UE4();
 
 //原神,崩坏:星穹铁道,崩坏三,绝区零
 void ExtractFromBuffer_VS();

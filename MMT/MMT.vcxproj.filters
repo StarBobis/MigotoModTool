@@ -110,7 +110,7 @@
     <ClCompile Include="FrameAnalysisData.cpp">
       <Filter>DataModel</Filter>
     </ClCompile>
-    <ClCompile Include="ExtractFromSnB.cpp">
+    <ClCompile Include="Extract_VS_UE4.cpp">
       <Filter>Games\SnB</Filter>
     </ClCompile>
     <ClCompile Include="ExtractFromBuffer_CS_WW_Body.cpp">
@@ -152,10 +152,10 @@
     <ClCompile Include="ExtractFromBuffer_VS_WW_ObjectType2.cpp">
       <Filter>Games\WuWa</Filter>
     </ClCompile>
-    <ClCompile Include="Generate_VS_SnB.cpp">
+    <ClCompile Include="Generate_VS_UE4.cpp">
       <Filter>Games\SnB</Filter>
     </ClCompile>
-    <ClCompile Include="ExtractFromBuffer_VS_SnB_SnB_Body.cpp">
+    <ClCompile Include="ExtractFromBuffer_VS_UE4.cpp">
       <Filter>Games\SnB</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,6 +250,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="CODE_STANDARD.md" />
+    <None Include="CODE_STANDARD.md">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include "VertexBufferBufFile.h"
 #include "MMTFormatUtils.h"
 
-void Generate_VS_SnB() {
+void Generate_VS_UE4() {
 
     for (const auto& pair : G.DrawIB_ExtractConfig_Map) {
         std::wstring DrawIB = pair.first;
@@ -133,13 +133,13 @@ void Generate_VS_SnB() {
                             std::byte TangentValueY = tmpCategoryData[index + 5];
                             std::byte TangentValueZ = tmpCategoryData[index + 6];
 
-                            //2.经过观察NORMAL的值为TANGENT前三位直接放过来，最后一位设为0x7F
+                            //2.经过观察NORMAL的值为TANGENT前三位直接放过来，NORMAL的W设为0x7F
                             tmpCategoryData[index + 0] = TangentValueX;
                             tmpCategoryData[index + 1] = TangentValueY;
                             tmpCategoryData[index + 2] = TangentValueZ;
                             tmpCategoryData[index + 3] = std::byte(0x7F);
 
-                            //3.翻转NORMAL的前三位并放到TANGENT的前三位，NORMAL的W设为0x7F
+                            //3.翻转NORMAL的前三位并放到TANGENT的前三位
                             tmpCategoryData[index + 4] = MMTFormat_ReverseSNORMValueSingle(NormalValueX);
                             tmpCategoryData[index + 5] = MMTFormat_ReverseSNORMValueSingle(NormalValueY);
                             tmpCategoryData[index + 6] = MMTFormat_ReverseSNORMValueSingle(NormalValueZ);
