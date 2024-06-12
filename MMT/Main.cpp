@@ -42,6 +42,9 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
     ReverseOutfitCompilerCompressed();
     //combineMods(L"");
 #else
+    LOG.Info(L"Running Command: " + G.RunCommand);
+    LOG.NewLine();
+
     //正常提取模型
     if (G.RunCommand == L"merge") {
         //如果运行为Merge，则确保存在至少一个FrameAnalysis文件夹
@@ -65,7 +68,7 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
         else if (G.GameName == L"ZZZ") {
             ExtractFromBuffer_VS();
         }
-        else if (G.GameName == L"SnB") {
+        else if (G.GameName == L"SnB" || G.GameName == L"KBY") {
             Extract_VS_UE4();
         }
     }
@@ -74,7 +77,7 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
         if (G.GameName == L"WW") {
             Generate_CS_WW_Body();
         }
-        else if (G.GameName == L"SnB") {
+        else if (G.GameName == L"SnB" || G.GameName == L"KBY") {
             Generate_VS_UE4();
         }
         else {

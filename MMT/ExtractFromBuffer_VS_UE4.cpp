@@ -218,8 +218,6 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
         outputVBFile.close();
 
         outputCount++;
-
-
     }
 
 

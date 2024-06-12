@@ -137,19 +137,7 @@ void Extract_VS_UE4() {
         }
 
         LOG.Info(L"Start to extract using game type: " + MatchedGameType);
-        //检测GameType并调用对应的
-        if (MatchedGameType == L"SnB_Body") {
-            ExtractFromBuffer_VS_UE4(DrawIB,MatchedGameType);
-        }
-        else if (MatchedGameType == L"SnB_BodyType2") {
-            ExtractFromBuffer_VS_UE4(DrawIB, MatchedGameType);
-        }
-        else if (MatchedGameType == L"SnB_BodyType3") {
-            ExtractFromBuffer_VS_UE4(DrawIB, MatchedGameType);
-        }
-        else {
-            LOG.Error(L"Unknown GameType:" + MatchedGameType);
-        }
+        ExtractFromBuffer_VS_UE4(DrawIB, MatchedGameType);
 
     }
 
