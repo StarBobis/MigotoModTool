@@ -149,9 +149,6 @@
     <ClCompile Include="ExtractFromBuffer_VS_WW_Object.cpp">
       <Filter>Games\WuWa</Filter>
     </ClCompile>
-    <ClCompile Include="ExtractFromBuffer_VS_WW_ObjectType2.cpp">
-      <Filter>Games\WuWa</Filter>
-    </ClCompile>
     <ClCompile Include="Generate_VS_UE4.cpp">
       <Filter>Games\SnB</Filter>
     </ClCompile>

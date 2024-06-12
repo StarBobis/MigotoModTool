@@ -58,7 +58,7 @@ namespace NMBT_GUI
 
             if (this.CurrentGame == "WW")
             {
-                //鸣潮不需要添加Auto
+                currentGameTypeList.Add("Auto");
             }
             else
             {

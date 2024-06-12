@@ -149,7 +149,6 @@
     <ClCompile Include="ExtractFromBuffer_VS_Reverse.cpp" />
     <ClCompile Include="ExtractFromBuffer_VS_UE4.cpp" />
     <ClCompile Include="ExtractFromBuffer_VS_WW_Object.cpp" />
-    <ClCompile Include="ExtractFromBuffer_VS_WW_ObjectType2.cpp" />
     <ClCompile Include="ExtractFromWW.cpp" />
     <ClCompile Include="FmtData.cpp" />
     <ClCompile Include="FrameAnalysisData.cpp" />

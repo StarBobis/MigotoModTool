@@ -9,21 +9,23 @@
 #include "ExtractUtil.h"
 
 
-void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB) {
+void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB, std::wstring GameType) {
     ExtractConfig extractConfig = G.DrawIB_ExtractConfig_Map[DrawIB];
-    D3D11GameType d3d11GameType = G.GameTypeName_D3d11GameType_Map[MMTString_ToByteString(extractConfig.GameType)];
+    D3D11GameType d3d11GameType = G.GameTypeName_D3d11GameType_Map[MMTString_ToByteString(GameType)];
     LOG.Info("GameType: " + d3d11GameType.GameType);
     std::wstring OutputDrawIBFolder = G.OutputFolder + DrawIB + L"\\";
     std::filesystem::create_directories(OutputDrawIBFolder);
     FrameAnalysisData FAData(G.WorkFolder);
     std::vector<std::wstring> FrameAnalyseFileNameList = FAData.FrameAnalysisFileNameList;
     
-    // 从vs-t0中读取到顶点数量然后在下面的过程中
+    // 对于object类型应该从vb0中读取顶点数量
     // 限制顶点数量匹配到我们的DrawNumber来设置对应的索引
     std::map<int, std::wstring> matchFirstIndexIBFileNameMap;
     std::wstring VSExtractIndex;
-    std::wstring TexcoordExtractFileName = L"";
+    std::wstring PositionExtractFileName = L"";
     int MatchNumber = 0;
+    std::unordered_map<std::string, int> CategoryStrideMap = d3d11GameType.getCategoryStrideMap(d3d11GameType.OrderedFullElementList);
+    int PositionStride = CategoryStrideMap["Position"];
     for (std::wstring filename : FrameAnalyseFileNameList) {
         if (!filename.ends_with(L".txt")) {
             continue;
@@ -31,11 +33,20 @@ void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB) {
         if (filename.find(L"-ib=" + DrawIB) == std::wstring::npos) {
             continue;
         }
+
         IndexBufferTxtFile ibFileData(G.WorkFolder + filename, false);
+        //注意:鸣潮中出现了部分物体类型多次Draw时，有些Draw不使用贴图槽位且顶点数量也无法对上，Hash值也不同的情况
+        //所以我们提取物体Mod类型时，必须要确保ps-t0槽位的贴图确实存在
+        //如果不存在则说明不是真正渲染贴图的那个槽位。
+        std::vector<std::wstring> Pst0_TextureFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=" ,L".dds");
+        if (Pst0_TextureFileList.size() == 0) {
+            continue;
+        }
+
         VSExtractIndex = ibFileData.Index;
-        TexcoordExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + L"-vs-t0=", L".buf")[0];
-        int TexcoordFileSize = MMTFile_GetFileSize(G.WorkFolder + TexcoordExtractFileName);
-        MatchNumber = TexcoordFileSize / 4;
+        PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + L"-vb0=", L".buf")[0];
+        int PositionFileSize = MMTFile_GetFileSize(G.WorkFolder + PositionExtractFileName);
+        MatchNumber = PositionFileSize / PositionStride;
         LOG.Info("Match DrawNumber: " + std::to_string(MatchNumber));
 
         LOG.Info(filename);
@@ -54,18 +65,19 @@ void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB) {
 
 
     
-    std::wstring PositionExtractSlot = L"-vb0=";
+    std::wstring TexcoordExtractSlot = L"-vs-t0=";
     std::wstring NormalExtractSlot = L"-vs-t1=";
-    LOG.Info(L"Position Extract Slot: " + PositionExtractSlot);
+    LOG.Info(L"Texcoord Extract Slot: " + TexcoordExtractSlot);
+    LOG.Info(L"Normal Extract Slot: " + NormalExtractSlot);
     LOG.NewLine();
     //收集各个槽位的内容，并组合成VB0的内容
-    std::wstring PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + PositionExtractSlot, L".buf")[0];
+    std::wstring TexcoordExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + TexcoordExtractSlot, L".buf")[0];
     std::wstring NormalExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + NormalExtractSlot, L".buf")[0];
 
     //这里的变量名放到上面初始化了
     LOG.Info(L"PositionExtractFileName: " + PositionExtractFileName);
-    LOG.Info(L"NormalExtractFileName: " + NormalExtractFileName);
     LOG.Info(L"TexcoordExtractFileName: " + TexcoordExtractFileName);
+    LOG.Info(L"NormalExtractFileName: " + NormalExtractFileName);
 
     std::unordered_map<int, std::vector<std::byte>> PositionBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + PositionExtractFileName, MatchNumber);
     std::unordered_map<int, std::vector<std::byte>> NormalBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + NormalExtractFileName, MatchNumber);
@@ -154,7 +166,7 @@ void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB) {
     extractConfig.MatchFirstIndexList = MatchFirstIndexList;
     extractConfig.PartNameList = PartNameList;
     extractConfig.TmpElementList = d3d11GameType.OrderedFullElementList;
-    extractConfig.WorkGameType = MMTString_ToByteString(extractConfig.GameType);
+    extractConfig.WorkGameType = MMTString_ToByteString(GameType);
 
     extractConfig.saveTmpConfigs(OutputDrawIBFolder);
 

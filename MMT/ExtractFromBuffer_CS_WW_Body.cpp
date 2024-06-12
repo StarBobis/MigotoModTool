@@ -9,9 +9,9 @@
 #include "ExtractUtil.h"
 
 
-void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB) {
+void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
     ExtractConfig extractConfig = G.DrawIB_ExtractConfig_Map[DrawIB];
-    D3D11GameType d3d11GameType = G.GameTypeName_D3d11GameType_Map[MMTString_ToByteString(extractConfig.GameType)];
+    D3D11GameType d3d11GameType = G.GameTypeName_D3d11GameType_Map[MMTString_ToByteString(GameType)];
     LOG.Info("GameType: " + d3d11GameType.GameType);
     std::wstring OutputDrawIBFolder = G.OutputFolder + DrawIB + L"\\";
     std::filesystem::create_directories(OutputDrawIBFolder);
@@ -19,8 +19,8 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB) {
     std::vector<std::wstring> FrameAnalyseFileNameList = FAData.FrameAnalysisFileNameList;
     std::map<int, std::wstring> matchFirstIndexIBFileNameMap;
     std::wstring VSExtractIndex;
-    //TODO 从vs-t0中读取到顶点数量
-   //然后在下面的过程中限制顶点数量匹配到我们的DrawNumber来设置对应的索引才对，而不是最大的索引。
+    // 从vs-t0中读取到顶点数量
+    // 然后在下面的过程中限制顶点数量匹配到我们的DrawNumber来设置对应的索引才对，而不是最大的索引。
     std::wstring TexcoordExtractFileName = L"";
     int MatchNumber = 0;
     for (std::wstring filename : FrameAnalyseFileNameList) {
@@ -254,7 +254,7 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB) {
     extractConfig.MatchFirstIndexList = MatchFirstIndexList;
     extractConfig.PartNameList = PartNameList;
     extractConfig.TmpElementList = d3d11GameType.OrderedFullElementList;
-    extractConfig.WorkGameType = MMTString_ToByteString(extractConfig.GameType);
+    extractConfig.WorkGameType = MMTString_ToByteString(GameType);
 
     extractConfig.saveTmpConfigs(OutputDrawIBFolder);
 

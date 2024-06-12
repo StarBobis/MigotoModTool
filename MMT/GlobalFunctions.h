@@ -4,9 +4,8 @@
 
 //Ãù³±
 void ExtractFromWW();
-void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB);
-void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB);
-void ExtractFromBuffer_VS_WW_ObjectType2(std::wstring DrawIB);
+void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB, std::wstring GameType);
+void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB, std::wstring GameType);
 void Generate_CS_WW_Body();
 
 //³¾°×½ûÇø SnowBreak
