@@ -120,10 +120,10 @@ void ExtractFromWW() {
                 LOG.Info(L"MaxDrawNumber: " + std::to_wstring(MaxDrawNumber));
                 LOG.Info(L"MaxDrawNumberIndex: " + MaxDrawNumberCSIndex);
 
-                //如果能找到MaxDrawNumberIndex，说明使用CS进行计算，说明当前类型肯定是WW_Body，所以直接提交就行
+                //如果能找到MaxDrawNumberIndex，说明使用CS进行计算，说明当前类型肯定是WW_Body
                 if (MaxDrawNumberCSIndex != L"") {
-                    MatchedGameType = MMTString_ToWideString(pair.first);
-                    MatchGameTypeList.push_back(MMTString_ToWideString(pair.first));
+                    MatchedGameType = MMTString_ToWideString("WW_Body");
+                    MatchGameTypeList.push_back(MMTString_ToWideString("WW_Body"));
                     break;
                 }
 
