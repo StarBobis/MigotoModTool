@@ -82,6 +82,7 @@ namespace NMBT_GUI
             Menu_File_OpenMMTLocationFolder_ToolStripMenuItem.Text = "Open MMT's Location Folder";
             Menu_File_OpenBackupsFolder_ToolStripMenuItem.Text = "Open Backups Folder";
             Menu_File_OpenConfigsFolder_ToolStripMenuItem.Text = "Open Configs Folder";
+            Menu_File_OpenTypesFolderToolStripMenuItem.Text = "Open Types Folder";
 
             //设置菜单
             Menu_Setting_ToolStripMenuItem.Text = "Setting";
@@ -148,7 +149,7 @@ namespace NMBT_GUI
             Menu_File_OpenMMTLocationFolder_ToolStripMenuItem.Text = "打开MMT所在文件夹";
             Menu_File_OpenBackupsFolder_ToolStripMenuItem.Text = "打开Backups文件夹";
             Menu_File_OpenConfigsFolder_ToolStripMenuItem.Text = "打开Configs文件夹";
-            
+            Menu_File_OpenTypesFolderToolStripMenuItem.Text = "打开Types文件夹";
 
 
             //设置菜单

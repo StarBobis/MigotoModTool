@@ -103,7 +103,7 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
     int BlendPresetStride = CategoryStrideMap["Blend"];
     LOG.Info("RealBlendStride:" + std::to_string(RealBlendStride));
     LOG.Info("BlendPresetStride:" + std::to_string(BlendPresetStride));
-    if (RealBlendStride != BlendPresetStride) {
+    if (RealBlendStride != BlendPresetStride && !d3d11GameType.UE4PatchNullInBlend) {
         LOG.Error("Current Processing Blend stride: " + std::to_string(RealBlendStride) + " can't match with GameType's Blend stride: " + std::to_string(BlendPresetStride) + " \nPlease try use other GameType to extract.");
     }
     LOG.NewLine();
@@ -152,7 +152,7 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
         finalVB0Buf.insert(finalVB0Buf.end(), ColorBufMap[i].begin(), ColorBufMap[i].end());
 
         //如果Blend槽位提取的长度为16，则这里要用清洗过之后的Blend值
-        if (RealBlendStride == 16) {
+        if (RealBlendStride == 16 && d3d11GameType.UE4PatchNullInBlend) {
             finalVB0Buf.insert(finalVB0Buf.end(), BlendBufMap_Clean[i].begin(), BlendBufMap_Clean[i].end());
         }
         else {

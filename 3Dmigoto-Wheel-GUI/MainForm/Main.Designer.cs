@@ -65,6 +65,7 @@
             this.Menu_Run_run3DmigotoLoaderByPassACEexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_about_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_checkForUpdates_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.developedByNicoMicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxBasicMod = new System.Windows.Forms.GroupBox();
             this.menuStrip8 = new System.Windows.Forms.MenuStrip();
             this.Menu_BasicMod_InitializeConfig_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +83,7 @@
             this.ColumnStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_GenerateMod = new System.Windows.Forms.Button();
             this.button_ExtractModel = new System.Windows.Forms.Button();
-            this.developedByNicoMicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_File_OpenTypesFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip4.SuspendLayout();
             this.groupBoxBasicMod.SuspendLayout();
             this.menuStrip8.SuspendLayout();
@@ -118,6 +119,7 @@
             this.Menu_File_OpenLatestFrameAnalysisFolder_ToolStripMenuItem,
             this.Menu_File_Open3DmigotoFolder_ToolStripMenuItem,
             this.Menu_File_Open3DmigotosD3dxini_ToolStripMenuItem,
+            this.Menu_File_OpenTypesFolderToolStripMenuItem,
             this.Menu_File_OpenShaderFixesFolder_ToolStripMenuItem,
             this.toolStripSeparator4,
             this.Menu_File_OpenMMTLocationFolder_ToolStripMenuItem,
@@ -242,14 +244,14 @@
             // 简体中文ToolStripMenuItem
             // 
             this.简体中文ToolStripMenuItem.Name = "简体中文ToolStripMenuItem";
-            this.简体中文ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.简体中文ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.简体中文ToolStripMenuItem.Text = "简体中文";
             this.简体中文ToolStripMenuItem.Click += new System.EventHandler(this.简体中文ToolStripMenuItem_Click);
             // 
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
@@ -300,6 +302,13 @@
             this.Menu_checkForUpdates_ToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.Menu_checkForUpdates_ToolStripMenuItem.Text = "Check For Updates";
             this.Menu_checkForUpdates_ToolStripMenuItem.Click += new System.EventHandler(this.Menu_checkForUpdates_ToolStripMenuItem_Click);
+            // 
+            // developedByNicoMicoToolStripMenuItem
+            // 
+            this.developedByNicoMicoToolStripMenuItem.Name = "developedByNicoMicoToolStripMenuItem";
+            this.developedByNicoMicoToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.developedByNicoMicoToolStripMenuItem.Text = "Developed By NicoMico";
+            this.developedByNicoMicoToolStripMenuItem.Click += new System.EventHandler(this.developedByNicoMicoToolStripMenuItem_Click);
             // 
             // groupBoxBasicMod
             // 
@@ -506,12 +515,12 @@
             this.button_ExtractModel.UseVisualStyleBackColor = false;
             this.button_ExtractModel.Click += new System.EventHandler(this.mergeToolStripMenuItem_Click);
             // 
-            // developedByNicoMicoToolStripMenuItem
+            // Menu_File_OpenTypesFolderToolStripMenuItem
             // 
-            this.developedByNicoMicoToolStripMenuItem.Name = "developedByNicoMicoToolStripMenuItem";
-            this.developedByNicoMicoToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.developedByNicoMicoToolStripMenuItem.Text = "Developed By NicoMico";
-            this.developedByNicoMicoToolStripMenuItem.Click += new System.EventHandler(this.developedByNicoMicoToolStripMenuItem_Click);
+            this.Menu_File_OpenTypesFolderToolStripMenuItem.Name = "Menu_File_OpenTypesFolderToolStripMenuItem";
+            this.Menu_File_OpenTypesFolderToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.Menu_File_OpenTypesFolderToolStripMenuItem.Text = "Open Types Folder";
+            this.Menu_File_OpenTypesFolderToolStripMenuItem.Click += new System.EventHandler(this.openTypesFolderToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -586,6 +595,7 @@
         private System.Windows.Forms.ToolStripMenuItem Menu_Run_run3DmigotoLoaderexeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Menu_Run_run3DmigotoLoaderByPassACEexeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem developedByNicoMicoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Menu_File_OpenTypesFolderToolStripMenuItem;
     }
 }
 

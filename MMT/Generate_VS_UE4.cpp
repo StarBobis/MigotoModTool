@@ -32,15 +32,11 @@ void Generate_VS_UE4() {
 
         std::unordered_map<std::string, int> CategoryStrideMap = d3d11GameType.getCategoryStrideMap(extractConfig.TmpElementList);
         //这里我们需要给Blend的长度+8变成16
-        if (extractConfig.WorkGameType == "SnB_Body") {
+
+        if (CategoryStrideMap["Blend"] == 8 && d3d11GameType.UE4PatchNullInBlend) {
             CategoryStrideMap["Blend"] = 16;
         }
-        else if (extractConfig.WorkGameType == "SnB_BodyType2") {
-            CategoryStrideMap["Blend"] = 8;
-        }
-        else if (extractConfig.WorkGameType == "SnB_BodyType2") {
-            CategoryStrideMap["Blend"] = 8;
-        }
+        
         std::vector<std::string> CategoryList = d3d11GameType.getCategoryList(extractConfig.TmpElementList);
         //输出查看每个Category的步长
         for (const auto& pair : CategoryStrideMap) {
@@ -148,7 +144,7 @@ void Generate_VS_UE4() {
                         finalCategoryData.insert(finalCategoryData.end(), tmpCategoryData.begin(), tmpCategoryData.end());
                     }
                     //普通UE4需要补齐Blend中的00
-                    else if (category == "Blend" && extractConfig.WorkGameType == "SnB_Body") {
+                    else if (category == "Blend" && d3d11GameType.UE4PatchNullInBlend) {
                         std::vector<std::byte> tmpCategoryDataNew;
                         for (int index = 0; index < tmpCategoryData.size(); index = index + 8) {
                             //1.获取NORMAL和TANGENT值

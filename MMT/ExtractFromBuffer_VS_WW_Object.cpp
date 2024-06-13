@@ -38,8 +38,10 @@ void ExtractFromBuffer_VS_WW_Object(std::wstring DrawIB, std::wstring GameType) 
         //注意:鸣潮中出现了部分物体类型多次Draw时，有些Draw不使用贴图槽位且顶点数量也无法对上，Hash值也不同的情况
         //所以我们提取物体Mod类型时，必须要确保ps-t0槽位的贴图确实存在
         //如果不存在则说明不是真正渲染贴图的那个槽位。
-        std::vector<std::wstring> Pst0_TextureFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=" ,L".dds");
-        if (Pst0_TextureFileList.size() == 0) {
+        std::vector<std::wstring> Pst0_TextureDDSFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=", L".dds");
+        std::vector<std::wstring> Pst0_TextureJPGFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=", L".jpg");
+        if (Pst0_TextureDDSFileList.size() == 0 && Pst0_TextureJPGFileList.size() == 0) {
+            LOG.Info(L"Can't find ps-t0 or jpg texture for index:" + ibFileData.Index + L" it will not be a valid object type, so skip this.");
             continue;
         }
 

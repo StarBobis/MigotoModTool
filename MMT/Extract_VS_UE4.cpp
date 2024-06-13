@@ -112,8 +112,22 @@ void Extract_VS_UE4() {
                     continue;
                 }
                 else if (BlendRealStride != CategoryStrideMap["Blend"]) {
-                    continue;
+                    //当Blend步长不同时，先看看是否为需要补充0的特殊情况
+                    if (d3d11GameType.UE4PatchNullInBlend && BlendRealStride == 16 && CategoryStrideMap["Blend"] == 8) {
+                        LOG.Info("Meet special case: UE4PatchNullInBlend, allow match");
+                    }
+                    else {
+                        continue;
+                    }
                 }
+                
+                //在stride相等的情况下，必须不使用UE4的Blend填充，否则也不能匹配上
+                if (BlendRealStride == CategoryStrideMap["Blend"]) {
+                    if (d3d11GameType.UE4PatchNullInBlend) {
+                        continue;
+                    }
+                }
+
                 //如果能执行到这里说明可以添加到匹配到的类型列表中
                 MatchedGameTypeList.push_back(GameType);
             }

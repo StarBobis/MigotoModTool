@@ -70,6 +70,12 @@ GlobalConfigs::GlobalConfigs(std::wstring ApplicationLocation) {
         if (GameTypeJson.contains("PatchBLENDWEIGHTS")) {
             d3d11GameType.PatchBLENDWEIGHTS = GameTypeJson["PatchBLENDWEIGHTS"];
         }
+
+        //UE4PatchNullInBlend
+        if (GameTypeJson.contains("UE4PatchNullInBlend")) {
+            d3d11GameType.UE4PatchNullInBlend = GameTypeJson["UE4PatchNullInBlend"];
+        }
+
         d3d11GameType.CategoryDrawCategoryMap = GameTypeJson["CategoryDrawCategoryMap"];
         //Êä³ö²é¿´²âÊÔ
         for (const auto& pair: d3d11GameType.CategoryDrawCategoryMap) {

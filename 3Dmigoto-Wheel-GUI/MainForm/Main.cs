@@ -669,5 +669,14 @@ namespace NMBT_GUI
             
             Process.Start("https://afdian.net/a/HSMico666");
         }
+
+        private void openTypesFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string TypeDirStr = "Games\\" + this.CurrentGameName + "\\Types\\";
+            if (Directory.Exists(TypeDirStr))
+            {
+                Process.Start(TypeDirStr);
+            }
+        }
     }
 }

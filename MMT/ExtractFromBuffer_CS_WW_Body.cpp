@@ -57,8 +57,8 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
 
 
     LOG.NewLine();
-    int MaxDrawNumber = 0;
-    std::wstring MaxDrawNumberCSIndex = L"";
+    int MatchedDrawNumber = 0;
+    std::wstring MatchedDrawNumberCSIndex = L"";
     std::string DrawComputeShader = "";
     for (std::wstring filename : FrameAnalyseFileNameList) {
         if (!filename.ends_with(L".buf")) {
@@ -102,25 +102,23 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
         //LOG.Info("Draw Number: " + std::to_string(drawNumber));
 
         //这里只有drawNumber等于我们从vs-t0中找到的DrawNumber时，才进行替换
-        if (drawNumber > MaxDrawNumber) {
-            MaxDrawNumber = drawNumber;
-            if (MatchNumber == drawNumber) {
-                //检测并设置DrawComputeShader，用于判断具体要从哪个槽位提取
-                if (filename.find(L"1ff924db9d4048d1") != std::wstring::npos) {
-                    DrawComputeShader = "1ff924db9d4048d1";
+        
+        if (MatchNumber == drawNumber) {
+            //检测并设置DrawComputeShader，用于判断具体要从哪个槽位提取
+            if (filename.find(L"1ff924db9d4048d1") != std::wstring::npos) {
+                DrawComputeShader = "1ff924db9d4048d1";
 
-                }
-                else if (filename.find(L"4d0760c2c7406824") != std::wstring::npos) {
-                    DrawComputeShader = "4d0760c2c7406824";
-                }
-                LOG.Info("Find Match Number File! Set draw compute shader to : " + DrawComputeShader);
-                MaxDrawNumberCSIndex = filename.substr(0, 6);
             }
+            else if (filename.find(L"4d0760c2c7406824") != std::wstring::npos) {
+                DrawComputeShader = "4d0760c2c7406824";
+            }
+            LOG.Info("Find Match Number File! Set draw compute shader to : " + DrawComputeShader);
+            MatchedDrawNumberCSIndex = filename.substr(0, 6);
         }
 
     }
-    LOG.Info(L"MaxDrawNumber: " + std::to_wstring(MaxDrawNumber));
-    LOG.Info(L"MaxDrawNumberIndex: " + MaxDrawNumberCSIndex);
+    LOG.Info(L"MatchedDrawNumber: " + std::to_wstring(MatchedDrawNumber));
+    LOG.Info(L"MatchedDrawNumberCSIndex: " + MatchedDrawNumberCSIndex);
 
     /*
         1.当DrawComputeShader为1ff924db9d4048d1时CS各槽位内容如下：
@@ -153,9 +151,9 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
     LOG.Info(L"Blend Extract Slot: " + BlendExtractSlot);
     LOG.NewLine();
     //收集各个槽位的内容，并组合成VB0的内容
-    std::wstring PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MaxDrawNumberCSIndex + PositionExtractSlot, L".buf")[0];
-    std::wstring NormalColorExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MaxDrawNumberCSIndex + NormalExtractSlot, L".buf")[0];
-    std::wstring BlendExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MaxDrawNumberCSIndex + BlendExtractSlot, L".buf")[0];
+    std::wstring PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MatchedDrawNumberCSIndex + PositionExtractSlot, L".buf")[0];
+    std::wstring NormalColorExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MatchedDrawNumberCSIndex + NormalExtractSlot, L".buf")[0];
+    std::wstring BlendExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MatchedDrawNumberCSIndex + BlendExtractSlot, L".buf")[0];
 
     //这里的变量名放到上面初始化了
     LOG.Info(L"PositionExtractFileName: " + PositionExtractFileName);

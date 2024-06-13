@@ -130,10 +130,9 @@ void ExtractFromWW() {
                 //如果找不到对应的数值，说明不使用CS进行计算，说明为Object类型，接下来进行object类型匹配
                 //对每个槽位的宽度进行检查，不通过则continue，全部通过则放入列表
                 
-
+                LOG.Info("Start to match object types:");
                 // 对于object类型应该从vb0中读取顶点数量
                 // 限制顶点数量匹配到我们的DrawNumber来设置对应的索引
-                VSExtractIndex;
                 std::wstring PositionExtractFileName = L"";
                 MatchNumber = 0;
                 std::unordered_map<std::string, int> CategoryStrideMap = d3d11GameType.getCategoryStrideMap(d3d11GameType.OrderedFullElementList);
@@ -150,13 +149,16 @@ void ExtractFromWW() {
                     //注意:鸣潮中出现了部分物体类型多次Draw时，有些Draw不使用贴图槽位且顶点数量也无法对上，Hash值也不同的情况
                     //所以我们提取物体Mod类型时，必须要确保ps-t0槽位的贴图确实存在
                     //如果不存在则说明不是真正渲染贴图的那个槽位。
-                    std::vector<std::wstring> Pst0_TextureFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=", L".dds");
-                    if (Pst0_TextureFileList.size() == 0) {
+                    std::vector<std::wstring> Pst0_TextureDDSFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=", L".dds");
+                    std::vector<std::wstring> Pst0_TextureJPGFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=", L".jpg");
+                    if (Pst0_TextureDDSFileList.size() == 0 && Pst0_TextureJPGFileList.size() == 0) {
+                        LOG.Info(L"Can't find ps-t0 or jpg texture for index:" + ibFileData.Index + L" it will not be a valid object type, so skip this.");
                         continue;
                     }
 
                     VSExtractIndex = ibFileData.Index;
                     PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + L"-vb0=", L".buf")[0];
+                    LOG.Info(L"PositionExtractFileName: " + PositionExtractFileName);
                     int PositionFileSize = MMTFile_GetFileSize(G.WorkFolder + PositionExtractFileName);
                     MatchNumber = PositionFileSize / PositionStride;
                     LOG.Info("Match DrawNumber: " + std::to_string(MatchNumber));
@@ -166,8 +168,6 @@ void ExtractFromWW() {
                         LOG.Info("Can't find FirstIndex attribute in this file, so skip this.");
                         continue;
                     }
-                    int matchFirstIndex = std::stoi(ibFileData.FirstIndex);
-
                 }
                
                 LOG.NewLine();

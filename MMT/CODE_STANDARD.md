@@ -19,7 +19,11 @@
 - 不能一个解决方案多个项目，尤其是多个项目之间文件名和方法名都差不多，会导致Visual Studio无法正确分析符号链接，无法正确的使用对应的符号。
 
 # Build from source code
-MMT's core idea is designed for extremely fast speed process for everything in making d3d11 buffer replace game mod, so it's core algorithm is writen in C++ and it's GUI is writen in C# WinForm, all code is designed for fast development, fast run and fast modify for release new version ,etc..., anyway, time is valuable, tool need to be fast.
+MMT's core idea is designed for extremely fast speed process for everything in making d3d11 buffer replace game mod, 
+so it's core algorithm is writen in C++ and it's GUI is writen in C# WinForm, 
+all code is designed for fast development, fast run and fast modify for release new version ,etc..., 
+anyway, time is valuable, tool need to be fast.
+
 Some preconfig you will need to have:
 - VisualStudio 2022 VS143 toolset. 
 - Install Boost 1.84.0  (or latest version)

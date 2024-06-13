@@ -34,6 +34,9 @@ public:
     //是否需要补充blendweights，默认不需要
     bool PatchBLENDWEIGHTS = false;
 
+    //UE4补充0
+    bool UE4PatchNullInBlend = false;
+
     std::string RootComputeShaderHash;
     //原本的类别，在ini文件中替换时写到的draw的位置类别，每一个配置里都需要手动指定
     std::unordered_map <std::string, std::string> CategoryDrawCategoryMap;
