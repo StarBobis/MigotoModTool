@@ -3,7 +3,7 @@
 - 使用Boost库
 - 使用Json for morden C++ 库处理Json文件 https://github.com/nlohmann/json
 - 使用easyloggingpp库处理日志记录
-- Visual Studio 2022 & Platform Set V143
+- Visual Studio Community 2022 & Platform Set V143
 
 # 代码规范
 - 尽量使用string，部分特殊情况才考虑使用wstring，以做到兼容
@@ -19,11 +19,6 @@
 - 不能一个解决方案多个项目，尤其是多个项目之间文件名和方法名都差不多，会导致Visual Studio无法正确分析符号链接，无法正确的使用对应的符号。
 
 # Build from source code
-MMT's core idea is designed for extremely fast speed process for everything in making d3d11 buffer replace game mod, 
-so it's core algorithm is writen in C++ and it's GUI is writen in C# WinForm, 
-all code is designed for fast development, fast run and fast modify for release new version ,etc..., 
-anyway, time is valuable, tool need to be fast.
-
 Some preconfig you will need to have:
 - VisualStudio 2022 VS143 toolset. 
 - Install Boost 1.84.0  (or latest version)
@@ -52,4 +47,4 @@ MMT-GUI will need these packages, you need to install it in NuGet manager.
 - Newtonsoft.Json
 
 
-# Join Development and you can make it better!
+# Join development and you can make it better!

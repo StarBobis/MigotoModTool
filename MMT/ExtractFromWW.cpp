@@ -26,6 +26,7 @@ void ExtractFromWW() {
                 // 然后在下面的过程中限制顶点数量匹配到我们的DrawNumber来设置对应的索引才对，而不是最大的索引。
                 std::wstring TexcoordExtractFileName = L"";
                 int MatchNumber = 0;
+                LOG.Info(L"Start to check for every file related with your DrawIB: " + DrawIB);
                 for (std::wstring filename : FrameAnalyseFileNameList) {
                     if (!filename.ends_with(L".txt")) {
                         continue;
@@ -50,7 +51,9 @@ void ExtractFromWW() {
                     int matchFirstIndex = std::stoi(ibFileData.FirstIndex);
 
                 }
-                
+                if (MatchNumber == 0) {
+                    LOG.Error(L"Can't find any related ib file with your DrawIB : " + DrawIB + L" Please check:\n1.Did you dump a FrameAnalysis folder for extract this IB hash.\n2.Did you choose the correct IB value,there may be multiple IB control render,only one of them is real.");
+                }
                 LOG.NewLine();
 
 

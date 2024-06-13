@@ -10,30 +10,26 @@ It's designed works with our modified fork version of blender_3dmigoto.py forked
 
 It's designed works with our modified fork version of 3Dmigoto originally forked from 3Dmigoto repo, download link: https://github.com/StarBobis/3Dmigoto-GameMod-Fork
 
-
 Features:
+- Reverse any 3Dmigoto mod with a simple click, reverse extract model from game dump files.
 - Support as many game's model extract and buffer mod make as it can.
 - Save your time with user frendly GUI.
 - Detailed log system, easy to debug and solve problems.
-- Reverse any 3Dmigoto mod with a simple click, reverse extract model from game dump files.
 
-# 3Dmigoto-Armor
-3Dmigoto-Armor is a special version of 3Dmigoto which supports a huge lots of new features. 
+MMT's core idea is designed for extremely fast speed process for everything in making d3d11 buffer replace game mod and model extract,
+and it need to be compatible with other tools and easy to extend, 
+so it's core algorithm is writen in C++ and it's GUI is writen in C# WinForm, 
+all code is designed for fast development, fast run, fast extend and fast modify for release new version, 
+anyway, time is valuable, tool need to be really fast.
 
-SourceCode: https://github.com/StarBobis/3Dmigoto-GameMod-Fork
+So you may notice MMT's update is frequent, make sure to use the latest release version.
 
-Features(WIP):
-- No crush problem in GI even with hundreds GigaBytes mods installed.
-- Compatible with GIMI's d3d11.dll, "store" command supported.
-- Access control system(MMT-ACP) supported, can specify who is allowed to loading your mod and who is not.
-- File encryption supported(MMT-ACP), no one can easily extract model from your 3dmigoto mods.
-- Dynamic UAV supported.
-- Dynamic D3D11Buffer ByteWidth number supported, no maximum limit for model's vertex count.
-- Dynamic D3D11Buffer ByteWidth change feature supported, no limit on ByteWidth change at D3D11Buffer created.
-- Lots of undocumented usage and optimization for d3d11 buffer replacement game mod.
-
-# Based on 3Dmigoto
+# Based on original 3Dmigoto
 These tools is based on original 3Dmigoto: https://github.com/bo3b/3Dmigoto
 
+Huge thanks to the original 3Dmigoto author group.
+
 # Technique support
-Discord server invite link: https://discord.gg/Cz577BcRf5
+Welcome to open a issue if you find a bug or have any advice,any feedback or have some cool idea or cool feature need to add into MMT.
+
+Join our discord for more info: https://discord.gg/Cz577BcRf5
