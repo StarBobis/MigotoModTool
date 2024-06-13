@@ -667,7 +667,7 @@ namespace NMBT_GUI
         private void developedByNicoMicoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
-            Process.Start("https://afdian.net/a/HSMico666");
+            Process.Start("https://discord.gg/Cz577BcRf5");
         }
 
         private void openTypesFolderToolStripMenuItem_Click(object sender, EventArgs e)

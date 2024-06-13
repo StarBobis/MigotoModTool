@@ -48,6 +48,7 @@
             this.Menu_File_OpenLatestFrameAnalysisFolder_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_File_Open3DmigotoFolder_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_File_Open3DmigotosD3dxini_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_File_OpenTypesFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_File_OpenShaderFixesFolder_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_File_OpenMMTLocationFolder_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +84,6 @@
             this.ColumnStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_GenerateMod = new System.Windows.Forms.Button();
             this.button_ExtractModel = new System.Windows.Forms.Button();
-            this.Menu_File_OpenTypesFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip4.SuspendLayout();
             this.groupBoxBasicMod.SuspendLayout();
             this.menuStrip8.SuspendLayout();
@@ -175,6 +175,13 @@
             this.Menu_File_Open3DmigotosD3dxini_ToolStripMenuItem.Text = "Open 3Dmigoto\'s d3dx.ini";
             this.Menu_File_Open3DmigotosD3dxini_ToolStripMenuItem.Click += new System.EventHandler(this.Menu_File_Open3DmigotosD3dxini_ToolStripMenuItem_Click);
             // 
+            // Menu_File_OpenTypesFolderToolStripMenuItem
+            // 
+            this.Menu_File_OpenTypesFolderToolStripMenuItem.Name = "Menu_File_OpenTypesFolderToolStripMenuItem";
+            this.Menu_File_OpenTypesFolderToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.Menu_File_OpenTypesFolderToolStripMenuItem.Text = "Open Types Folder";
+            this.Menu_File_OpenTypesFolderToolStripMenuItem.Click += new System.EventHandler(this.openTypesFolderToolStripMenuItem_Click);
+            // 
             // Menu_File_OpenShaderFixesFolder_ToolStripMenuItem
             // 
             this.Menu_File_OpenShaderFixesFolder_ToolStripMenuItem.Name = "Menu_File_OpenShaderFixesFolder_ToolStripMenuItem";
@@ -244,14 +251,14 @@
             // 简体中文ToolStripMenuItem
             // 
             this.简体中文ToolStripMenuItem.Name = "简体中文ToolStripMenuItem";
-            this.简体中文ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.简体中文ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.简体中文ToolStripMenuItem.Text = "简体中文";
             this.简体中文ToolStripMenuItem.Click += new System.EventHandler(this.简体中文ToolStripMenuItem_Click);
             // 
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
@@ -299,15 +306,15 @@
             // Menu_checkForUpdates_ToolStripMenuItem
             // 
             this.Menu_checkForUpdates_ToolStripMenuItem.Name = "Menu_checkForUpdates_ToolStripMenuItem";
-            this.Menu_checkForUpdates_ToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.Menu_checkForUpdates_ToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.Menu_checkForUpdates_ToolStripMenuItem.Text = "Check For Updates";
             this.Menu_checkForUpdates_ToolStripMenuItem.Click += new System.EventHandler(this.Menu_checkForUpdates_ToolStripMenuItem_Click);
             // 
             // developedByNicoMicoToolStripMenuItem
             // 
             this.developedByNicoMicoToolStripMenuItem.Name = "developedByNicoMicoToolStripMenuItem";
-            this.developedByNicoMicoToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.developedByNicoMicoToolStripMenuItem.Text = "Developed By NicoMico";
+            this.developedByNicoMicoToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.developedByNicoMicoToolStripMenuItem.Text = "Powered by ShaderFreedom";
             this.developedByNicoMicoToolStripMenuItem.Click += new System.EventHandler(this.developedByNicoMicoToolStripMenuItem_Click);
             // 
             // groupBoxBasicMod
@@ -514,13 +521,6 @@
             this.button_ExtractModel.Text = "Extract Model";
             this.button_ExtractModel.UseVisualStyleBackColor = false;
             this.button_ExtractModel.Click += new System.EventHandler(this.mergeToolStripMenuItem_Click);
-            // 
-            // Menu_File_OpenTypesFolderToolStripMenuItem
-            // 
-            this.Menu_File_OpenTypesFolderToolStripMenuItem.Name = "Menu_File_OpenTypesFolderToolStripMenuItem";
-            this.Menu_File_OpenTypesFolderToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
-            this.Menu_File_OpenTypesFolderToolStripMenuItem.Text = "Open Types Folder";
-            this.Menu_File_OpenTypesFolderToolStripMenuItem.Click += new System.EventHandler(this.openTypesFolderToolStripMenuItem_Click);
             // 
             // Main
             // 
