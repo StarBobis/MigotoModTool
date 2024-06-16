@@ -128,9 +128,6 @@
     <ClCompile Include="MigotoFormatUtils.cpp">
       <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
     </ClCompile>
-    <ClCompile Include="MigotoIniGenerateCS.cpp">
-      <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
-    </ClCompile>
     <ClCompile Include="MigotoIniGenerateGIMI.cpp">
       <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
     </ClCompile>

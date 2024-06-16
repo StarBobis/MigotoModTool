@@ -145,24 +145,6 @@ public:
 extern GlobalConfigs G;
 
 
-////Extract
-//void UnityExtractFromText(GlobalConfigs& globalConfigs, ExtractConfig basicConfig);
-//void UnityExtractFromBufferNaraka(GlobalConfigs& globalConfigs, ExtractConfig basicConfig);
-//void UnityExtractFromText_GI_DCR(GlobalConfigs& globalConfigs, ExtractConfig basicConfig);
-//void UnityExtract(GlobalConfigs& globalConfigs);
-//std::wstring UnityAutoDetectGameType(std::wstring GameName, std::wstring DrawIB, std::wstring FrameAnalysisFolderPath, std::wstring ApplicationLoaction);
-//void UE4Merge(GlobalConfigs& globalConfigs);
-//
-////Generate
-//void UE4Split(GlobalConfigs& globalConfigs);
-//void UnityGenerate(GlobalConfigs& globalConfigs);
-
-//Reverse
-//void ReverseSingle(GlobalConfigs& globalConfigs);
-//void ReverseMerged(GlobalConfigs& globalConfigs);
-
-
-
 
 
 

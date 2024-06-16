@@ -21,8 +21,6 @@ public:
     std::unordered_map<std::string, std::string> categoryUUIDMap;
 
 
-
-
     //模仿GIMI生成ini格式
     void generateINIFileGIMI();
 

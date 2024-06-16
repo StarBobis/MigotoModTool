@@ -71,6 +71,10 @@ GlobalConfigs::GlobalConfigs(std::wstring ApplicationLocation) {
             d3d11GameType.PatchBLENDWEIGHTS = GameTypeJson["PatchBLENDWEIGHTS"];
         }
 
+        if (GameTypeJson.contains("GPU-PreSkinning")) {
+            d3d11GameType.GPUPreSkinning = GameTypeJson["GPU-PreSkinning"];
+        }
+
         //UE4PatchNullInBlend
         if (GameTypeJson.contains("UE4PatchNullInBlend")) {
             d3d11GameType.UE4PatchNullInBlend = GameTypeJson["UE4PatchNullInBlend"];

@@ -26,10 +26,9 @@ public:
 class D3D11GameType {
 public:
     std::string GameType;
-    std::string Engine;
 
-    //4D的normal提取时去掉最后一位，并在生成Mod时添加回来
-    bool Normal4Dimension = false;
+    //是否使用GPU计算骨骼姿态变换
+    bool GPUPreSkinning = false;
 
     //是否需要补充blendweights，默认不需要
     bool PatchBLENDWEIGHTS = false;

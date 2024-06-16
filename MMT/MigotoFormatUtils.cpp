@@ -419,7 +419,8 @@ std::unordered_map<std::wstring, std::vector<std::byte>> ReverseNormalTangentVal
                     newPOSITIONValues.insert(newPOSITIONValues.end(), FlipedValues.begin(), FlipedValues.end());
                 }
                 else {
-                    LOG.Info(L"Can't find any format for NORMAL vlaues");
+                    newPOSITIONValues.insert(newPOSITIONValues.end(), TmpValues.begin(), TmpValues.end());
+                    //LOG.Warning(L"Can't find any format for NORMAL vlaues,use original NORMAL values");
                 }
 
             }
@@ -466,7 +467,8 @@ std::unordered_map<std::wstring, std::vector<std::byte>> ReverseNormalTangentVal
                     newPOSITIONValues.insert(newPOSITIONValues.end(), FlipedValues.begin(), FlipedValues.end());
                 }
                 else {
-                    LOG.Info(L"Can't find any format for TANGENT vlaues");
+                    newPOSITIONValues.insert(newPOSITIONValues.end(), TmpValues.begin(), TmpValues.end());
+                    //LOG.Warning(L"Can't find any format for TANGENT vlaues,use default TANGENT values.");
                 }
 
             }
