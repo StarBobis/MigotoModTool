@@ -1,4 +1,4 @@
-# MMT
+# MMT-Community
 It's designed to works with our modified fork version of blender_3dmigoto.py forked from DarkStarSword's 3DFix repo, download link: https://github.com/StarBobis/MMT-Blender-Plugin
 
 It's designed to works with our modified fork version of 3Dmigoto originally forked from 3Dmigoto repo, download link: https://github.com/StarBobis/3Dmigoto-GameMod-Fork

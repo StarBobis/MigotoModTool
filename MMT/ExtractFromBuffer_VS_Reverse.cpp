@@ -16,8 +16,9 @@ void ExtractFromBuffer_VS_Reverse() {
         std::filesystem::create_directories(OutputDrawIBFolder);
 
         if (extractConfig.GameType == L"Auto") {
-            //TODO 验证自动类型识别是否可用
-            extractConfig.GameType = UnityAutoDetectGameType(DrawIB);
+            //逆向提取不允许使用自动类型识别
+            LOG.Error("Reverse extract doesn't support auto type detect yet,please find your taget mod's game type by extract it's original game model and find the gametype in generated file tmp.json in OutputFolder.");
+            // extractConfig.GameType = UnityAutoDetectGameType(DrawIB);
         }
 
         D3D11GameType d3d11GameType = G.GameTypeName_D3d11GameType_Map[MMTString_ToByteString(extractConfig.GameType)];

@@ -36,7 +36,6 @@ public:
     //UE4补充0
     bool UE4PatchNullInBlend = false;
 
-    std::string RootComputeShaderHash;
     //原本的类别，在ini文件中替换时写到的draw的位置类别，每一个配置里都需要手动指定
     std::unordered_map <std::string, std::string> CategoryDrawCategoryMap;
     std::vector<std::string> OrderedFullElementList;
@@ -58,8 +57,8 @@ public:
     std::vector<std::string>  getCategoryList(std::vector<std::string> inputElementList);
 
     //获取Category的ElementList
-
     std::vector<std::string> getCategoryElementList(std::vector<std::string> inputElementList,std::string category);
 
+    //根据OrderedElementList重新排序传入的ElementList
     std::vector<std::string> getReorderedElementList(std::vector<std::string> elementList);
 };
