@@ -8,12 +8,12 @@
 #include "FrameAnalysisData.h"
 
 
-std::wstring UnityAutoDetectGameType(std::wstring GameName, std::wstring DrawIB, std::wstring FrameAnalysisFolderPath,std::wstring ApplicationLoaction) {
-	FrameAnalysisData FAData(FrameAnalysisFolderPath);
+std::wstring UnityAutoDetectGameType(std::wstring DrawIB) {
+	FrameAnalysisData FAData(G.WorkFolder);
 	std::vector<std::wstring> trianglelistIndexList = FAData.ReadTrianglelistIndexList(DrawIB);
 	std::vector<std::wstring> pointlistIndexList = FAData.ReadPointlistIndexList();
 	if (pointlistIndexList.size() < 1) {
-		LOG.Info(L"Can't find any pointlist file!");
+		LOG.Warning(L"Can't find any pointlist file!");
 	}
 	LOG.NewLine();
 
@@ -35,7 +35,7 @@ std::wstring UnityAutoDetectGameType(std::wstring GameName, std::wstring DrawIB,
 		for (std::wstring trianglelistVBFileName: trianglelistVBFileNameList) {
 			LOG.NewLine();
 			LOG.Info(trianglelistVBFileName);
-			std::wstring trignalelistVBFilePath = FrameAnalysisFolderPath + trianglelistVBFileName;
+			std::wstring trignalelistVBFilePath = G.WorkFolder + trianglelistVBFileName;
 			LOG.Info(trignalelistVBFilePath);
 			VertexBufferDetect vertexBufferDetect(trignalelistVBFilePath);
 			trianglelistIndexAndSlotVertexBufferMap[trianglelistIndex + L"-vb" + std::to_wstring(vertexBufferDetect.vbSlotNumber)] = vertexBufferDetect;
@@ -79,26 +79,12 @@ std::wstring UnityAutoDetectGameType(std::wstring GameName, std::wstring DrawIB,
 	LOG.NewLine();
 
 	//计算出MaxVertexCount的index的所有可能的d3d11Element以及它们的和槽位步长，用作后续类型的匹配
-	//TODO 这里为什么非得是最大VertexCount的？因为确实存在最大的里面反而没有数据的情况呀！
 	std::vector<D3D11Element> possibleTrianglelistD3D11ElementTypeList;
 	for (const auto& pair : trianglelistIndexAndSlotVertexBufferMap) {
 		std::wstring indexAndSlot = pair.first;
 		VertexBufferDetect vertexBufferDetect = pair.second;
 		std::wstring index = indexAndSlot.substr(0, 6);
 		std::wstring slot = indexAndSlot.substr(7, 3);
-
-		////判断是否为最大顶点数量的索引，因为contains这种靠不住，也麻烦，不如直接手动遍历
-		//bool isMaxVertexCountIndex = false;
-		//for (std::wstring trianglelistIndex: maxVertexCountTrianglelistIndexList) {
-		//	if (trianglelistIndex == index) {
-		//		isMaxVertexCountIndex = true;
-		//		break;
-		//	}
-		//}
-		//if (!isMaxVertexCountIndex) {
-		//	continue;
-		//}
-
 
 		if (vertexBufferDetect.realElementList.size() >= 1) {
 			//遍历当前的realElementList;
@@ -148,7 +134,7 @@ std::wstring UnityAutoDetectGameType(std::wstring GameName, std::wstring DrawIB,
 	
 		LOG.Info(L"Start to parse pointlist FileNameList. ");
 		for (std::wstring pointlistVBFileName : pointlistVBFileNameList) {
-			std::wstring pointlistVBFilePath = FrameAnalysisFolderPath + pointlistVBFileName;
+			std::wstring pointlistVBFilePath = G.WorkFolder + pointlistVBFileName;
 			VertexBufferDetect vertexBufferDetect(pointlistVBFilePath);
 			LOG.Info(L"Parse pointlist elementlist over.");
 			pointlistIndexAndSlotVertexBufferMap[pointlistIndex + L"-vb" + std::to_wstring(vertexBufferDetect.vbSlotNumber)] = vertexBufferDetect;
@@ -169,13 +155,13 @@ std::wstring UnityAutoDetectGameType(std::wstring GameName, std::wstring DrawIB,
 	}
 
 	if (matchPointlistIndex == L"") {
-		LOG.Error(L"Can't find matchPointlistIndex, Please try force pointlist index.");
+		LOG.Warning(L"Can't find matchPointlistIndex this may be a Object type.");
 	}
 
 	LOG.Info(L"matchPointlistIndex: " + matchPointlistIndex + L" VertexCount:" + std::to_wstring(pointlistIndexVertexNumberMap[matchPointlistIndex]));
 	// 接下来要根据识别到的这些pointlist和trianglelist的VertexBufferDetect里的d3d11ElementMap，来进行GameType的匹配
 	// 一个一个过滤直到留下最后一个GameType,然后后续的步骤直接调用之前的方法就行了。
-
+	LOG.NewLine();
 
 
 	LOG.Info(L"Detected pointlist element list: ");
@@ -186,9 +172,9 @@ std::wstring UnityAutoDetectGameType(std::wstring GameName, std::wstring DrawIB,
 
 	LOG.Info(L"Try to match GameType:");
 	GlobalConfigs wheelConfig;
-	wheelConfig.ApplicationRunningLocation = ApplicationLoaction;
+	wheelConfig.ApplicationRunningLocation = G.ApplicationRunningLocation;
 	std::vector<D3D11GameType> gameD3D11ElementAttributeList = G.CurrentD3d11GameTypeList;
-	LOG.Info( GameName + L" Total GameType list size: " + std::to_wstring(gameD3D11ElementAttributeList.size()));
+	LOG.Info( G.GameName + L" Total GameType list size: " + std::to_wstring(gameD3D11ElementAttributeList.size()));
 
 	std::vector<std::wstring> matchedGameTypeList;
 	for (D3D11GameType d3d11GameType: gameD3D11ElementAttributeList) {

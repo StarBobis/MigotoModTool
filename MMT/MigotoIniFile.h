@@ -22,8 +22,6 @@ public:
 
 
 
-    //生成永劫Mod
-    void generateOriginalIniFileCS();
 
     //模仿GIMI生成ini格式
     void generateINIFileGIMI();

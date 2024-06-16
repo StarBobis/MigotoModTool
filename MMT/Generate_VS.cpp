@@ -18,7 +18,7 @@ void UnityGenerate() {
         std::wstring splitReadFolder = G.OutputFolder + drawIB + L"/";
         std::wstring splitOutputFolder = G.OutputFolder + timeStr + L"/" + drawIB + L"/";
 
-        //先判断是否存在body_part0.ib什么的
+        //先判断是否存在1.ib什么的
         bool findValidFile = false;
         for (std::string partName : extractConfig.PartNameList) {
             std::wstring VBFileName = MMTString_ToWideString(partName) + L".vb";

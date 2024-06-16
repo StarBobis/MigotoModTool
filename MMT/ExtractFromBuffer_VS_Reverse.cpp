@@ -17,7 +17,7 @@ void ExtractFromBuffer_VS_Reverse() {
 
         if (extractConfig.GameType == L"Auto") {
             //TODO 验证自动类型识别是否可用
-            extractConfig.GameType = UnityAutoDetectGameType(G.GameName, DrawIB, G.WorkFolder, G.ApplicationRunningLocation);
+            extractConfig.GameType = UnityAutoDetectGameType(DrawIB);
         }
 
         D3D11GameType d3d11GameType = G.GameTypeName_D3d11GameType_Map[MMTString_ToByteString(extractConfig.GameType)];
