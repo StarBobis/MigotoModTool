@@ -278,6 +278,10 @@ std::wstring UnityAutoDetectGameType(std::wstring DrawIB) {
 					
 				}
 			}
+			else {
+				//if can't find pointlistIndex, of course it can't be pointlist type.
+				pointlistDifferentCount = -1;
+			}
 
 			
 			
@@ -359,23 +363,32 @@ std::wstring UnityAutoDetectGameType(std::wstring DrawIB) {
 		}
 
 
-
-
-		if (pointlistDifferentCount == 0 && trianglelistDifferentCount == 0) {
-			LOG.Info("GameType " + d3d11GameType.GameType + "  Matched!");
-			//matchedGameTypeList.push_back(MMTString_ToWideString(d3d11GameType.GameType));
-			if (matchPointlistIndex != L"") {
-				//在pointlist有东西的情况下，优先选择pointlist类型
-				//怎么判断是否为pointlist？直接获取POSITION的extractTechnique吧
-				if (d3d11GameType.ElementNameD3D11ElementMap["POSITION"].ExtractTechnique == "pointlist") {
+		if (d3d11GameType.GPUPreSkinning) {
+			if (pointlistDifferentCount == 0 && trianglelistDifferentCount == 0) {
+				LOG.Info("GameType " + d3d11GameType.GameType + "  Matched!");
+				//matchedGameTypeList.push_back(MMTString_ToWideString(d3d11GameType.GameType));
+				if (matchPointlistIndex != L"") {
+					//在pointlist有东西的情况下，优先选择pointlist类型
+					//怎么判断是否为pointlist？直接获取POSITION的extractTechnique吧
+					if (d3d11GameType.ElementNameD3D11ElementMap["POSITION"].ExtractTechnique == "pointlist") {
+						matchedGameTypeList.push_back(MMTString_ToWideString(d3d11GameType.GameType));
+					}
+				}
+				else {
+					//否则在不为pointlist的情况下，那可以直接加入
 					matchedGameTypeList.push_back(MMTString_ToWideString(d3d11GameType.GameType));
 				}
 			}
-			else {
-				//否则在不为pointlist的情况下，那可以直接加入
+		}
+		else {
+			if (trianglelistDifferentCount == 0) {
+				LOG.Info("GameType " + d3d11GameType.GameType + "  Matched!");
 				matchedGameTypeList.push_back(MMTString_ToWideString(d3d11GameType.GameType));
 			}
 		}
+
+
+		
 	}
 
 	LOG.NewLine();

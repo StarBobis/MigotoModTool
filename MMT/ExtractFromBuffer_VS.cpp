@@ -157,7 +157,12 @@ void ExtractFromBuffer_VS() {
             std::wstring filename = filenames[0];
             CategoryHashMap[Category] = MMTString_ToByteString(filename.substr(11, 8));
             VertexBufferDetect vbDetect(G.WorkFolder + filename);
-            int stride = vbDetect.fileRealStride;
+
+            //这里使用fileRealStride时，无法保证txt里是真实的数据，所以导致提取失败
+            // TODO 找到更加兼容的办法
+            //int stride = vbDetect.fileRealStride;
+
+            int stride = vbDetect.fileShowStride;
 
             //判断是否需要补充默认的Blendweights
             bool patchBlendWeights = false;

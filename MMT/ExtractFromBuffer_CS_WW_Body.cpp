@@ -7,6 +7,7 @@
 #include <set>
 #include "FrameAnalysisData.h"
 #include "ExtractUtil.h"
+#include "WWUtil.h"
 
 
 void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
@@ -60,6 +61,8 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
     int MatchedDrawNumber = 0;
     std::wstring MatchedDrawNumberCSIndex = L"";
     std::string DrawComputeShader = "";
+    //CalculateTime , (Offset,CalculateTime,CS)
+    std::unordered_map<int, WuwaCSInfo> vertexCountWuwaCSInfoMap;
     for (std::wstring filename : FrameAnalyseFileNameList) {
         if (!filename.ends_with(L".buf")) {
             continue;
@@ -82,27 +85,30 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
 
         ConstantBufferBufFile cbFileData(filepath);
         LOG.Info("CB[0].W CS Calculate Time: " + std::to_string(cbFileData.lineCBValueMap[0].W));
-        LOG.Info("CB[0].Y Draw Number1: " + std::to_string(cbFileData.lineCBValueMap[0].Y));
-        LOG.Info("CB[0].Z Draw Number2: " + std::to_string(cbFileData.lineCBValueMap[0].Z));
-        LOG.Info("CB[1].X Draw Number3: " + std::to_string(cbFileData.lineCBValueMap[1].X));
+        LOG.Info("CB[0].Y Offset 1: " + std::to_string(cbFileData.lineCBValueMap[0].Y));
+        LOG.Info("CB[0].Z Offset 2: " + std::to_string(cbFileData.lineCBValueMap[0].Z));
+        LOG.Info("CB[1].X Calculate Time: " + std::to_string(cbFileData.lineCBValueMap[1].X));
 
         //这里如果cb0.w和 cb0.y相同，则为cb0.w加上cb1.x
         //如果不同则为cb0.w + cb0.x
+        WuwaCSInfo wwcsinfo;
+
         int drawNumber = 0;
         if (cbFileData.lineCBValueMap[0].W == cbFileData.lineCBValueMap[0].Y) {
             drawNumber = cbFileData.lineCBValueMap[0].W + cbFileData.lineCBValueMap[1].X;
+            wwcsinfo.CalculateTime = cbFileData.lineCBValueMap[1].X;
+            //TODO 补全offset
             LOG.Info("CB[0].W == CB[0].Y   DrawNumber = CB[0].W + CB[1].X = " + std::to_string(drawNumber));
         }
         else {
             drawNumber = cbFileData.lineCBValueMap[0].W + cbFileData.lineCBValueMap[0].Y;
+            wwcsinfo.CalculateTime = cbFileData.lineCBValueMap[0].W;
             LOG.Info("CB[0].W != CB[0].Y   DrawNumber = CB[0].W + CB[0].Y = " + std::to_string(drawNumber));
         }
         LOG.NewLine();
-
         //LOG.Info("Draw Number: " + std::to_string(drawNumber));
 
         //这里只有drawNumber等于我们从vs-t0中找到的DrawNumber时，才进行替换
-        
         if (MatchNumber == drawNumber) {
             //检测并设置DrawComputeShader，用于判断具体要从哪个槽位提取
             if (filename.find(L"1ff924db9d4048d1") != std::wstring::npos) {

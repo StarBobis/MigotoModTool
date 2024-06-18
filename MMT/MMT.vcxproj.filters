@@ -231,6 +231,9 @@
     <ClInclude Include="ExtractUtil.h">
       <Filter>Games\GI_HI3_HSR_ZZZ</Filter>
     </ClInclude>
+    <ClInclude Include="WWUtil.h">
+      <Filter>Games\WuWa</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MMT.rc">
