@@ -97,12 +97,13 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
         if (cbFileData.lineCBValueMap[0].W == cbFileData.lineCBValueMap[0].Y) {
             drawNumber = cbFileData.lineCBValueMap[0].W + cbFileData.lineCBValueMap[1].X;
             wwcsinfo.CalculateTime = cbFileData.lineCBValueMap[1].X;
-            //TODO 补全offset
+            wwcsinfo.Offset = cbFileData.lineCBValueMap[0].W;
             LOG.Info("CB[0].W == CB[0].Y   DrawNumber = CB[0].W + CB[1].X = " + std::to_string(drawNumber));
         }
         else {
             drawNumber = cbFileData.lineCBValueMap[0].W + cbFileData.lineCBValueMap[0].Y;
             wwcsinfo.CalculateTime = cbFileData.lineCBValueMap[0].W;
+            wwcsinfo.Offset = cbFileData.lineCBValueMap[0].Y;
             LOG.Info("CB[0].W != CB[0].Y   DrawNumber = CB[0].W + CB[0].Y = " + std::to_string(drawNumber));
         }
         LOG.NewLine();
@@ -113,7 +114,7 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
             //检测并设置DrawComputeShader，用于判断具体要从哪个槽位提取
             if (filename.find(L"1ff924db9d4048d1") != std::wstring::npos) {
                 DrawComputeShader = "1ff924db9d4048d1";
-
+                
             }
             else if (filename.find(L"4d0760c2c7406824") != std::wstring::npos) {
                 DrawComputeShader = "4d0760c2c7406824";
@@ -122,10 +123,17 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
             MatchedDrawNumberCSIndex = filename.substr(0, 6);
         }
 
+        wwcsinfo.ComputeShaderHash = DrawComputeShader;
+        vertexCountWuwaCSInfoMap[drawNumber] = wwcsinfo;
     }
     LOG.Info(L"MatchedDrawNumber: " + std::to_wstring(MatchedDrawNumber));
     LOG.Info(L"MatchedDrawNumberCSIndex: " + MatchedDrawNumberCSIndex);
-
+    LOG.NewLine();
+    for (const auto& pair: vertexCountWuwaCSInfoMap) {
+        WuwaCSInfo csInfo = pair.second;
+        LOG.Info("VertexCount: " + std::to_string(csInfo.CalculateTime) + "  Offset:" + std::to_string(csInfo.Offset) + "  ComputeShaderHash:" + csInfo.ComputeShaderHash);
+    }
+    LOG.NewLine();
     /*
         1.当DrawComputeShader为1ff924db9d4048d1时CS各槽位内容如下：
             cs-t3 stride=8    33145   只能是长度各为4的BLENDWEIGHT和BLENDINDICES

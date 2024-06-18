@@ -29,6 +29,7 @@ namespace NMBT_GUI
         void switchToChinese()
         {
             Menu_InitializeConfig_ToolStripMenuItem.Text = "初始化配置";
+            Menu_COLORPresetToolStripMenuItem.Text = "COLOR属性预设";
             groupBoxExtractConfig.Text = "提取配置";
             labelExtractType.Text = "提取类型";
 

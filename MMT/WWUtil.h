@@ -7,5 +7,5 @@ public:
     //当前CS计算次数，也就是当前的部件的顶点数
     int CalculateTime;
     //使用哪个Shader来进行Pre-Skinning
-    std::wstring ComputeShaderHash;
+    std::string ComputeShaderHash;
 };

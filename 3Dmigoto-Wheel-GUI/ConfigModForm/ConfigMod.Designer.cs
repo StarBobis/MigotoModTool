@@ -62,6 +62,8 @@
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.groupBoxExtractConfig = new System.Windows.Forms.GroupBox();
             this.groupBoxModGenerateConfig = new System.Windows.Forms.GroupBox();
+            this.Menu_COLORPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hSRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_TANGENT_FLIP.SuspendLayout();
             this.groupBox_NORMAL_FLIP.SuspendLayout();
             this.groupBoxCOLORSET.SuspendLayout();
@@ -183,7 +185,7 @@
             this.groupBoxCOLORSET.Size = new System.Drawing.Size(633, 73);
             this.groupBoxCOLORSET.TabIndex = 70;
             this.groupBoxCOLORSET.TabStop = false;
-            this.groupBoxCOLORSET.Text = "COLOR setting";
+            this.groupBoxCOLORSET.Text = "COLOR batch setting";
             // 
             // comboBoxCOLORAlgorithm
             // 
@@ -374,7 +376,8 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu_InitializeConfig_ToolStripMenuItem});
+            this.Menu_InitializeConfig_ToolStripMenuItem,
+            this.Menu_COLORPresetToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(670, 25);
@@ -409,6 +412,21 @@
             this.groupBoxModGenerateConfig.TabIndex = 5;
             this.groupBoxModGenerateConfig.TabStop = false;
             this.groupBoxModGenerateConfig.Text = "Mod Generate Config";
+            // 
+            // Menu_COLORPresetToolStripMenuItem
+            // 
+            this.Menu_COLORPresetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hSRToolStripMenuItem});
+            this.Menu_COLORPresetToolStripMenuItem.Name = "Menu_COLORPresetToolStripMenuItem";
+            this.Menu_COLORPresetToolStripMenuItem.Size = new System.Drawing.Size(102, 21);
+            this.Menu_COLORPresetToolStripMenuItem.Text = "COLOR Preset";
+            // 
+            // hSRToolStripMenuItem
+            // 
+            this.hSRToolStripMenuItem.Name = "hSRToolStripMenuItem";
+            this.hSRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hSRToolStripMenuItem.Text = "HSR";
+            this.hSRToolStripMenuItem.Click += new System.EventHandler(this.hSRToolStripMenuItem_Click);
             // 
             // ConfigMod
             // 
@@ -477,5 +495,7 @@
         private System.Windows.Forms.ComboBox comboBoxCOLORAlgorithm;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTextureFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTextureHash;
+        private System.Windows.Forms.ToolStripMenuItem Menu_COLORPresetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hSRToolStripMenuItem;
     }
 }
