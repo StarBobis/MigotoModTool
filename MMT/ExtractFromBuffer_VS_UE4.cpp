@@ -7,6 +7,8 @@
 #include <set>
 #include "FrameAnalysisData.h"
 #include "ExtractUtil.h"
+#include "VertexBufferBufFile.h"
+#include "IndexBufferBufFile.h"
 
 
 void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
@@ -164,7 +166,11 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
     FmtFileData fmtFileData;
     fmtFileData.ElementNameList = d3d11GameType.OrderedFullElementList;
     fmtFileData.d3d11GameType = d3d11GameType;
+    fmtFileData.Format = L"DXGI_FORMAT_R32_UINT";
+    fmtFileData.Stride = d3d11GameType.getElementListStride(fmtFileData.ElementNameList);
     LOG.NewLine();
+
+
     LOG.Info("Start to go through every IB file:");
     //遍历每一个IB，输出
     int outputCount = 1;
@@ -176,6 +182,8 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
         std::wstring Index = IBFileName.substr(0, 6);
 
         std::wstring IBReadBufferFileName = IBFileName.substr(0, IBFileName.length() - 4) + L".buf";
+        std::wstring IBReadBufferFilePath = G.WorkFolder + IBReadBufferFileName;
+
         std::wstring IBReadFilePath = G.WorkFolder + IBFileName;
         IndexBufferTxtFile ibFileData(IBReadFilePath, true);
 
@@ -186,20 +194,6 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
         LOG.Info(L"MatcheFirstIndex: " + ibFileData.FirstIndex + L"  PartName:" + std::to_wstring(outputCount));
         LOG.Info("MinNumber: " + std::to_string(ibFileData.MinNumber) + "\t\tMaxNumber:" + std::to_string(ibFileData.MaxNumber));
 
-        std::wstring Format = ibFileData.Format;
-        std::wstring IBReadBufferFilePath = G.WorkFolder + IBReadBufferFileName;
-        std::unordered_map<int, std::vector<std::byte>> IBFileBuf = MMTFile_ReadIBBufFromFile(IBReadBufferFilePath, Format);
-        int FirstIndex = std::stoi(ibFileData.FirstIndex);
-        int IndexCount = std::stoi(ibFileData.IndexCount);
-
-        int EndIndex = FirstIndex + IndexCount;
-        std::vector<std::byte> finalIBBuf;
-        std::vector<std::byte> tmpIBBuf;
-        for (int i = FirstIndex; i < EndIndex; i++) {
-            tmpIBBuf = IBFileBuf[i];
-            finalIBBuf.insert(finalIBBuf.end(), tmpIBBuf.begin(), tmpIBBuf.end());
-        }
-        fmtFileData.Format = Format;
 
         //分别输出fmt,ib,vb
         std::wstring OutputIBBufFilePath = OutputDrawIBFolder + DrawIB + L"-" + std::to_wstring(outputCount) + L".ib";
@@ -209,13 +203,15 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
         //输出FMT文件
         fmtFileData.OutputFmtFile(OutputFmtFilePath);
         //输出IB文件
-        std::ofstream outputIBFile(OutputIBBufFilePath, std::ofstream::binary);
-        outputIBFile.write(reinterpret_cast<const char*>(finalIBBuf.data()), finalIBBuf.size());
-        outputIBFile.close();
+        IndexBufferBufFile ibBufFile(IBReadBufferFilePath, ibFileData.Format);
+        ibBufFile.SelfDivide(std::stoi(ibFileData.FirstIndex), std::stoi(ibFileData.IndexCount));
+        ibBufFile.SaveToFile_UINT32(OutputIBBufFilePath, -1 * ibBufFile.MinNumber);
+
         //输出VB文件
-        std::ofstream outputVBFile(OutputVBBufFilePath, std::ofstream::binary);
-        outputVBFile.write(reinterpret_cast<const char*>(finalVB0Buf.data()), finalVB0Buf.size());
-        outputVBFile.close();
+        VertexBufferBufFile vbBufFile;
+        vbBufFile.FinalVB0Buf = finalVB0Buf;
+        vbBufFile.SelfDivide(ibBufFile.MinNumber, ibBufFile.MaxNumber, fmtFileData.Stride);
+        vbBufFile.SaveToFile(OutputVBBufFilePath);
 
         outputCount++;
     }

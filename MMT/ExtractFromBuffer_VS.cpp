@@ -5,6 +5,8 @@
 #include "GlobalFunctions.h"
 #include "FrameAnalysisData.h"
 #include "ExtractUtil.h"
+#include "IndexBufferBufFile.h"
+#include "VertexBufferBufFile.h"
 
 
 void ExtractFromBuffer_VS() {
@@ -235,7 +237,8 @@ void ExtractFromBuffer_VS() {
         FmtFileData fmtFileData;
         fmtFileData.ElementNameList = ElementList;
         fmtFileData.d3d11GameType = d3d11GameType;
-        //fmtFileData.Format = L"DXGI_FORMAT_R32_UINT";
+        fmtFileData.Format = L"DXGI_FORMAT_R32_UINT";
+        fmtFileData.Stride = d3d11GameType.getElementListStride(fmtFileData.ElementNameList);
         LOG.NewLine();
 
 
@@ -272,26 +275,14 @@ void ExtractFromBuffer_VS() {
         for (const auto& pair : firstIndexFileNameMap) {
             std::wstring IBReadFileName = pair.second;
             std::wstring IBReadBufferFileName = IBReadFileName.substr(0, IBReadFileName.length() - 4) + L".buf";
-            std::wstring IBReadFilePath = G.WorkFolder + IBReadFileName;
-            IndexBufferTxtFile ibFileData(IBReadFilePath,false);
-            std::wstring Format = ibFileData.Format;
             std::wstring IBReadBufferFilePath = G.WorkFolder + IBReadBufferFileName;
 
-            std::unordered_map<int, std::vector<std::byte>> IBFileBuf = MMTFile_ReadIBBufFromFile(IBReadBufferFilePath, Format);
-            int FirstIndex = std::stoi(ibFileData.FirstIndex);
-            int IndexCount = std::stoi(ibFileData.IndexCount);
+            std::wstring IBReadFilePath = G.WorkFolder + IBReadFileName;
+            IndexBufferTxtFile ibFileData(IBReadFilePath,false);
+
             MatchFirstIndexList.push_back(MMTString_ToByteString(ibFileData.FirstIndex));
             PartNameList.push_back(std::to_string(outputCount));
-            int EndIndex = FirstIndex + IndexCount;
-            std::vector<std::byte> finalIBBuf;
-            std::vector<std::byte> tmpIBBuf;
-            for (int i = FirstIndex; i < EndIndex; i++) {
-                tmpIBBuf = IBFileBuf[i];
-                finalIBBuf.insert(finalIBBuf.end(), tmpIBBuf.begin(), tmpIBBuf.end());
-            }
-
-            fmtFileData.Format = Format;
-
+            
             //分别输出fmt,ib,vb
             std::wstring OutputIBBufFilePath = OutputDrawIBFolder + DrawIB + L"-" + std::to_wstring(outputCount) + L".ib";
             std::wstring OutputVBBufFilePath = OutputDrawIBFolder + DrawIB + L"-" + std::to_wstring(outputCount) + L".vb";
@@ -299,15 +290,19 @@ void ExtractFromBuffer_VS() {
 
             //输出FMT文件
             fmtFileData.OutputFmtFile(OutputFmtFilePath);
-            //输出IB文件
-            std::ofstream outputIBFile(OutputIBBufFilePath, std::ofstream::binary);
-            outputIBFile.write(reinterpret_cast<const char*>(finalIBBuf.data()), finalIBBuf.size());
-            outputIBFile.close();
-            //输出VB文件
-            std::ofstream outputVBFile(OutputVBBufFilePath, std::ofstream::binary);
-            outputVBFile.write(reinterpret_cast<const char*>(finalVB0Buf.data()), finalVB0Buf.size());
-            outputVBFile.close();
 
+            //输出IB文件
+            IndexBufferBufFile ibBufFile(IBReadBufferFilePath,ibFileData.Format);
+            ibBufFile.SelfDivide(std::stoi(ibFileData.FirstIndex), std::stoi(ibFileData.IndexCount));
+            ibBufFile.SaveToFile_UINT32(OutputIBBufFilePath, -1 * ibBufFile.MinNumber);
+            
+            //输出VB文件
+            VertexBufferBufFile vbBufFile;
+            vbBufFile.FinalVB0Buf = finalVB0Buf;
+            vbBufFile.SelfDivide(ibBufFile.MinNumber,ibBufFile.MaxNumber,fmtFileData.Stride);
+            vbBufFile.SaveToFile(OutputVBBufFilePath);
+
+            //PartName数自增
             outputCount++;
         }
 

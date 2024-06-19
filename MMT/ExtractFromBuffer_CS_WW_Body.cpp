@@ -212,6 +212,7 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
     FmtFileData fmtFileData;
     fmtFileData.ElementNameList = d3d11GameType.OrderedFullElementList;
     fmtFileData.d3d11GameType = d3d11GameType;
+    fmtFileData.Format = L"DXGI_FORMAT_R32_UINT";
     fmtFileData.Stride = d3d11GameType.getElementListStride(fmtFileData.ElementNameList);
     LOG.NewLine();
 
@@ -245,11 +246,9 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
         std::wstring OutputFmtFilePath = OutputDrawIBFolder + DrawIB + L"-" + std::to_wstring(outputCount) + L".fmt";
 
         //输出FMT文件，这里强制设为R32_UINT
-        fmtFileData.Format = L"DXGI_FORMAT_R32_UINT";
         fmtFileData.OutputFmtFile(OutputFmtFilePath);
 
         //输出IB文件
-        //TODO 测试是否正常，测试是否和之前版本输出内容相同
         IndexBufferBufFile ibBufFile(IBReadBufferFilePath, ibFileData.Format);
         ibBufFile.SelfDivide(std::stoi(ibFileData.FirstIndex), std::stoi(ibFileData.IndexCount));
         //因为我们VB文件截取出来了，所以这里的索引从0开始计算，所以要每个数都减去本身中的最小值
@@ -264,9 +263,6 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
         LOG.Info("Size: " + std::to_string(vbBufFile.FinalVB0Buf.size()));
         vbBufFile.SelfDivide(ibBufFile.MinNumber, ibBufFile.MaxNumber, fmtFileData.Stride);
         vbBufFile.SaveToFile(OutputVBBufFilePath);
-        /*std::ofstream outputVBFile(OutputVBBufFilePath, std::ofstream::binary);
-        outputVBFile.write(reinterpret_cast<const char*>(finalVB0Buf.data()), finalVB0Buf.size());
-        outputVBFile.close();*/
 
         outputCount++;
 
