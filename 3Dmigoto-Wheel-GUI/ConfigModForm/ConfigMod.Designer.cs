@@ -59,11 +59,12 @@
             this.comboBoxGameType = new System.Windows.Forms.ComboBox();
             this.Menu_InitializeConfig_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.Menu_COLORPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hSRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.groupBoxExtractConfig = new System.Windows.Forms.GroupBox();
             this.groupBoxModGenerateConfig = new System.Windows.Forms.GroupBox();
-            this.Menu_COLORPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hSRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hSR2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_TANGENT_FLIP.SuspendLayout();
             this.groupBox_NORMAL_FLIP.SuspendLayout();
             this.groupBoxCOLORSET.SuspendLayout();
@@ -385,6 +386,22 @@
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
+            // Menu_COLORPresetToolStripMenuItem
+            // 
+            this.Menu_COLORPresetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hSRToolStripMenuItem,
+            this.hSR2ToolStripMenuItem});
+            this.Menu_COLORPresetToolStripMenuItem.Name = "Menu_COLORPresetToolStripMenuItem";
+            this.Menu_COLORPresetToolStripMenuItem.Size = new System.Drawing.Size(102, 21);
+            this.Menu_COLORPresetToolStripMenuItem.Text = "COLOR Preset";
+            // 
+            // hSRToolStripMenuItem
+            // 
+            this.hSRToolStripMenuItem.Name = "hSRToolStripMenuItem";
+            this.hSRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hSRToolStripMenuItem.Text = "HSR 1";
+            this.hSRToolStripMenuItem.Click += new System.EventHandler(this.hSRToolStripMenuItem_Click);
+            // 
             // groupBoxExtractConfig
             // 
             this.groupBoxExtractConfig.Controls.Add(this.labelExtractType);
@@ -413,20 +430,12 @@
             this.groupBoxModGenerateConfig.TabStop = false;
             this.groupBoxModGenerateConfig.Text = "Mod Generate Config";
             // 
-            // Menu_COLORPresetToolStripMenuItem
+            // hSR2ToolStripMenuItem
             // 
-            this.Menu_COLORPresetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hSRToolStripMenuItem});
-            this.Menu_COLORPresetToolStripMenuItem.Name = "Menu_COLORPresetToolStripMenuItem";
-            this.Menu_COLORPresetToolStripMenuItem.Size = new System.Drawing.Size(102, 21);
-            this.Menu_COLORPresetToolStripMenuItem.Text = "COLOR Preset";
-            // 
-            // hSRToolStripMenuItem
-            // 
-            this.hSRToolStripMenuItem.Name = "hSRToolStripMenuItem";
-            this.hSRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.hSRToolStripMenuItem.Text = "HSR";
-            this.hSRToolStripMenuItem.Click += new System.EventHandler(this.hSRToolStripMenuItem_Click);
+            this.hSR2ToolStripMenuItem.Name = "hSR2ToolStripMenuItem";
+            this.hSR2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hSR2ToolStripMenuItem.Text = "HSR 2";
+            this.hSR2ToolStripMenuItem.Click += new System.EventHandler(this.hSR2ToolStripMenuItem_Click);
             // 
             // ConfigMod
             // 
@@ -497,5 +506,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTextureHash;
         private System.Windows.Forms.ToolStripMenuItem Menu_COLORPresetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hSRToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hSR2ToolStripMenuItem;
     }
 }

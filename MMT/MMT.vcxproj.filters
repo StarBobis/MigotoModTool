@@ -152,6 +152,9 @@
     <ClCompile Include="ExtractFromBuffer_VS_UE4.cpp">
       <Filter>Games\SnB</Filter>
     </ClCompile>
+    <ClCompile Include="WWUtil.cpp">
+      <Filter>Games\WuWa</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MMTFileUtils.h">

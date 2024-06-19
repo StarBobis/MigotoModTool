@@ -1,5 +1,6 @@
 #pragma once
-
+#include <iostream>
+#include <unordered_map>
 class WuwaCSInfo {
 public:
     //之前已计算顶点的总和
@@ -8,4 +9,16 @@ public:
     int CalculateTime;
     //使用哪个Shader来进行Pre-Skinning
     std::string ComputeShaderHash;
+};
+
+
+class WuwaCSInfoJsonObject {
+public:
+
+    //这里负责WuwaCSInfoJsonObject的写出和读取
+    std::unordered_map<std::string, WuwaCSInfo> PartNameWuwaCSInfoMap;
+
+    void saveToJsonFile(std::wstring outputFolder);
+
+    void readFromJsonFile(std::wstring jsonFilePath);
 };

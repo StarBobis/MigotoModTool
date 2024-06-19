@@ -2,6 +2,7 @@
 #include "MMTFileUtils.h"
 #include "MMTStringUtils.h"
 #include <fstream>
+#include "MMTFormatUtils.h"
 
 VertexBufferBufFile::VertexBufferBufFile() {
 
@@ -59,3 +60,19 @@ VertexBufferBufFile::VertexBufferBufFile(std::wstring readVBBufFilePath, D3D11Ga
 
 
 };
+
+
+void VertexBufferBufFile::SelfDivide(int MinNumber, int MaxNumber, int stride) {
+    //这里MinNumber不额外+1的原因是，如果从0开始的话，就会读取包括0的部分
+    //这里MaxNumber要+1的原因是，GetRange模仿python里的[i:i+1] 但是不包含i+1的效果看，所以不包括+1的那个
+    //所以+1才能避免少读取一个
+    this->FinalVB0Buf = MMTFormat_GetRange_Byte(this->FinalVB0Buf, stride * (MinNumber), stride * (MaxNumber+1));
+}
+
+
+void VertexBufferBufFile::SaveToFile(std::wstring VB0OutputFilePath) {
+    std::ofstream outputVBFile(VB0OutputFilePath, std::ofstream::binary);
+    outputVBFile.write(reinterpret_cast<const char*>(this->FinalVB0Buf.data()), this->FinalVB0Buf.size());
+    outputVBFile.close();
+}
+

@@ -173,5 +173,16 @@ namespace NMBT_GUI
             textBoxColorRGBB.Text = "128";
             textBoxColorRGBA.Text = "77";
         }
+
+        private void hSR2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkBoxColorRGBR.Checked = true;
+            checkBoxColorRGBG.Checked = true;
+            checkBoxColorRGBB.Checked = true;
+            checkBoxColorRGBA.Checked = false;
+            textBoxColorRGBR.Text = "255";
+            textBoxColorRGBG.Text = "128";
+            textBoxColorRGBB.Text = "128";
+        }
     }
 }

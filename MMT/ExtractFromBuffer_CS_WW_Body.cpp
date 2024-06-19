@@ -8,6 +8,8 @@
 #include "FrameAnalysisData.h"
 #include "ExtractUtil.h"
 #include "WWUtil.h"
+#include "IndexBufferBufFile.h"
+#include "VertexBufferBufFile.h"
 
 
 void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
@@ -123,8 +125,15 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
             MatchedDrawNumberCSIndex = filename.substr(0, 6);
         }
 
-        wwcsinfo.ComputeShaderHash = DrawComputeShader;
-        vertexCountWuwaCSInfoMap[drawNumber] = wwcsinfo;
+
+        if (filename.find(L"1ff924db9d4048d1") != std::wstring::npos) {
+            wwcsinfo.ComputeShaderHash = "1ff924db9d4048d1";
+        }
+        else if (filename.find(L"4d0760c2c7406824") != std::wstring::npos) {
+            wwcsinfo.ComputeShaderHash = "4d0760c2c7406824";
+
+        }
+        vertexCountWuwaCSInfoMap[wwcsinfo.CalculateTime] = wwcsinfo;
     }
     LOG.Info(L"MatchedDrawNumber: " + std::to_wstring(MatchedDrawNumber));
     LOG.Info(L"MatchedDrawNumberCSIndex: " + MatchedDrawNumberCSIndex);
@@ -134,6 +143,7 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
         LOG.Info("VertexCount: " + std::to_string(csInfo.CalculateTime) + "  Offset:" + std::to_string(csInfo.Offset) + "  ComputeShaderHash:" + csInfo.ComputeShaderHash);
     }
     LOG.NewLine();
+    
     /*
         1.当DrawComputeShader为1ff924db9d4048d1时CS各槽位内容如下：
             cs-t3 stride=8    33145   只能是长度各为4的BLENDWEIGHT和BLENDINDICES
@@ -202,6 +212,7 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
     FmtFileData fmtFileData;
     fmtFileData.ElementNameList = d3d11GameType.OrderedFullElementList;
     fmtFileData.d3d11GameType = d3d11GameType;
+    fmtFileData.Stride = d3d11GameType.getElementListStride(fmtFileData.ElementNameList);
     LOG.NewLine();
 
     LOG.Info("Start to go through every IB file:");
@@ -210,13 +221,16 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
     std::vector<std::string> MatchFirstIndexList;
     std::vector<std::string> PartNameList;
 
+    WuwaCSInfoJsonObject wuwaCSInfoJsonObject;
     for (const auto& pair : matchFirstIndexIBFileNameMap) {
         std::wstring IBFileName = pair.second;
         std::wstring Index = IBFileName.substr(0, 6);
 
         std::wstring IBReadBufferFileName = IBFileName.substr(0, IBFileName.length() - 4) + L".buf";
-        std::wstring IBReadFilePath = G.WorkFolder + IBFileName;
-        IndexBufferTxtFile ibFileData(IBReadFilePath, true);
+        std::wstring IBReadBufferFilePath = G.WorkFolder + IBReadBufferFileName;
+
+        std::wstring IBReadTxtFilePath = G.WorkFolder + IBFileName;
+        IndexBufferTxtFile ibFileData(IBReadTxtFilePath, true);
 
         MatchFirstIndexList.push_back(MMTString_ToByteString(ibFileData.FirstIndex));
         PartNameList.push_back(std::to_string(outputCount));
@@ -225,42 +239,41 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
         LOG.Info(L"MatcheFirstIndex: " + ibFileData.FirstIndex + L"  PartName:" + std::to_wstring(outputCount));
         LOG.Info("MinNumber: " + std::to_string(ibFileData.MinNumber) + "\t\tMaxNumber:" + std::to_string(ibFileData.MaxNumber));
 
-        std::wstring Format = ibFileData.Format;
-        std::wstring IBReadBufferFilePath = G.WorkFolder + IBReadBufferFileName;
-        std::unordered_map<int, std::vector<std::byte>> IBFileBuf = MMTFile_ReadIBBufFromFile(IBReadBufferFilePath, Format);
-        int FirstIndex = std::stoi(ibFileData.FirstIndex);
-        int IndexCount = std::stoi(ibFileData.IndexCount);
-
-        int EndIndex = FirstIndex + IndexCount;
-        std::vector<std::byte> finalIBBuf;
-        std::vector<std::byte> tmpIBBuf;
-        for (int i = FirstIndex; i < EndIndex; i++) {
-            tmpIBBuf = IBFileBuf[i];
-            finalIBBuf.insert(finalIBBuf.end(), tmpIBBuf.begin(), tmpIBBuf.end());
-        }
-        fmtFileData.Format = Format;
-
         //分别输出fmt,ib,vb
         std::wstring OutputIBBufFilePath = OutputDrawIBFolder + DrawIB + L"-" + std::to_wstring(outputCount) + L".ib";
         std::wstring OutputVBBufFilePath = OutputDrawIBFolder + DrawIB + L"-" + std::to_wstring(outputCount) + L".vb";
         std::wstring OutputFmtFilePath = OutputDrawIBFolder + DrawIB + L"-" + std::to_wstring(outputCount) + L".fmt";
 
-        //输出FMT文件
+        //输出FMT文件，这里强制设为R32_UINT
+        fmtFileData.Format = L"DXGI_FORMAT_R32_UINT";
         fmtFileData.OutputFmtFile(OutputFmtFilePath);
+
         //输出IB文件
-        std::ofstream outputIBFile(OutputIBBufFilePath, std::ofstream::binary);
-        outputIBFile.write(reinterpret_cast<const char*>(finalIBBuf.data()), finalIBBuf.size());
-        outputIBFile.close();
+        //TODO 测试是否正常，测试是否和之前版本输出内容相同
+        IndexBufferBufFile ibBufFile(IBReadBufferFilePath, ibFileData.Format);
+        ibBufFile.SelfDivide(std::stoi(ibFileData.FirstIndex), std::stoi(ibFileData.IndexCount));
+        //因为我们VB文件截取出来了，所以这里的索引从0开始计算，所以要每个数都减去本身中的最小值
+        ibBufFile.SaveToFile_UINT32(OutputIBBufFilePath, -1 * ibBufFile.MinNumber);
+        LOG.Info("Subdivided Unique Vertex Count: " + std::to_string(ibBufFile.UniqueVertexCount));
+        wuwaCSInfoJsonObject.PartNameWuwaCSInfoMap[std::to_string(outputCount)] = vertexCountWuwaCSInfoMap[ibBufFile.UniqueVertexCount];
+
         //输出VB文件
-        std::ofstream outputVBFile(OutputVBBufFilePath, std::ofstream::binary);
+        VertexBufferBufFile vbBufFile;
+        vbBufFile.FinalVB0Buf = finalVB0Buf;
+        LOG.Info("VBFile SelfDivide: minNumber:" + std::to_string(ibBufFile.MinNumber) + "  maxNumber:" + std::to_string(ibBufFile.MaxNumber) + " stride: " + std::to_string(fmtFileData.Stride));
+        LOG.Info("Size: " + std::to_string(vbBufFile.FinalVB0Buf.size()));
+        vbBufFile.SelfDivide(ibBufFile.MinNumber, ibBufFile.MaxNumber, fmtFileData.Stride);
+        vbBufFile.SaveToFile(OutputVBBufFilePath);
+        /*std::ofstream outputVBFile(OutputVBBufFilePath, std::ofstream::binary);
         outputVBFile.write(reinterpret_cast<const char*>(finalVB0Buf.data()), finalVB0Buf.size());
-        outputVBFile.close();
+        outputVBFile.close();*/
 
         outputCount++;
 
-
     }
 
+    //写出鸣潮的顶点数量
+    wuwaCSInfoJsonObject.saveToJsonFile(OutputDrawIBFolder);
 
     //输出Tmp.json
     extractConfig.MatchFirstIndexList = MatchFirstIndexList;

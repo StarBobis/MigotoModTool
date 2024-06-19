@@ -179,6 +179,7 @@
     <ClCompile Include="VertexBufferTxtFileDetect.cpp" />
     <ClCompile Include="VertexBufferTxtFile.cpp" />
     <ClCompile Include="GlobalConfigs.cpp" />
+    <ClCompile Include="WWUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstantBufferBufFile.h" />
