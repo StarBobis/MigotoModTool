@@ -2,6 +2,8 @@
 #include "IndexBufferBufFile.h"
 #include "VertexBufferBufFile.h"
 #include "MMTFormatUtils.h"
+#include "WWUtil.h"
+
 
 void Generate_CS_WW_Body() {
 
@@ -56,13 +58,13 @@ void Generate_CS_WW_Body() {
         int drawNumber = 0;
         std::unordered_map<std::wstring, std::unordered_map<std::wstring, std::vector<std::byte>>> partName_VBCategoryDaytaMap;
         std::unordered_map<std::string, int> partNameOffsetMap;
-
+        std::unordered_map<std::string, int> partNameVertexCountMap;
         for (std::string partName : extractConfig.PartNameList) {
             std::wstring VBFileName = MMTString_ToWideString(partName) + L".vb";
             uint64_t VBFileSize = MMTFile_GetFileSize(splitReadFolder + VBFileName);
             uint64_t vbFileVertexNumber = VBFileSize / SplitStride;
          
-
+            partNameVertexCountMap[partName] = vbFileVertexNumber;
             LOG.Info(L"Processing VB file: " + VBFileName + L" size is: " + std::to_wstring(VBFileSize) + L" byte." + L" vertex number is: " + std::to_wstring(vbFileVertexNumber));
             VertexBufferBufFile vbBufFile(splitReadFolder + VBFileName, d3d11GameType, extractConfig.TmpElementList);
             partName_VBCategoryDaytaMap[MMTString_ToWideString(partName)] = vbBufFile.CategoryVBDataMap;
@@ -127,8 +129,6 @@ void Generate_CS_WW_Body() {
             }
         }
         LOG.NewLine();
-        //TODO 可能涉及到的TANGENT翻转等等
-
 
         //直接输出
         for (const auto& pair : finalVBCategoryDataMap) {
@@ -156,6 +156,94 @@ void Generate_CS_WW_Body() {
         std::wstring outputIniFileName = splitOutputFolder + extractConfig.DrawIB  + L".ini";
         std::wofstream outputIniFile(outputIniFileName);
 
+        //如果是使用CS计算，则突破顶点数量限制
+        //TODO 除此之外，还需要调用Dispatch,所以CSReplace需要和store命令配合使用
+        //比如在1ff924db9d4048d1中，读取索引3上的计算次数到变量，通过下面填写判断变量值是否为原始顶点数
+        //来执行cs-cb0替换，并且执行我们自定义数量的Dispatch
+        //那么是否可以通过其中一个cs-tX的Hash来替换其它cs-tX槽位上的数据呢？如果不能，Dispatch要在哪里调用呢？是需要CustomShader调用嘛？
+        //TODO 有空了测试上述理论，现在cs-cb0数值已经可以更改，就差最后一个Dispatch调用位置就可以突破了
+
+        //TODO 能否绕过Dispatch的问题？比如修改一下ComputeShader，如果检测到需要变更的Dispatch数量，则使用我们自己的数值填入变量来进行替换计算次数
+        //以此绕过Dispatch限制？有空进行测试。
+        bool debug = false;
+        if (d3d11GameType.GPUPreSkinning && debug) {
+            outputIniFile << std::endl;
+            outputIniFile << L"; -------------- Break Vertex Count Limit -----------------" << std::endl << std::endl;
+            outputIniFile << L"[TextureOverride_CSReplace_VertexLimitBreak]" << std::endl;
+            //TODO 需要收集cs-cb0的hash值
+            outputIniFile << L"hash = " << MMTString_ToWideString(extractConfig.VertexLimitVB) << std::endl;
+
+            //先读取csinfo.json里的数据
+            WuwaCSInfoJsonObject wwcsinfoObject(splitReadFolder);
+
+            //遍历每个partName
+            int currentOffset = 0;
+            for (std::string partName :extractConfig.PartNameList) {
+                int currentVertexCount = partNameVertexCountMap[partName];
+                WuwaCSInfo wwcsInfo = wwcsinfoObject.PartNameWuwaCSInfoMap[partName];
+                int originalVertexCount = wwcsInfo.CalculateTime;
+                int originalOffset = wwcsInfo.Offset;
+                LOG.Info("CurrentVertexCount: " + std::to_string(currentVertexCount) + " OriginalVertexCount: " + std::to_string(originalVertexCount));
+                outputIniFile << L";------------" + MMTString_ToWideString(partName) + L"-----------" << std::endl;
+
+                if (originalVertexCount == currentVertexCount) {
+                    //顶点数相同时，无需改变顶点数，但是如果偏移不同还是需要改偏移的。
+                    if (currentOffset != originalOffset) {
+                        if (wwcsInfo.ComputeShaderHash == "4d0760c2c7406824") {
+                            //修改3个偏移数
+                            outputIniFile << L"csreplace = cs-cb0, 1, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl;
+                            outputIniFile << L"csreplace = cs-cb0, 2, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl;
+                            outputIniFile << L"csreplace = cs-cb0, 3, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl;
+                        }
+                        else if (wwcsInfo.ComputeShaderHash == "1ff924db9d4048d1") {
+                            //修改2个偏移数
+                            outputIniFile << L"csreplace = cs-cb0, 1, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl;
+                            outputIniFile << L"csreplace = cs-cb0, 2, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl;
+                        }
+                        
+                    }
+                }
+                else {
+                    if (currentOffset != originalOffset) {
+                        //顶点数不同，偏移也不同时全部都要修改
+                        if (wwcsInfo.ComputeShaderHash == "4d0760c2c7406824") {
+                            //修改3个偏移数
+                            outputIniFile << L"csreplace = cs-cb0, 1, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl;
+                            outputIniFile << L"csreplace = cs-cb0, 2, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl;
+                            outputIniFile << L"csreplace = cs-cb0, 3, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl << std::endl;
+                            //修改1个顶点数
+                            outputIniFile << L"csreplace = cs-cb0, 4, " + std::to_wstring(originalVertexCount) + L"," + std::to_wstring(currentVertexCount) << std::endl;
+
+                        }
+                        else if (wwcsInfo.ComputeShaderHash == "1ff924db9d4048d1") {
+                            //修改2个偏移数
+                            outputIniFile << L"csreplace = cs-cb0, 1, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl;
+                            outputIniFile << L"csreplace = cs-cb0, 2, " + std::to_wstring(originalOffset) + L"," + std::to_wstring(currentOffset) << std::endl << std::endl;
+                            //修改1个顶点数
+                            outputIniFile << L"csreplace = cs-cb0, 3, " + std::to_wstring(originalVertexCount) + L"," + std::to_wstring(currentVertexCount) << std::endl;
+
+                        }
+                    }
+                    else {
+                        //顶点数不同，偏移相同时，只需要改顶点数
+                        if (wwcsInfo.ComputeShaderHash == "4d0760c2c7406824") {
+                            //修改1个顶点数
+                            outputIniFile << L"csreplace = cs-cb0, 4, " + std::to_wstring(originalVertexCount) + L"," + std::to_wstring(currentVertexCount) << std::endl;
+
+                        }
+                        else if (wwcsInfo.ComputeShaderHash == "1ff924db9d4048d1") {
+                            //修改1个顶点数
+                            outputIniFile << L"csreplace = cs-cb0, 3, " + std::to_wstring(originalVertexCount) + L"," + std::to_wstring(currentVertexCount) << std::endl;
+
+                        }
+                    }
+                }
+
+                currentOffset = currentOffset + currentVertexCount;
+            }
+
+        }
+
         outputIniFile << std::endl;
         outputIniFile << L"; -------------- TextureOverride VB -----------------" << std::endl << std::endl;
         //1.写出VBResource部分
@@ -165,11 +253,9 @@ void Generate_CS_WW_Body() {
             int fileSize = MMTFile_GetFileSize(filePath);
             std::string categoryHash = extractConfig.CategoryHashMap[categoryName];
             std::string categorySlot = d3d11GameType.CategorySlotMap[categoryName];
-            if (categoryName != "UVTOP") {
-                outputIniFile << L"[TextureOverride_" + MMTString_ToWideString(categoryName) + L"_Replace]" << std::endl;
-                outputIniFile << L"hash = " << MMTString_ToWideString(categoryHash) << "" << std::endl;
-                outputIniFile << "this = " << L"Resource_VB_" + MMTString_ToWideString(categoryName) + L"" << std::endl << std::endl;
-            }
+            outputIniFile << L"[TextureOverride_" + MMTString_ToWideString(categoryName) + L"_Replace]" << std::endl;
+            outputIniFile << L"hash = " << MMTString_ToWideString(categoryHash) << "" << std::endl;
+            outputIniFile << "this = " << L"Resource_VB_" + MMTString_ToWideString(categoryName) + L"" << std::endl << std::endl;
         }
 
         outputIniFile << std::endl;

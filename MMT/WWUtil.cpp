@@ -29,7 +29,27 @@ void WuwaCSInfoJsonObject::saveToJsonFile(std::wstring outputFolder) {
 }
 
 
-void WuwaCSInfoJsonObject::readFromJsonFile(std::wstring jsonFilePath) {
 
-    
+WuwaCSInfoJsonObject::WuwaCSInfoJsonObject() {
+
+}
+
+WuwaCSInfoJsonObject::WuwaCSInfoJsonObject(std::wstring readFolderPath) {
+    std::wstring readJsonPath = readFolderPath + L"wwinfo.json";
+    if (std::filesystem::exists(readJsonPath)) {
+        json wwcsinfoJson = MMTJson_ReadJsonFromFile(readJsonPath);
+        WuwaCSInfo wwcsInfo;
+        for (const auto& item : wwcsinfoJson.items()) {
+            std::string CalculateTime = item.value()["CalculateTime"];
+            std::string Offset = item.value()["Offset"];
+            std::string ComputeShaderHash = item.value()["ComputeShaderHash"];
+            LOG.Info("CalculateTime: " + CalculateTime);
+            LOG.Info("Offset: " + Offset);
+            LOG.Info("ComputeShaderHash: " + ComputeShaderHash);
+            wwcsInfo.CalculateTime = std::stoi(CalculateTime);
+            wwcsInfo.Offset = std::stoi(Offset);
+            wwcsInfo.ComputeShaderHash = ComputeShaderHash;
+            this->PartNameWuwaCSInfoMap[item.key()] = wwcsInfo;
+        }
+    }
 }

@@ -178,12 +178,14 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
     std::wstring PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MatchedDrawNumberCSIndex + PositionExtractSlot, L".buf")[0];
     std::wstring NormalColorExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MatchedDrawNumberCSIndex + NormalExtractSlot, L".buf")[0];
     std::wstring BlendExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(MatchedDrawNumberCSIndex + BlendExtractSlot, L".buf")[0];
+    std::wstring CS_CB0_FileName = FAData.FindFrameAnalysisFileNameListWithCondition(MatchedDrawNumberCSIndex + L"-cs-cb0=", L".buf")[0];
 
     //这里的变量名放到上面初始化了
     LOG.Info(L"PositionExtractFileName: " + PositionExtractFileName);
     LOG.Info(L"NormalExtractFileName: " + NormalColorExtractFileName);
     LOG.Info(L"BlendExtractFileName: " + BlendExtractFileName);
     LOG.Info(L"TexcoordExtractFileName: " + TexcoordExtractFileName);
+    LOG.Info(L"CS_CB0_FileName: " + CS_CB0_FileName);
 
     std::unordered_map<int, std::vector<std::byte>> PositionBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + PositionExtractFileName, MatchNumber);
     std::unordered_map<int, std::vector<std::byte>> NormalTangentBufMap = MMTFile_ReadBufMapFromFile(G.WorkFolder + NormalColorExtractFileName, MatchNumber);
@@ -193,13 +195,14 @@ void ExtractFromBuffer_CS_WW_Body(std::wstring DrawIB,std::wstring GameType) {
     std::wstring CategoryHash_Position = PositionExtractFileName.substr(13, 8);
     std::wstring CategoryHash_NormalColor = NormalColorExtractFileName.substr(13, 8);
     std::wstring CategoryHash_Blend = BlendExtractFileName.substr(13, 8);
-    std::wstring CategoryTexcoord = TexcoordExtractFileName.substr(13, 8);
+    std::wstring CategoryHash_Texcoord = TexcoordExtractFileName.substr(13, 8);
+    std::wstring CS_CB0_Hash = CS_CB0_FileName.substr(14, 8);
 
     extractConfig.CategoryHashMap["Position"] = MMTString_ToByteString(CategoryHash_Position);
     extractConfig.CategoryHashMap["Normal"] = MMTString_ToByteString(CategoryHash_NormalColor);
     extractConfig.CategoryHashMap["Blend"] = MMTString_ToByteString(CategoryHash_Blend);
-    extractConfig.CategoryHashMap["Texcoord"] = MMTString_ToByteString(CategoryTexcoord);
-
+    extractConfig.CategoryHashMap["Texcoord"] = MMTString_ToByteString(CategoryHash_Texcoord);
+    extractConfig.VertexLimitVB = MMTString_ToByteString(CS_CB0_Hash);
 
     std::vector<std::byte> finalVB0Buf;
     for (int i = 0; i < MatchNumber; i++) {

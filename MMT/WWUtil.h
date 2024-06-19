@@ -20,5 +20,7 @@ public:
 
     void saveToJsonFile(std::wstring outputFolder);
 
-    void readFromJsonFile(std::wstring jsonFilePath);
+    WuwaCSInfoJsonObject();
+
+    WuwaCSInfoJsonObject(std::wstring readFolderPath);
 };

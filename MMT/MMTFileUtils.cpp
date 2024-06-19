@@ -244,28 +244,5 @@ bool MMTFile_IsValidFilename(std::string filename) {
 
 
 
-//TODO 这个方法要优化掉
-std::unordered_map<int, std::vector<std::byte>> MMTFile_ReadIBBufFromFile(std::wstring readPathW, std::wstring Format) {
-    std::unordered_map<int, std::vector<std::byte>> BufMap;
 
-    int stride = 0;
-    std::wstring lowerFormatStr = boost::algorithm::to_lower_copy(Format);
-    if (lowerFormatStr == L"dxgi_format_r16_uint") {
-        stride = 2;
-    }
-    if (lowerFormatStr == L"dxgi_format_r32_uint") {
-        stride = 4;
-    }
-    int size = MMTFile_GetFileSize(readPathW);
-    int vertexNumber = size / stride;
-
-    std::vector<std::byte> Buffer(size);
-    std::ifstream BufFile(readPathW, std::ifstream::binary);
-    BufFile.read(reinterpret_cast<char*>(Buffer.data()), size);
-    BufFile.close();
-    for (int i = 0; i < vertexNumber; i++) {
-        BufMap[i] = MMTFormat_GetRange_Byte(Buffer, i * stride, i * stride + stride);
-    }
-    return BufMap;
-}
 
