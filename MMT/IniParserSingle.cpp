@@ -312,7 +312,7 @@ std::vector<DrawIBMod> parseDrawIBModList(
     }
     LOG.NewLine();
 
-    LOG.Info(L"Start to order TextureOverrideIB,make sure from lower to bigger.");
+    LOG.Info(L"Start to generate order TextureOverrideIB, make sure from lower to bigger.");
     std::unordered_map<std::wstring, std::vector<TextureOverrideIB>> orderedHashTextureOverrideIBListMap;
     for (const auto& pair : hashTextureOverrideIBListMap) {
         std::wstring hashValue = pair.first;
@@ -329,11 +329,13 @@ std::vector<DrawIBMod> parseDrawIBModList(
             ibObject.minNumber = ibBufFile.MinNumber;
             ibObject.maxNumber = ibBufFile.MaxNumber;
             ibObject.indexCount = ibBufFile.NumberCount;
+            ibObject.vertexCount = ibBufFile.UniqueVertexCount;
             SectionNameTextureOverrideMap[sectionName] = ibObject;
 
             LOG.Info(L"sectionName: " + sectionName);
             LOG.Info(L"minNumber: " + std::to_wstring(ibBufFile.MinNumber));
             LOG.Info(L"indexCount: " + std::to_wstring(ibBufFile.NumberCount));
+            LOG.Info(L"vertexCount: " + std::to_wstring(ibBufFile.UniqueVertexCount));
             textureOverrideSectionNameMap[ibBufFile.MinNumber] = sectionName;
         }
 
@@ -394,26 +396,21 @@ std::vector<DrawIBMod> parseDrawIBModList(
     //}
     //LOG.LogOutputSplitStr();
 
-
     LOG.Info(L"Start to combine DrawIBModList:");
     LOG.Info(L"hashTextureOverrideIBListMap size: " + std::to_wstring(hashTextureOverrideIBListMap.size()));
-    LOG.Info(L"Method1: Use MaxNumber to match between TextureOverrideIB and ResourceVB");
+    LOG.Info(L"Use VertexNumber to match between TextureOverrideIB and ResourceVB");
     int shouldMatchCount = 0;
     for (const auto& pair : hashTextureOverrideIBListMap) {
-
-
         std::wstring hashValue = pair.first;
         LOG.Info(L"Current HaseValue:" + hashValue);
         std::vector<TextureOverrideIB> tmpTextureOverrideIBList = pair.second;
 
-        int maxNumber = 0;
+        //这里使用多个IB文件中唯一的数值的总数之和作为此Mod总顶点数
+        int TotalVertexCount = 0;
         for (TextureOverrideIB obj : tmpTextureOverrideIBList) {
-            if (obj.maxNumber > maxNumber) {
-                maxNumber = obj.maxNumber;
-            }
+            TotalVertexCount = TotalVertexCount + obj.vertexCount;
         }
-        maxNumber++;
-        LOG.Info(L"DrawIB Vertex Count number: " + std::to_wstring(maxNumber));
+        LOG.Info(L"DrawIB Vertex Count number: " + std::to_wstring(TotalVertexCount));
         LOG.NewLine();
         DrawIBMod drawIBMod;
         drawIBMod.hash = hashValue;
@@ -422,7 +419,7 @@ std::vector<DrawIBMod> parseDrawIBModList(
             obj.show();
         }
 
-        drawIBMod.resourceVBList = sizeResourceVBListMap[maxNumber];
+        drawIBMod.resourceVBList = sizeResourceVBListMap[TotalVertexCount];
         for (ModResource obj : drawIBMod.resourceVBList) {
             obj.show();
         }
@@ -432,131 +429,11 @@ std::vector<DrawIBMod> parseDrawIBModList(
             shouldMatchCount++;
         }
         else {
-            LOG.Info(L"Can't find any match ResourceVB for hash: " + hashValue);
+            LOG.Warning(L"Can't find any match ResourceVB for hash: " + hashValue);
         }
     }
-    LOG.Info(L"Method1 Completed.");
-
-    if (shouldMatchCount < hashTextureOverrideIBListMap.size()) {
-        LOG.Info(L"Can't match all only use exactly match, try fuzzy match with IndexCount.");
-        LOG.Info(L"Method1(Back Up): Use IndexCount to fuzzy match between TextureOverrideIB and ResourceVB");
-        LOG.Info(L"Because we can't match exactly with MaxNumber");
-        LOG.Info(L"So we think all MaxNumber match is wrong, and use fuzzy match to rematch all,and delete the MaxNumber match result.");
-        drawIBModList.clear();
-
-        for (const auto& pair : hashTextureOverrideIBListMap) {
-            std::wstring hashValue = pair.first;
-            LOG.Info(L"Current HaseValue:" + hashValue);
-            std::vector<TextureOverrideIB> tmpTextureOverrideIBList = pair.second;
-
-            int combinedIndexCount = 0;
-            for (TextureOverrideIB obj : tmpTextureOverrideIBList) {
-                LOG.Info(L"Current add IBFileName: " + obj.IBFileName);
-                LOG.Info(L"Combined IndexCount += " + std::to_wstring(obj.indexCount));
-                LOG.Info(L"Current IndexCount += " + std::to_wstring(combinedIndexCount));
-                combinedIndexCount += obj.indexCount;
-            }
-
-            combinedIndexCount = combinedIndexCount / 3;
-
-            LOG.Info(L"DrawIB Index Count number: " + std::to_wstring(combinedIndexCount));
-            LOG.NewLine();
-            DrawIBMod drawIBMod;
-            drawIBMod.hash = hashValue;
-            drawIBMod.textureOverrideIBList = tmpTextureOverrideIBList;
-            for (TextureOverrideIB obj : tmpTextureOverrideIBList) {
-                obj.show();
-            }
-
-            int mostMatchSize = -1;
-            int minDifference = 999999999;
-            for (const auto& pair : sizeResourceVBListMap) {
-                int size = pair.first;
-                LOG.Info(L"Curent Resource Size: " + std::to_wstring(size));
-
-                int difference = abs(size - combinedIndexCount);
-                LOG.Info(L"Curent Difference: " + std::to_wstring(difference));
-                if (difference < minDifference) {
-                    minDifference = difference;
-                    mostMatchSize = size;
-                }
-
-                //if (size > combinedIndexCount) {
-                //    int difference = abs(size - combinedIndexCount);
-                //    LOG.LogOutput(L"Curent Difference: " + std::to_wstring(difference));
-                //    if (difference < minDifference) {
-                //        minDifference = difference;
-                //        mostMatchSize = size;
-                //    }
-                //}
-            }
-
-            if (mostMatchSize == -1) {
-                LOG.Error(L"Can't even find any fuzzy matched resource ??");
-            }
-
-            drawIBMod.resourceVBList = sizeResourceVBListMap[mostMatchSize];
-            for (ModResource obj : drawIBMod.resourceVBList) {
-                obj.show();
-            }
-
-            if (drawIBMod.resourceVBList.size() > 0) {
-                drawIBModList.push_back(drawIBMod);
-                shouldMatchCount++;
-            }
-            else {
-                LOG.Info(L"Can't find any match ResourceVB for hash: " + hashValue);
-            }
-        }
-
-        if (shouldMatchCount < hashTextureOverrideIBListMap.size()) {
-            LOG.Warning(L"Even fuzzy match can't match any ResourceVB ! this is crazy and seems can't even happen.");
-        }
-        else {
-            LOG.Info(L"Fuzzy Match use IndexCount success!");
-        }
-    }
-
-
-    if (hashTextureOverrideIBListMap.size() == 1 && drawIBModList.size() == 0) {
-        LOG.Info(L"Process special situation: Only one single DrawIB and can't match any resourceVB.");
-        LOG.Info(L"Trying to force them together.");
-        for (const auto& pair : hashTextureOverrideIBListMap) {
-            std::wstring hashValue = pair.first;
-            LOG.Info(L"Current HaseValue:" + hashValue);
-            std::vector<TextureOverrideIB> tmpTextureOverrideIBList = pair.second;
-
-            int maxNumber = 0;
-            for (TextureOverrideIB obj : tmpTextureOverrideIBList) {
-                if (obj.maxNumber > maxNumber) {
-                    maxNumber = obj.maxNumber;
-                }
-            }
-            maxNumber++;
-            LOG.Info(L"DrawIB Vertex Count number: " + std::to_wstring(maxNumber));
-            LOG.NewLine();
-            DrawIBMod drawIBMod;
-            drawIBMod.hash = hashValue;
-            drawIBMod.textureOverrideIBList = tmpTextureOverrideIBList;
-            for (TextureOverrideIB obj : tmpTextureOverrideIBList) {
-                obj.show();
-            }
-
-            drawIBMod.resourceVBList = ResourceVBList;
-            for (ModResource obj : drawIBMod.resourceVBList) {
-                obj.show();
-            }
-
-            if (drawIBMod.resourceVBList.size() > 0) {
-                drawIBModList.push_back(drawIBMod);
-            }
-            else {
-                LOG.Warning(L"Can't find any match ResourceVB for hash: " + hashValue);
-            }
-        }
-    }
-
-
+    LOG.Info(L"Combine DrawIBModList success.");
+    LOG.NewLine();
     return drawIBModList;
 }
 

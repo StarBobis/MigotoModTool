@@ -128,6 +128,7 @@ public:
 
     int minNumber;
     int maxNumber;
+    int vertexCount;
 
     //For fuzzy match
     int indexCount;
@@ -144,6 +145,7 @@ public:
         this->minNumber = 0;
         this->maxNumber = 0;
         this->indexCount = 0;
+        this->vertexCount = 0;
     }
 
     void show() {
@@ -155,6 +157,7 @@ public:
         LOG.Info(L"IBFileFormat: " + IBFileFormat);
         LOG.Info(L"minNumber: " + std::to_wstring(minNumber));
         LOG.Info(L"maxNumber: " + std::to_wstring(maxNumber));
+        LOG.Info(L"vertexCount: " + std::to_wstring(vertexCount));
         LOG.NewLine();
     }
 };
