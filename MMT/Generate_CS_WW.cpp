@@ -157,14 +157,8 @@ void Generate_CS_WW_Body() {
         std::wofstream outputIniFile(outputIniFileName);
 
         //如果是使用CS计算，则突破顶点数量限制
-        //TODO 除此之外，还需要调用Dispatch,所以CSReplace需要和store命令配合使用
-        //比如在1ff924db9d4048d1中，读取索引3上的计算次数到变量，通过下面填写判断变量值是否为原始顶点数
-        //来执行cs-cb0替换，并且执行我们自定义数量的Dispatch
-        //那么是否可以通过其中一个cs-tX的Hash来替换其它cs-tX槽位上的数据呢？如果不能，Dispatch要在哪里调用呢？是需要CustomShader调用嘛？
-        //TODO 有空了测试上述理论，现在cs-cb0数值已经可以更改，就差最后一个Dispatch调用位置就可以突破了
+        //TODO 有空研究一下鸣潮这种特殊情况应该在哪里调用Dispatch
 
-        //TODO 能否绕过Dispatch的问题？比如修改一下ComputeShader，如果检测到需要变更的Dispatch数量，则使用我们自己的数值填入变量来进行替换计算次数
-        //以此绕过Dispatch限制？有空进行测试。
         bool debug = false;
         if (d3d11GameType.GPUPreSkinning && debug) {
             outputIniFile << std::endl;
@@ -296,6 +290,7 @@ void Generate_CS_WW_Body() {
         outputIniFile << L"; -------------- IB Skip -----------------" << std::endl << std::endl;
 
         //IB SKIP部分
+        outputIniFile << L"[Resource_BakIB]" << std::endl;
         outputIniFile << L"[TextureOverride_" + extractConfig.DrawIB + L"_IB_SKIP]" << std::endl;
         outputIniFile << L"hash = " + extractConfig.DrawIB << std::endl;
         outputIniFile << "handling = skip" << std::endl;
@@ -338,17 +333,17 @@ void Generate_CS_WW_Body() {
 
             //4.IBOverride部分
             std::string IBFirstIndex = extractConfig.MatchFirstIndexList[i];
-            outputIniFile << L"[Resource_BakIB" + MMTString_ToWideString(partName) + L"]" << std::endl;
+            
             outputIniFile << L"[TextureOverride_IB_" + extractConfig.DrawIB + L"_" + MMTString_ToWideString(partName) + L"]" << std::endl;
             outputIniFile << L"hash = " + extractConfig.DrawIB << std::endl;
-            outputIniFile << L"Resource_BakIB" + MMTString_ToWideString(partName) + L" = ref ib" << std::endl;
+            outputIniFile << L"Resource_BakIB = ref ib" << std::endl;
             outputIniFile << L"match_first_index = " + MMTString_ToWideString(IBFirstIndex) << std::endl;
             if (generateSwitchKey) {
                 outputIniFile << L"if $" + switchVarName + L" == 1" << std::endl;
             }
             outputIniFile << replace_prefix << L"ib = Resource_IB_" + extractConfig.DrawIB + L"_" + MMTString_ToWideString(partName) << std::endl;
             outputIniFile << replace_prefix << "drawindexed = auto" << std::endl;
-            outputIniFile << L"ib = Resource_BakIB" + MMTString_ToWideString(partName) << std::endl;
+            outputIniFile << L"ib = Resource_BakIB" << std::endl;
 
             if (generateSwitchKey) {
                 outputIniFile << "endif" << std::endl;
