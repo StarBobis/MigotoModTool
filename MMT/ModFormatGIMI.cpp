@@ -4,9 +4,10 @@
 
 
 ModFormat_GIMI_INI::ModFormat_GIMI_INI(std::wstring IniFilePath) {
-
+    //首先我们把所有的不同的3Dmigoto的ini类型都解析为单独的Section，相比于Lv3的架构更加模块化，方便后续处理
     std::vector<M_SectionLine> migotoSectionLineList = MigotoParseUtil_ParseMigotoSectionLineList(IniFilePath);
 
+    //列出要解析的内容
     std::vector<M_Variable> global_M_VariableList;
     std::vector<M_Key> global_M_KeyList;
     std::vector<M_Resource> global_M_ResourceList;
@@ -51,7 +52,7 @@ ModFormat_GIMI_INI::ModFormat_GIMI_INI(std::wstring IniFilePath) {
     this->Global_M_ResourceList = global_M_ResourceList;
     this->Global_M_TextureOverrideList = global_M_TextureOverrideList;
 
-
+    //TODO 把所有的都写在这一个大的分类里，是不是有点太冗杂了，后面要拆成单独的方法一个一个调用，方便模块化处理。
 
     // 把Resource的列表变成ResourceName:Resource的Map，
     // 方便后面直接通过名字获取Resource，方便很多，甚至还能少写一个方法
@@ -102,11 +103,13 @@ ModFormat_GIMI_INI::ModFormat_GIMI_INI(std::wstring IniFilePath) {
 
 
     //TODO 每个Mod先根据Hash排列开
+    
     std::unordered_map<std::wstring, std::vector<M_TextureOverride>> hash_TextureOverrideIBList_Map;
     for (M_TextureOverride m_texture_override : global_M_TextureOverrideList) {
         std::wstring IBHashValue = m_texture_override.IndexBufferHash;
         //LOG.Info(L"IBHashValue: " + IBHashValue);
         //如果存在drawindexed，说明是IB替换类型的TextureOverride
+        //TODO 这里根据DrawIndexedList.size()不太科学，在传统Mod识别里应该根据ib来进行区分，所以这些步骤必须得模块化拆分，才能方便处理不同的情况
         if (m_texture_override.DrawIndexedList.size() != 0) {
             std::vector<M_TextureOverride> TextureOverrideIBList = hash_TextureOverrideIBList_Map[IBHashValue];
             TextureOverrideIBList.push_back(m_texture_override);
@@ -120,6 +123,13 @@ ModFormat_GIMI_INI::ModFormat_GIMI_INI(std::wstring IniFilePath) {
         }
     }
     this->Hash_TextureOverrideIBList_Map = hash_TextureOverrideIBList_Map;
+
+    //TODO 这里已经根据Hash分开了每个Hash对应的TextureOverrideIB，那么这时应该根据顶点数去Resource中匹配对应的Resource，组合成一个单独的Mod
+    //这样每个Hash都是一个单独的Mod，到了外面只需要根据Hash进行分类输出即可。
+
+
+    
+
 
 }
 
@@ -298,6 +308,7 @@ SingleMod::SingleMod(D3D11GameType d3d11GameTypeInput, std::vector<M_Resource> R
         LOG.Error("Wrong possible ResourceVB size, is your mod contains a extra Remapped Blend part? please remove it and try again.");
     }
 
+    //确保我们识别出来的排序后的Resource列表大小和原本的相等，才能算是识别到了一个有效的Mod
     if (this->OrderedResourceVBList.size() != ResourceVBListInput.size()) {
         this->ValidMod = false;
     }

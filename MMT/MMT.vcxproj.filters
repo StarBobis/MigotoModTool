@@ -25,9 +25,6 @@
     <Filter Include="DataModel\VertexBuffer">
       <UniqueIdentifier>{44463c7c-fb0a-47ec-b08e-804292e1c72e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sword-Lv3">
-      <UniqueIdentifier>{fd2fc426-9f5c-4b0b-b253-d2f8a26e94e2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Games">
       <UniqueIdentifier>{c4cca096-fc1f-4222-a6e5-7dd45efeb866}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="Games\WuWa">
       <UniqueIdentifier>{e4a8d541-4643-42c5-a17a-99f606373c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sword-Lv3-Deprecated">
+      <UniqueIdentifier>{fd2fc426-9f5c-4b0b-b253-d2f8a26e94e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,13 +69,13 @@
     </ClCompile>
     <ClCompile Include="GlobalConfigs.cpp" />
     <ClCompile Include="IniParserMerged.cpp">
-      <Filter>Sword-Lv3</Filter>
+      <Filter>Sword-Lv3-Deprecated</Filter>
     </ClCompile>
     <ClCompile Include="IniParserSingle.cpp">
-      <Filter>Sword-Lv3</Filter>
+      <Filter>Sword-Lv3-Deprecated</Filter>
     </ClCompile>
     <ClCompile Include="ReverseEntry.cpp">
-      <Filter>Sword-Lv3</Filter>
+      <Filter>Sword-Lv3-Deprecated</Filter>
     </ClCompile>
     <ClCompile Include="MMTLogUtils.cpp">
       <Filter>Utils</Filter>
@@ -86,7 +86,7 @@
     <ClCompile Include="ModFormatGIMI.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
-    <ClCompile Include="ReverseOutfitCompilerCompressed.cpp">
+    <ClCompile Include="ReverseOutfitCompilerCompressedLv4.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
     <ClCompile Include="IndexBufferTxtFile.cpp">
@@ -155,6 +155,12 @@
     <ClCompile Include="WWUtil.cpp">
       <Filter>Games\WuWa</Filter>
     </ClCompile>
+    <ClCompile Include="ReverseSingleLv4.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
+    <ClCompile Include="ReverseMergedLv4.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MMTFileUtils.h">
@@ -186,7 +192,7 @@
     </ClInclude>
     <ClInclude Include="GlobalConfigs.h" />
     <ClInclude Include="IniParser.h">
-      <Filter>Sword-Lv3</Filter>
+      <Filter>Sword-Lv3-Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="MMTLogUtils.h">
       <Filter>Utils</Filter>

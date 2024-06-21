@@ -64,11 +64,6 @@ void ExtractFromBuffer_VS_Reverse() {
                     //VertexBufferFileData vertexBufferFileData = VertexBufferFileData(wheelConfig.WorkFolder + vb0FileName, d3D11ElementAttribute, false, false);
                     //LOG.Info(L"VertexCount(Buffer) Str: " + std::to_wstring(vertexBufferDetect.fileBufferVertexCount));
                     
-                    
-                    //TODO 这里到底是使用展示的VertexCount好呢还是Buffer的好呢？
-                    //TODO 如果使用Buffer的，则崩铁三月七头发无法提取。
-                    //TODO 测完这个再测试一个原神Mod逆向
-
                     //这里已经确定，只能用Buffer来确定顶点数
                     //但是有时候Buffer会添加一大堆0作为干扰项
                     //需要一个函数去除结尾的所有的0x00

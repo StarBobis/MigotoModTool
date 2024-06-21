@@ -197,6 +197,7 @@ M_TextureOverride parseTextureOverrideSection(M_SectionLine m_sectionLine) {
 			ifLevel++;
 			LOG.Info(L"Meet if, IfLevel: " + std::to_wstring(ifLevel));
 
+			//TODO 这里的解析是有问题的，没法处理使用&& 或者||的情况，需要抽象出单独的逻辑和变量解析。
 			std::wstring conditionStr = lowerReadLine.substr(2);
 			LOG.Info(L"Meet Condition: " + lowerReadLine);
 			IniLineObject conditionLine(conditionStr);

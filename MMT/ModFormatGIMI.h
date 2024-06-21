@@ -32,6 +32,7 @@ public:
 	std::wstring OutputFolderGameTypePath;
 	std::vector<std::string> ElementList;
 
+	//这里一定要注意，索引是从1开始的，并不是从0开始的
 	std::unordered_map<int, std::vector<byte>> VB0IndexNumberBytes;
 	std::vector<byte> finalVB0Bytes;
 	bool ValidMod = false;
