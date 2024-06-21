@@ -83,7 +83,7 @@
     <ClCompile Include="MigotoParseUtil.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
-    <ClCompile Include="ModFormatGIMI.cpp">
+    <ClCompile Include="ModFormatUnity.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
     <ClCompile Include="ReverseOutfitCompilerCompressedLv4.cpp">
@@ -200,7 +200,7 @@
     <ClInclude Include="MigotoParseUtil.h">
       <Filter>Sword-Lv4</Filter>
     </ClInclude>
-    <ClInclude Include="ModFormatGIMI.h">
+    <ClInclude Include="ModFormatUnity.h">
       <Filter>Sword-Lv4</Filter>
     </ClInclude>
     <ClInclude Include="GlobalFunctions.h" />

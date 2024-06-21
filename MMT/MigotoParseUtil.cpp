@@ -106,94 +106,14 @@ std::vector<M_DrawIndexed> MigotoParseUtil_GetActiveDrawIndexedListByKeyCombinat
 }
 
 
-void MigotoParseUtil_OutputIBFileByDrawIndexedList(
-    std::wstring OriginalIBPath,std::wstring TargetIBPath,
-    std::wstring IBReadFormat,std::vector<M_DrawIndexed> ActiveDrawIndexedList,
-    int MinNumber) 
-{
-
-    std::wstring IBReadDxgiFormat = IBReadFormat;
-    boost::algorithm::to_lower(IBReadDxgiFormat);
-    std::wstring IBFilePath = OriginalIBPath;
-    //TODO 需要一个获取IB文件最小值和最大值的方法，后面有用，但是这里只需要用到最小值
-    int minNumber = MinNumber;
-
-
-    int readLength = 2;
-    if (IBReadDxgiFormat == L"dxgi_format_r16_uint") {
-        readLength = 2;
-    }
-    if (IBReadDxgiFormat == L"dxgi_format_r32_uint") {
-        readLength = 4;
-    }
-    std::ifstream ReadIBFile(IBFilePath, std::ios::binary);
-
-    std::vector<uint16_t> IBR16DataList = {};
-    std::vector<uint32_t> IBR32DataList = {};
-
-    char* data = new char[readLength];
-
-    while (ReadIBFile.read(data, readLength)) {
-        if (IBReadDxgiFormat == L"dxgi_format_r16_uint") {
-            std::uint16_t value = MMTFormat_CharArrayToUINT16_T(data);
-            value = value - static_cast<std::uint16_t>(minNumber);
-            IBR16DataList.push_back(value);
-
-        }
-        if (IBReadDxgiFormat == L"dxgi_format_r32_uint") {
-            std::uint32_t value = MMTFormat_CharArrayToUINT32_T(data);
-            value = value - static_cast<std::uint32_t>(minNumber);
-            IBR32DataList.push_back(value);
-        }
-    }
-
-    ReadIBFile.close();
-    std::wstring outputIBFileName = TargetIBPath;
-
-    if (IBReadDxgiFormat == L"dxgi_format_r16_uint") {
-        IBR32DataList = std::vector<uint32_t>(IBR16DataList.size());
-        std::transform(IBR16DataList.begin(), IBR16DataList.end(), IBR32DataList.begin(),
-            [](uint16_t value) { return static_cast<uint32_t>(value); });
-    }
-
-    //这里要根据ActiveDrawIndexed来截取出需要写出的部分而不是所有的部分
-    std::vector<uint32_t> Output_UINT32T_DataList;
-
-    for (M_DrawIndexed drawIndexed : ActiveDrawIndexedList) {
-        //LOG.Info(drawIndexed.DrawNumber);
-        //LOG.Info(drawIndexed.DrawOffsetIndex);
-        boost::algorithm::trim(drawIndexed.DrawNumber);
-        boost::algorithm::trim(drawIndexed.DrawOffsetIndex);
-
-        int drawNumber = std::stoi(drawIndexed.DrawNumber);
-        int offsetNumber = std::stoi(drawIndexed.DrawOffsetIndex);
-        LOG.Info(L"drawNumber" + std::to_wstring(drawNumber));
-        LOG.Info(L"offsetNumber" + std::to_wstring(offsetNumber));
-
-        std::vector<uint32_t> tmpList = MMTFormat_GetRange_UINT32T(IBR32DataList, offsetNumber, offsetNumber + drawNumber);
-        Output_UINT32T_DataList.insert(Output_UINT32T_DataList.end(), tmpList.begin(), tmpList.end());
-    }
-
-    LOG.Info(L"Output_UINT32T_DataList Size: " + std::to_wstring(Output_UINT32T_DataList.size()));
-
-    LOG.Info(L"IB file format: " + IBReadDxgiFormat);
-    LOG.Info(L"IB file length: " + std::to_wstring(Output_UINT32T_DataList.size()));
-    std::ofstream file(outputIBFileName, std::ios::binary);
-    for (const auto& data : Output_UINT32T_DataList) {
-        uint32_t paddedData = data;
-        file.write(reinterpret_cast<const char*>(&paddedData), sizeof(uint32_t));
-    }
-    file.close();
-
-}
-
-
 std::wstring MigotoParseUtil_Get_M_Key_Combination_String(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap) {
     std::wstring combinationStr;
     int count = 1;
     for (const auto& pair: KeyCombinationMap) {
         if (!MMTFile_IsValidFilename(MMTString_ToByteString(pair.first))) {
+            //有些人会用文件名中不能出现的字符比如\ /来作为按键的值来对抗自动逆向
             //如果用文件名无法使用的字符来对抗逆向，那这里就使用数值代替
+            //TODO 未来再补充
             combinationStr = combinationStr + L"$key" + std::to_wstring(count) + L"_";
         }
         else {
@@ -204,10 +124,7 @@ std::wstring MigotoParseUtil_Get_M_Key_Combination_String(std::unordered_map<std
     }
 
 
-    //有些人会用文件名中不能出现的字符比如\ /来作为按键来对抗自动逆向，这时候根据UUID生成文件夹名称(不合适)。
-    //if (!MMTFile_IsValidFilename(MMTString_ToByteString(combinationStr))) {
-    //    combinationStr = MMTString_GenerateUUIDW();
-    //}
+    
     return combinationStr;
 
 }
@@ -249,8 +166,6 @@ std::vector<M_SectionLine> MigotoParseUtil_ParseMigotoSectionLineList(std::wstri
     //之前的设计是每调用一个方法，解析一种数据类型，现在我们直接按Section来，
     //读取每一行，判断是否为[开头，是就进入Section读取区域，否则就读取是否为namespace
     //然后读取到Section之后呢，先不处理，先把此section所有的行放到一个section对象里，然后所有section对象放到列表，等待后续处理。
-
-
     std::vector<std::wstring> tmpSectionLineList;
     M_SectionLine lastMigotoSectionLine;
     bool inSection = false;

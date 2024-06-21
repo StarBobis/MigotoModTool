@@ -99,10 +99,10 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
         }
     }
     else if (G.RunCommand == L"reverseOutfitCompiler") {
-        ReverseOutfitCompilerCompressed();
+        ReverseOutfitCompilerCompressedLv4();
     }
     else if (G.RunCommand == L"reverseSingle") {
-        ReverseSingle();
+        ReverseSingleLv4();
     }
     else if (G.RunCommand == L"reverseMerged") {
         ReverseMerged();

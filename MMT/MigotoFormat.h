@@ -3,6 +3,7 @@
 #include "MMTStringUtils.h"
 #include "MMTLogUtils.h"
 #include <boost/algorithm/string.hpp>
+#include "IndexBufferBufFile.h"
 
 
 class IniLineObject {
@@ -173,6 +174,7 @@ public:
 
 };
 
+
 class M_TextureOverride {
 public:
 	std::wstring NameSpace;
@@ -183,9 +185,13 @@ public:
 	std::wstring MatchFirstIndex;
 	std::vector<M_DrawIndexed> DrawIndexedList;
 
-	//拼接的
+	//用于处理TextureOverrideIB相关逻辑
+	std::wstring IBResourceName;
 	std::wstring IBFileName;
+	std::wstring IBFilePath;
 	std::wstring IBFormat;
+	IndexBufferBufFile IBBufFile;
+	
 };
 
 

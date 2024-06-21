@@ -1,11 +1,11 @@
-# Project design
+# 项目设计
 - C++ 20标准
 - 使用Boost库
 - 使用Json for morden C++ 库处理Json文件 https://github.com/nlohmann/json
 - 使用easyloggingpp库处理日志记录
 - Visual Studio Community 2022 & Platform Set V143
 
-# 代码规范
+# 注意事项
 - 尽量使用string，部分特殊情况才考虑使用wstring，以做到兼容
 - 所有工具类以MMT开头以Utils结尾，方法名要拆分写在.h 和.cpp中，要做到复制粘贴.h和.cpp文件就能在其它项目中使用
 - 导包时用到什么include什么，不要提前include
@@ -17,8 +17,9 @@
 - 复制文件要使用std::filesystem::copy_file
 - Boost.log和easyloggingpp都只能使用std::string都不能使用std::wstring.
 - 不能一个解决方案多个项目，尤其是多个项目之间文件名和方法名都差不多，会导致Visual Studio无法正确分析符号链接，无法正确的使用对应的符号。
+- 不要在克隆项目后直接以文件夹形式打开项目，然后再打开sln项目，这样会导致所有类名都无法正常解析，应该直接打开.sln，这样才能确保VisualStudio的语法解析器正常工作。
 
-# Build from source code
+# 从源代码编译构建
 Some preconfig you will need to have:
 - VisualStudio 2022 VS143 toolset. 
 - Install Boost 1.84.0  (or latest version)
@@ -39,12 +40,9 @@ The following directory should be added to linker library paths:
 
 After these steps above ,you will be able to build MMT on X64 DEBUG or RELEASE, x32-bit is also work but not official supported by MMT for low speed reason.
 
-# MMT Third party used:
+# 用到的第三方插件
 - easylogging
 - Json for morden C++ (nlohmann json)
 - Boost.
 MMT-GUI will need these packages, you need to install it in NuGet manager.
 - Newtonsoft.Json
-
-
-# Join development and you can make it better!

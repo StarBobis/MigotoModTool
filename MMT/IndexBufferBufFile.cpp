@@ -4,6 +4,12 @@
 #include <fstream>
 #include <set>
 
+
+IndexBufferBufFile::IndexBufferBufFile(){
+
+}
+
+
 IndexBufferBufFile::IndexBufferBufFile(std::wstring FileReadPath, std::wstring Format) {
     std::wstring lowerIBReadDxgiFormat = boost::algorithm::to_lower_copy(Format);
     int readLength = -1;

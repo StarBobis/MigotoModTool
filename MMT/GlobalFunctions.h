@@ -21,7 +21,10 @@ void UnityGenerate();
 void ExtractFromBuffer_VS_Reverse();
 
 //原神,崩坏:星穹铁道,崩坏三,绝区零		脚本式逆向提取Mod模型
-void ReverseOutfitCompilerCompressed();
+void ReverseOutfitCompilerCompressedLv4();
+void ReverseSingleLv4();
+
+//TODO Deprecated Reverse Method
 void ReverseSingle();
 void ReverseMerged();
 

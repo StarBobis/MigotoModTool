@@ -158,7 +158,7 @@
     <ClCompile Include="MigotoFormatUtils.cpp" />
     <ClCompile Include="MigotoParseUtil.cpp" />
     <ClCompile Include="MMTLogUtils.cpp" />
-    <ClCompile Include="ModFormatGIMI.cpp" />
+    <ClCompile Include="ModFormatUnity.cpp" />
     <ClCompile Include="ReverseEntry.cpp" />
     <ClCompile Include="GenerateUtil.cpp" />
     <ClCompile Include="IndexBufferTxtFile.cpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="FrameAnalysisData.h" />
     <ClInclude Include="GlobalFunctions.h" />
     <ClInclude Include="IndexBufferBufFile.h" />
-    <ClInclude Include="ModFormatGIMI.h" />
+    <ClInclude Include="ModFormatUnity.h" />
     <ClInclude Include="GenerateUtil.h" />
     <ClInclude Include="IndexBufferTxtFile.h" />
     <ClInclude Include="IniParser.h" />

@@ -21,6 +21,8 @@ public:
 	//顶点列表
 	std::vector<uint32_t> NumberList;
 
+	IndexBufferBufFile();
+
 	//IB文件完整路径，不区分大小写的格式例如DXGI_FORMAT_R32_UINT
 	IndexBufferBufFile(std::wstring FileReadPath,std::wstring Format);
 

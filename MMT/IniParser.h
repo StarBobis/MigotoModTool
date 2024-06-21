@@ -129,8 +129,6 @@ public:
     int minNumber;
     int maxNumber;
     int vertexCount;
-
-    //For fuzzy match
     int indexCount;
 
 
