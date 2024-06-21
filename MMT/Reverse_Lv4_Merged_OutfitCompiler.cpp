@@ -8,7 +8,7 @@
 #include "FmtData.h"
 
 
-void ReverseOutfitCompilerCompressedLv4() {
+void Reverse_Lv4_Merged_OutfitCompiler() {
     //≥ı ºªØ
     LOG.Info("Start to reverse outfit_compiler.py format merged mod.");
     json reverseJsonObject = MMTJson_ReadJsonFromFile(G.Path_RunInputJson);

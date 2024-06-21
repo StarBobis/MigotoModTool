@@ -182,8 +182,6 @@ ModFormat_Unity_INI::ModFormat_Unity_INI(std::wstring IniFilePath) {
 }
 
 
-
-
 ValidModDetect::ValidModDetect(D3D11GameType d3d11GameTypeInput, std::vector<M_Resource> ResourceVBListInput, std::vector<M_TextureOverride> TextureOverrideIBListInput) {
     this->d3d11GameType = d3d11GameTypeInput;
     this->TextureOverrideIBList = TextureOverrideIBListInput;
@@ -416,6 +414,4 @@ ValidModDetect::ValidModDetect(D3D11GameType d3d11GameTypeInput, std::vector<M_R
 
         //LOG.Info("outputBytes.size():  " + std::to_string(outputBytes.size()));
     }
-   
-
 }

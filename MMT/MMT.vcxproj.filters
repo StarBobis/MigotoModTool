@@ -86,7 +86,7 @@
     <ClCompile Include="ModFormatUnity.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
-    <ClCompile Include="ReverseOutfitCompilerCompressedLv4.cpp">
+    <ClCompile Include="Reverse_Lv4_Merged_OutfitCompiler.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
     <ClCompile Include="IndexBufferTxtFile.cpp">
@@ -155,10 +155,13 @@
     <ClCompile Include="WWUtil.cpp">
       <Filter>Games\WuWa</Filter>
     </ClCompile>
-    <ClCompile Include="ReverseSingleLv4.cpp">
+    <ClCompile Include="Reverse_Lv4_Single.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
-    <ClCompile Include="ReverseMergedLv4.cpp">
+    <ClCompile Include="Reverse_Lv4_Merged_Toggle.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
+    <ClCompile Include="Reverse_Lv4_Merged_NameSpace.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
   </ItemGroup>

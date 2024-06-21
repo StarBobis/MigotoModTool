@@ -8,7 +8,7 @@
 #include "FmtData.h"
 
 
-void ReverseSingleLv4() {
+void Reverse_Lv4_Single() {
     //≥ı ºªØ
     LOG.Info("Start to reverse single mod.");
     json reverseJsonObject = MMTJson_ReadJsonFromFile(G.Path_RunInputJson);

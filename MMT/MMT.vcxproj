@@ -170,13 +170,14 @@
     <ClCompile Include="MMTFormatUtils.cpp" />
     <ClCompile Include="MMTJsonUtils.cpp" />
     <ClCompile Include="MMTStringUtils.cpp" />
-    <ClCompile Include="ReverseMergedLv4.cpp" />
-    <ClCompile Include="ReverseOutfitCompilerCompressedLv4.cpp" />
+    <ClCompile Include="Reverse_Lv4_Merged_Toggle.cpp" />
+    <ClCompile Include="Reverse_Lv4_Merged_NameSpace.cpp" />
+    <ClCompile Include="Reverse_Lv4_Merged_OutfitCompiler.cpp" />
     <ClCompile Include="IniParserSingle.cpp" />
     <ClCompile Include="Extract_VS_UE4.cpp" />
     <ClCompile Include="Generate_VS_UE4.cpp" />
     <ClCompile Include="ExtractUtil.cpp" />
-    <ClCompile Include="ReverseSingleLv4.cpp" />
+    <ClCompile Include="Reverse_Lv4_Single.cpp" />
     <ClCompile Include="VertexBufferBufFile.cpp" />
     <ClCompile Include="VertexBufferTxtFileDetect.cpp" />
     <ClCompile Include="VertexBufferTxtFile.cpp" />

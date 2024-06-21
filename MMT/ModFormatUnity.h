@@ -45,6 +45,7 @@ public:
 
 
 //ÓÃÓÚÊä³öMod
+//TODO 
 class ValidModDetect {
 public:
 	std::vector<M_Resource> OrderedResourceVBList;
