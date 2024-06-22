@@ -91,8 +91,8 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
     
     std::unordered_map<std::string, int> CategoryStrideMap = d3d11GameType.getCategoryStrideMap(d3d11GameType.OrderedFullElementList);
     //判断Texcoord槽位长度是否正确
-    int RealTexcoordStride = TexcoordBufMap[0].size();
-    int TexcoordPresetStride = CategoryStrideMap["Texcoord"];
+    int RealTexcoordStride = (int)TexcoordBufMap[0].size();
+    int TexcoordPresetStride = (int)CategoryStrideMap["Texcoord"];
     LOG.Info("RealTexcoordStride:" + std::to_string(RealTexcoordStride));
     LOG.Info("TexcoordPresetStride:" + std::to_string(TexcoordPresetStride));
     if (RealTexcoordStride != TexcoordPresetStride) {
@@ -101,7 +101,7 @@ void ExtractFromBuffer_VS_UE4(std::wstring DrawIB,std::wstring GameType) {
 
     LOG.NewLine();
     //判断Blend槽位长度是否正确
-    int RealBlendStride = BlendBufMap[0].size();
+    int RealBlendStride = (int)BlendBufMap[0].size();
     int BlendPresetStride = CategoryStrideMap["Blend"];
     LOG.Info("RealBlendStride:" + std::to_string(RealBlendStride));
     LOG.Info("BlendPresetStride:" + std::to_string(BlendPresetStride));

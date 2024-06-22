@@ -1,7 +1,14 @@
 #pragma once
-#include "MigotoFormat.h"
-#include "MigotoParseUtil.h"
+//-----------------------------------------------------------------------------------------------------------------------------------
+// 这里存放的是更高级的抽象数据类型，主要用于解析3Dmigoto的Mod格式
+//-----------------------------------------------------------------------------------------------------------------------------------
 #include "D3d11GameType.h"
+#include <iostream>
+#include "MMTStringUtils.h"
+#include "MMTLogUtils.h"
+#include <boost/algorithm/string.hpp>
+#include "IndexBufferBufFile.h"
+#include "ModFormatBasic.h"
 
 
 class SingleModDetect {
@@ -14,7 +21,7 @@ public:
 };
 
 
-class ModFormat_Unity_INI {
+class ModFormat_INI {
 public:
 	//单纯解析ini所有行并抽象为Section
 	std::vector<M_SectionLine> MigotoSectionLineList;
@@ -33,12 +40,26 @@ public:
 	//根据顶点数量匹配出一个Mod来，组装成Map最方便易于使用，很常用
 	std::unordered_map <std::wstring, SingleModDetect> Hash_SingleModDetect_Map;
 
-	void Parse_VertexNumberMResourceVBMap();
-	void Parse_Hash_TextureOverrideIBList_Map();
-	void Parse_Hash_SingleModDetect_Map();
+	//用于解析基础数据的方法
+	std::vector<M_Variable> Parse_Basic_ConstantsSection(M_SectionLine m_sectionLine);
+	M_Key Parse_Basic_KeySection(M_SectionLine m_sectionLine);
+	M_Resource Parse_Basic_ResourceSection(M_SectionLine m_sectionLine);
+	M_TextureOverride Parse_Basic_TextureOverrideSection(M_SectionLine m_sectionLine);
+
+	//功能性解析，不一定要使用
+	std::vector<std::unordered_map<std::wstring, std::wstring>> Parse_Util_Get_M_Key_Combination(std::vector<M_Key> cycleKeyList);
+	std::vector<M_DrawIndexed> Parse_Util_GetActiveDrawIndexedListByKeyCombination(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap, std::vector<M_DrawIndexed> DrawIndexedList);
+	std::wstring Parse_Util_Get_M_Key_Combination_String(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap);
+	std::vector<std::wstring> Parse_Util_GetRecursiveActivedIniFilePathList(std::wstring IncludePath);
+	std::vector<M_SectionLine> Parse_Util_ParseMigotoSectionLineList(std::wstring iniFilePath);
+
+	//自我赋值解析，经常用到
+	void Parse_Self_VertexNumberMResourceVBMap();
+	void Parse_Self_Hash_TextureOverrideIBList_Map();
+	void Parse_Self_Hash_SingleModDetect_Map();
 
 	//输入ini路径，初步解析出所有的基础类型
-	ModFormat_Unity_INI(std::wstring IniFilePath);
+	ModFormat_INI(std::wstring IniFilePath);
 };
 
 

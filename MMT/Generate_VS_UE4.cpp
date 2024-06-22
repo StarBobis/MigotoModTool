@@ -108,7 +108,7 @@ void Generate_VS_UE4() {
             //设置offset
             partNameOffsetMap[partName] = drawNumber;
             //添加到drawNumber
-            drawNumber = drawNumber + vbFileVertexNumber;
+            drawNumber = drawNumber + (int)vbFileVertexNumber;
 
             //直接分割并输出
             LOG.Info(L"Combine and put partName_VBCategoryDaytaMap's content back to finalVBCategoryDataMap");

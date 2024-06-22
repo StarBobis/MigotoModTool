@@ -1,10 +1,8 @@
-#include "MigotoParseUtil.h"
-#include "MMTLogUtils.h"
-#include "MMTFormatUtils.h"
+#include "ModFormatExtra.h"
 #include "MMTFileUtils.h"
 #include <filesystem>
 
-
+//古董老代码，GPT写的
 void cartesianProductHelper2(const std::vector<std::vector<std::wstring>>& data, std::vector<std::wstring>& current, std::vector<std::vector<std::wstring>>& result, size_t index) {
     if (index >= data.size()) {
         result.push_back(current);
@@ -18,6 +16,8 @@ void cartesianProductHelper2(const std::vector<std::vector<std::wstring>>& data,
     }
 }
 
+
+//古董老代码，GPT写的
 std::vector<std::vector<std::wstring>> cartesianProduct2(const std::vector<std::vector<std::wstring>>& data) {
     std::vector<std::vector<std::wstring>> result;
     std::vector<std::wstring> current;
@@ -25,7 +25,8 @@ std::vector<std::vector<std::wstring>> cartesianProduct2(const std::vector<std::
     return result;
 }
 
-std::vector<std::unordered_map<std::wstring, std::wstring>> MigotoParseUtil_Get_M_Key_Combination(std::vector<M_Key> cycleKeyList) {
+
+std::vector<std::unordered_map<std::wstring, std::wstring>> ModFormat_INI::Parse_Util_Get_M_Key_Combination(std::vector<M_Key> cycleKeyList) {
     LOG.Info(L"Start to calculateKeyCombination");
     std::vector<std::unordered_map<std::wstring, std::wstring>> keyCombinationDictList;
 
@@ -68,7 +69,7 @@ std::vector<std::unordered_map<std::wstring, std::wstring>> MigotoParseUtil_Get_
 
 
 
-std::vector<M_DrawIndexed> MigotoParseUtil_GetActiveDrawIndexedListByKeyCombination(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap, std::vector<M_DrawIndexed> DrawIndexedList) {
+std::vector<M_DrawIndexed> ModFormat_INI::Parse_Util_GetActiveDrawIndexedListByKeyCombination(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap, std::vector<M_DrawIndexed> DrawIndexedList) {
     std::vector<M_DrawIndexed> activitedDrawIndexedList;
     //这里要让DrawIndex的每个Condition都满足,才算是被激活了
 
@@ -99,17 +100,17 @@ std::vector<M_DrawIndexed> MigotoParseUtil_GetActiveDrawIndexedListByKeyCombinat
                 //LOG.Info(L"Activated");
             }
         }
-       
+
     }
     //LOG.Error(L"Stop");
     return activitedDrawIndexedList;
 }
 
 
-std::wstring MigotoParseUtil_Get_M_Key_Combination_String(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap) {
+std::wstring ModFormat_INI::Parse_Util_Get_M_Key_Combination_String(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap) {
     std::wstring combinationStr;
     int count = 1;
-    for (const auto& pair: KeyCombinationMap) {
+    for (const auto& pair : KeyCombinationMap) {
         if (!MMTFile_IsValidFilename(MMTString_ToByteString(pair.first))) {
             //有些人会用文件名中不能出现的字符比如\ /来作为按键的值来对抗自动逆向
             //如果用文件名无法使用的字符来对抗逆向，那这里就使用数值代替
@@ -124,13 +125,13 @@ std::wstring MigotoParseUtil_Get_M_Key_Combination_String(std::unordered_map<std
     }
 
 
-    
+
     return combinationStr;
 
 }
 
 
-std::vector<std::wstring> MigotoParseUtil_GetRecursiveActivedIniFilePathList(std::wstring IncludePath) {
+std::vector<std::wstring> ModFormat_INI::Parse_Util_GetRecursiveActivedIniFilePathList(std::wstring IncludePath) {
     std::vector<std::wstring> includeFilePathList = MMTFile_GetFilePathListRecursive(IncludePath);
     std::vector<std::wstring> parseIniFilePathList;
     for (const auto& filePath : includeFilePathList)
@@ -153,7 +154,7 @@ std::vector<std::wstring> MigotoParseUtil_GetRecursiveActivedIniFilePathList(std
 }
 
 
-std::vector<M_SectionLine> MigotoParseUtil_ParseMigotoSectionLineList(std::wstring iniFilePath) {
+std::vector<M_SectionLine> ModFormat_INI::Parse_Util_ParseMigotoSectionLineList(std::wstring iniFilePath) {
     std::vector<M_SectionLine> migotoSectionLineList;
 
     //首先把这个ini文件的每一行读取到列表里
@@ -240,3 +241,6 @@ std::vector<M_SectionLine> MigotoParseUtil_ParseMigotoSectionLineList(std::wstri
     LOG.NewLine();
     return migotoSectionLineList;
 }
+
+//--
+

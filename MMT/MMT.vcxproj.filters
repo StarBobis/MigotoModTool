@@ -61,9 +61,6 @@
     <ClCompile Include="FmtData.cpp">
       <Filter>DataModel</Filter>
     </ClCompile>
-    <ClCompile Include="MigotoFormat.cpp">
-      <Filter>Sword-Lv4</Filter>
-    </ClCompile>
     <ClCompile Include="easylogging++.cc">
       <Filter>Utils\ThirdParty</Filter>
     </ClCompile>
@@ -80,10 +77,7 @@
     <ClCompile Include="MMTLogUtils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="MigotoParseUtil.cpp">
-      <Filter>Sword-Lv4</Filter>
-    </ClCompile>
-    <ClCompile Include="ModFormatUnity.cpp">
+    <ClCompile Include="ModFormat_ParseSelf.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
     <ClCompile Include="Reverse_Lv4_Merged_OutfitCompiler.cpp">
@@ -164,6 +158,12 @@
     <ClCompile Include="Reverse_Lv4_Merged_NameSpace.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
+    <ClCompile Include="ModFormat_ParseUtil.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
+    <ClCompile Include="ModFormat_ParseBasic.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MMTFileUtils.h">
@@ -184,9 +184,6 @@
     <ClInclude Include="FmtData.h">
       <Filter>DataModel</Filter>
     </ClInclude>
-    <ClInclude Include="MigotoFormat.h">
-      <Filter>Sword-Lv4</Filter>
-    </ClInclude>
     <ClInclude Include="easylogging++.h">
       <Filter>Utils\ThirdParty</Filter>
     </ClInclude>
@@ -200,10 +197,7 @@
     <ClInclude Include="MMTLogUtils.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="MigotoParseUtil.h">
-      <Filter>Sword-Lv4</Filter>
-    </ClInclude>
-    <ClInclude Include="ModFormatUnity.h">
+    <ClInclude Include="ModFormatExtra.h">
       <Filter>Sword-Lv4</Filter>
     </ClInclude>
     <ClInclude Include="GlobalFunctions.h" />
@@ -245,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="WWUtil.h">
       <Filter>Games\WuWa</Filter>
+    </ClInclude>
+    <ClInclude Include="ModFormatBasic.h">
+      <Filter>Sword-Lv4</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

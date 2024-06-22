@@ -1,11 +1,18 @@
-#include "ModFormatUnity.h"
+#include "ModFormatExtra.h"
 #include "MMTFileUtils.h"
+#include <boost/algorithm/string.hpp>
 #include <boost/algorithm/cxx11/any_of.hpp>
 #include "IndexBufferBufFile.h"
+#include "GlobalConfigs.h"
+#include "MMTStringUtils.h"
+#include "MMTFileUtils.h"
+#include "MMTLogUtils.h"
+#include "MMTFormatUtils.h"
+#include "MMTFileUtils.h"
+#include <filesystem>
 
 
-
-void ModFormat_Unity_INI::Parse_VertexNumberMResourceVBMap() {
+void ModFormat_INI::Parse_Self_VertexNumberMResourceVBMap() {
     //1.获取所有的ResourceVB
     //根据Resource的顶点数来区分不同的Resource合集，相同顶点数的Resource在相同的Mod里
     std::unordered_map<uint32_t, std::vector<M_Resource>> vertexNumberMResourceVBMap;
@@ -43,7 +50,7 @@ void ModFormat_Unity_INI::Parse_VertexNumberMResourceVBMap() {
 }
 
 
-void ModFormat_Unity_INI::Parse_Hash_TextureOverrideIBList_Map() {
+void ModFormat_INI::Parse_Self_Hash_TextureOverrideIBList_Map() {
     //根据每个Hash分开TextureOverrideIB列表
     std::unordered_map<std::wstring, std::vector<M_TextureOverride>> hash_TextureOverrideIBList_Map;
     for (M_TextureOverride m_texture_override : this->Global_M_TextureOverrideList) {
@@ -75,10 +82,10 @@ void ModFormat_Unity_INI::Parse_Hash_TextureOverrideIBList_Map() {
 }
 
 
-void ModFormat_Unity_INI::Parse_Hash_SingleModDetect_Map() {
+void ModFormat_INI::Parse_Self_Hash_SingleModDetect_Map() {
     //这俩前置步骤必须得有，后面强依赖
-    Parse_VertexNumberMResourceVBMap();
-    Parse_Hash_TextureOverrideIBList_Map();
+    Parse_Self_VertexNumberMResourceVBMap();
+    Parse_Self_Hash_TextureOverrideIBList_Map();
 
     //这里已经根据Hash分开了每个Hash对应的TextureOverrideIB，那么这时应该根据顶点数去Resource中匹配对应的Resource，组合成一个单独的Mod
     //这样每个Hash都是一个单独的Mod，到了外面只需要根据Hash进行分类输出即可。
@@ -127,9 +134,9 @@ void ModFormat_Unity_INI::Parse_Hash_SingleModDetect_Map() {
 }
 
 
-ModFormat_Unity_INI::ModFormat_Unity_INI(std::wstring IniFilePath) {
+ModFormat_INI::ModFormat_INI(std::wstring IniFilePath) {
     //首先我们把所有的不同的3Dmigoto的ini类型都解析为单独的Section，相比于Lv3的架构更加模块化，方便后续处理
-    std::vector<M_SectionLine> migotoSectionLineList = MigotoParseUtil_ParseMigotoSectionLineList(IniFilePath);
+    std::vector<M_SectionLine> migotoSectionLineList = Parse_Util_ParseMigotoSectionLineList(IniFilePath);
     this->MigotoSectionLineList = migotoSectionLineList;
 
     //列出要解析的内容,然后根据得到的migotoSectionLineList来逐个Section进行解析
@@ -140,23 +147,23 @@ ModFormat_Unity_INI::ModFormat_Unity_INI(std::wstring IniFilePath) {
     for (M_SectionLine migotoSectionLine : migotoSectionLineList) {
         //然后根据名称执行具体的解析方法
         if (migotoSectionLine.SectionName == L"constants") {
-            std::vector<M_Variable> m_variable_list = parseConstantsSection(migotoSectionLine);
+            std::vector<M_Variable> m_variable_list = Parse_Basic_ConstantsSection(migotoSectionLine);
             global_M_VariableList.insert(global_M_VariableList.end(), m_variable_list.begin(), m_variable_list.end());
         }
         else if (migotoSectionLine.SectionName.starts_with(L"key")) {
-            M_Key m_key = parseKeySection(migotoSectionLine);
+            M_Key m_key = Parse_Basic_KeySection(migotoSectionLine);
             global_M_KeyList.push_back(m_key);
         }
         else if (migotoSectionLine.SectionName == L"present") {
-            std::vector<M_Variable> m_variable_list = parseConstantsSection(migotoSectionLine);
+            std::vector<M_Variable> m_variable_list = Parse_Basic_ConstantsSection(migotoSectionLine);
             global_M_VariableList.insert(global_M_VariableList.end(), m_variable_list.begin(), m_variable_list.end());
         }
         else if (migotoSectionLine.SectionName.starts_with(L"resource")) {
-            M_Resource m_resource = parseResourceSection(migotoSectionLine);
+            M_Resource m_resource = Parse_Basic_ResourceSection(migotoSectionLine);
             global_M_ResourceList.push_back(m_resource);
         }
         else if (migotoSectionLine.SectionName.starts_with(L"textureoverride")) {
-            M_TextureOverride m_textureoverride = parseTextureOverrideSection(migotoSectionLine);
+            M_TextureOverride m_textureoverride = Parse_Basic_TextureOverrideSection(migotoSectionLine);
             global_M_TextureOverrideList.push_back(m_textureoverride);
         }
         else {

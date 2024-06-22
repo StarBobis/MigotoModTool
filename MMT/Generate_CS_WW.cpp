@@ -64,7 +64,7 @@ void Generate_CS_WW_Body() {
             uint64_t VBFileSize = MMTFile_GetFileSize(splitReadFolder + VBFileName);
             uint64_t vbFileVertexNumber = VBFileSize / SplitStride;
          
-            partNameVertexCountMap[partName] = vbFileVertexNumber;
+            partNameVertexCountMap[partName] = (int)vbFileVertexNumber;
             LOG.Info(L"Processing VB file: " + VBFileName + L" size is: " + std::to_wstring(VBFileSize) + L" byte." + L" vertex number is: " + std::to_wstring(vbFileVertexNumber));
             VertexBufferBufFile vbBufFile(splitReadFolder + VBFileName, d3d11GameType, extractConfig.TmpElementList);
             partName_VBCategoryDaytaMap[MMTString_ToWideString(partName)] = vbBufFile.CategoryVBDataMap;
@@ -73,7 +73,7 @@ void Generate_CS_WW_Body() {
             //…Ë÷√offset
             partNameOffsetMap[partName] = drawNumber;
             //ÃÌº”µΩdrawNumber
-            drawNumber = drawNumber + vbFileVertexNumber;
+            drawNumber = drawNumber + (int)vbFileVertexNumber;
         }
 
 

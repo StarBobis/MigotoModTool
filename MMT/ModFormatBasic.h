@@ -1,9 +1,8 @@
 #pragma once
-#include <iostream>
-#include "MMTStringUtils.h"
-#include "MMTLogUtils.h"
-#include <boost/algorithm/string.hpp>
-#include "IndexBufferBufFile.h"
+//-----------------------------------------------------------------------------------------------------------------------------------
+// 这里存放基础数据类型，指的是从ini里进行分析而提取的第一层抽象信息，方便后续所有的分析过程
+// 用于解析3Dmigoto的基本数据类型
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 
 class IniLineObject {
@@ -23,7 +22,7 @@ public:
 		//LOG.Info(L"firstEqualIndex: " + std::to_wstring(firstEqualIndex));
 		//默认使用==，如果==找不到，那就换成=
 		std::wstring delimiter = L"==";
-		if ( firstDoubleEqualIndex == std::wstring::npos) {
+		if (firstDoubleEqualIndex == std::wstring::npos) {
 			delimiter = L"=";
 		}
 
@@ -110,7 +109,7 @@ public:
 		this->Type = InType;
 	}
 
-	M_Variable(std::wstring InNameSpace, std::wstring InVariableName,std::wstring InInitializeValue, std::wstring InType) {
+	M_Variable(std::wstring InNameSpace, std::wstring InVariableName, std::wstring InInitializeValue, std::wstring InType) {
 		this->NameSpace = InNameSpace;
 		this->VariableName = InVariableName;
 		this->NamespacedVarName = this->NameSpace + L"\\" + this->VariableName;
@@ -128,7 +127,7 @@ public:
 
 	M_Condition() {}
 
-	M_Condition(std::wstring InNameSpace,std::wstring InConditionVarName,std::wstring InConditionVarValue){
+	M_Condition(std::wstring InNameSpace, std::wstring InConditionVarName, std::wstring InConditionVarValue) {
 		this->NameSpace = InNameSpace;
 		this->ConditionVarName = InConditionVarName;
 		this->ConditionVarValue = InConditionVarValue;
@@ -145,10 +144,10 @@ public:
 	std::wstring Type;
 
 	//例如 $variable5 = 0,1 代表按下这个键之后会让$variable5的值在0,1之间循环切换到下一个，所以是循环变量
-	std::unordered_map<std::wstring,std::vector<std::wstring>> CycleVariableName_PossibleValueList_Map;
+	std::unordered_map<std::wstring, std::vector<std::wstring>> CycleVariableName_PossibleValueList_Map;
 
 	//例如$creditinfo = 0 代表按下这个键之后会立刻激活并将$creditinfo设为0，所以是激活变量
-	std::unordered_map<std::wstring,std::wstring> ActiveVariableName_ActiveValue_Map;
+	std::unordered_map<std::wstring, std::wstring> ActiveVariableName_ActiveValue_Map;
 };
 
 class M_DrawIndexed {
@@ -162,7 +161,7 @@ public:
 
 	std::vector<M_Condition> ActiveConditionList;
 
-	M_DrawIndexed(){}
+	M_DrawIndexed() {}
 };
 
 
@@ -191,7 +190,7 @@ public:
 	std::wstring IBFilePath;
 	std::wstring IBFormat;
 	IndexBufferBufFile IBBufFile;
-	
+
 };
 
 
@@ -211,7 +210,7 @@ public:
 
 class MigotoActiveMod {
 public:
-	
+
 	//首先得有资源列表吧，ResourceList来根据资源名称读取对应磁盘上的资源
 	std::vector<M_Resource> ResourceList;
 
@@ -219,14 +218,3 @@ public:
 	std::vector<M_Key> KeyList;
 
 };
-
-
-std::vector<M_Variable> parseConstantsSection(M_SectionLine m_sectionLine);
-
-M_Key parseKeySection(M_SectionLine m_sectionLine);
-
-M_Resource parseResourceSection(M_SectionLine m_sectionLine);
-
-M_TextureOverride parseTextureOverrideSection(M_SectionLine m_sectionLine);
-
-

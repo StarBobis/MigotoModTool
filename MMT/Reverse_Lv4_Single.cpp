@@ -1,8 +1,7 @@
 #include "GlobalConfigs.h"
 #include "MMTStringUtils.h"
 #include "MMTFileUtils.h"
-#include "MigotoParseUtil.h"
-#include "ModFormatUnity.h"
+#include "ModFormatExtra.h"
 #include "GlobalFunctions.h"
 #include "IndexBufferBufFile.h"
 #include "FmtData.h"
@@ -19,8 +18,8 @@ void Reverse_Lv4_Single() {
     LOG.NewLine();
 
     //初始化通用ini解析对象
-    ModFormat_Unity_INI modFormatUnity(reverseFilePath);
-    modFormatUnity.Parse_Hash_SingleModDetect_Map();
+    ModFormat_INI modFormatUnity(reverseFilePath);
+    modFormatUnity.Parse_Self_Hash_SingleModDetect_Map();
     LOG.NewLine();
 
     for (const auto& singleModPair : modFormatUnity.Hash_SingleModDetect_Map) {
