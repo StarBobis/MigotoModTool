@@ -147,15 +147,7 @@ void ExtractFromWW() {
                     }
 
                     IndexBufferTxtFile ibFileData(G.WorkFolder + filename, false);
-                    //注意:鸣潮中出现了部分物体类型多次Draw时，有些Draw不使用贴图槽位且顶点数量也无法对上，Hash值也不同的情况
-                    //所以我们提取物体Mod类型时，必须要确保ps-t0槽位的贴图确实存在
-                    //如果不存在则说明不是真正渲染贴图的那个槽位。
-                    std::vector<std::wstring> Pst0_TextureDDSFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=", L".dds");
-                    std::vector<std::wstring> Pst0_TextureJPGFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t0=", L".jpg");
-                    if (Pst0_TextureDDSFileList.size() == 0 && Pst0_TextureJPGFileList.size() == 0) {
-                        LOG.Info(L"Can't find ps-t0 or jpg texture for index:" + ibFileData.Index + L" it will not be a valid object type, so skip this.");
-                        continue;
-                    }
+                    
 
                     VSExtractIndex = ibFileData.Index;
                     PositionExtractFileName = FAData.FindFrameAnalysisFileNameListWithCondition(VSExtractIndex + L"-vb0=", L".buf")[0];
@@ -169,6 +161,19 @@ void ExtractFromWW() {
                         LOG.Info("Can't find FirstIndex attribute in this file, so skip this.");
                         continue;
                     }
+
+
+                    //注意:鸣潮中出现了部分物体类型多次Draw时，有些Draw不使用贴图槽位且顶点数量也无法对上，Hash值也不同的情况
+                    //所以我们提取物体Mod类型时，必须要确保ps-t0槽位的贴图确实存在
+                    //如果不存在则说明不是真正渲染贴图的那个槽位。
+                    std::vector<std::wstring> Pst0_TextureDDSFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t1=", L".dds");
+                    std::vector<std::wstring> Pst0_TextureJPGFileList = FAData.FindFrameAnalysisFileNameListWithCondition(ibFileData.Index + L"-ps-t1=", L".jpg");
+                    if (Pst0_TextureDDSFileList.size() == 0 && Pst0_TextureJPGFileList.size() == 0) {
+                        LOG.Warning(L"Can't find ps-t1 or jpg texture for index:" + ibFileData.Index + L" it will not be a valid object type, so skip this.");
+                        continue;
+                    }
+
+                    //TODO 这里不管是用ps-t0还是ps-t1都无法做到通用兼容，并不是最优解，后面有空可以优化一下
                 }
                
                 LOG.NewLine();
