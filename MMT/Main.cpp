@@ -81,6 +81,7 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
             UnityGenerate();
         }
     }
+    //ÄæÏòÌáÈ¡
     else if (G.RunCommand == L"mergeReverse") {
         if (G.GameName == L"HI3") {
             ExtractFromBuffer_VS_Reverse();
@@ -95,6 +96,7 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
             ExtractFromBuffer_VS_Reverse();
         }
     }
+    //Happy Reverse!
     else if (G.RunCommand == L"reverseOutfitCompiler") {
         Reverse_Lv4_Merged_OutfitCompiler();
     }
@@ -102,7 +104,8 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
         Reverse_Lv4_Single();
     }
     else if (G.RunCommand == L"reverseMerged") {
-        Reverse_Lv4_Merged_Toggle();
+        //Reverse_Lv4_Merged_Toggle();
+        ReverseMerged();
     }
     else if (G.RunCommand == L"reverseMergedNameSpace") {
         Reverse_Lv4_Merged_NameSpace();
@@ -110,7 +113,8 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
     else if (G.RunCommand == L"reverse3DmigotoSimulator") {
         Reverse_Lv4_3Dmigoto_Simulator();
     }
-
+    
+    //If we success executed,we will run to here.
     LOG.Success();
 #endif
     return 0;

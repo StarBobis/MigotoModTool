@@ -157,6 +157,8 @@
     <ClCompile Include="IndexBufferBufFile.cpp" />
     <ClCompile Include="MigotoFormatUtils.cpp" />
     <ClCompile Include="MMTLogUtils.cpp" />
+    <ClCompile Include="ModFormatBasic.cpp" />
+    <ClCompile Include="ModFormatExtra.cpp" />
     <ClCompile Include="ModFormat_ParseBasic.cpp" />
     <ClCompile Include="ModFormat_ParseSelf.cpp" />
     <ClCompile Include="ModFormat_ParseUtil.cpp" />

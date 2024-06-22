@@ -29,6 +29,22 @@ void Reverse_Lv4_Merged_Toggle() {
 
     //初始化通用ini解析对象
     ModFormat_INI modFormatUnity(reverseFilePath);
+    modFormatUnity.Parse_Self_Hash_TextureOverrideIBList_Map();
+
+    //for (const auto& pair : modFormatUnity.Hash_TextureOverrideIBList_Map) {
+    //    std::vector<M_TextureOverride> m_textureOverrideIBList = pair.second;
+    //    for (M_TextureOverride textureOverrideIB: m_textureOverrideIBList) {
+    //        for (M_ResourceReplace m_resource_replace:textureOverrideIB.ResourceReplaceList) {
+
+    //            for (M_Condition m_condition: m_resource_replace.ActiveConditionList) {
+    //                
+    //            }
+    //            
+    //        }
+    //    }
+
+    //}
+
 
 
 }

@@ -1,4 +1,10 @@
 #pragma once
+#include <vector>
+#include "MMTStringUtils.h"
+#include "MMTLogUtils.h"
+#include <boost/algorithm/string.hpp>
+#include "IndexBufferBufFile.h"
+
 //-----------------------------------------------------------------------------------------------------------------------------------
 // 这里存放基础数据类型，指的是从ini里进行分析而提取的第一层抽象信息，方便后续所有的分析过程
 // 用于解析3Dmigoto的基本数据类型
@@ -13,69 +19,11 @@ public:
 	std::wstring RightStrTrim;
 	bool valid = false;
 
-	IniLineObject() {}
+	IniLineObject();
 
-	IniLineObject(std::wstring readLine) {
-		int firstDoubleEqualIndex = (int)readLine.find(L"==");
-		int firstEqualIndex = (int)readLine.find(L"=");
-		//LOG.Info(L"firstDoubleEqualIndex: " + std::to_wstring(firstDoubleEqualIndex));
-		//LOG.Info(L"firstEqualIndex: " + std::to_wstring(firstEqualIndex));
-		//默认使用==，如果==找不到，那就换成=
-		std::wstring delimiter = L"==";
-		if (firstDoubleEqualIndex == std::wstring::npos) {
-			delimiter = L"=";
-		}
-
-		//找到了==或者找到了=都可以接受
-		if (firstEqualIndex != std::wstring::npos || firstDoubleEqualIndex != std::wstring::npos) {
-			std::vector<std::wstring> lowerReadLineSplitList = MMTString_SplitString(readLine, delimiter);
-			if (lowerReadLineSplitList.size() < 2) {
-				LOG.Error(L"lowerReadLineSplitList size is " + std::to_wstring(lowerReadLineSplitList.size()) + L",please check!");
-			}
-			std::wstring leftStr = lowerReadLineSplitList[0];
-			std::wstring rightStr = lowerReadLineSplitList[1];
-			//LOG.Info(L"leftStr:" + leftStr);
-			//LOG.Info(L"rightStr:" + rightStr);
-			LeftStr = leftStr;
-			RightStr = rightStr;
-			boost::algorithm::trim(leftStr);
-			boost::algorithm::trim(rightStr);
-			LeftStrTrim = leftStr;
-			RightStrTrim = rightStr;
-			valid = true;
-		}
-		else {
-			LeftStr = L"";
-			RightStr = L"";
-			LeftStrTrim = L"";
-			RightStrTrim = L"";
-			valid = false;
-		}
-	}
-
+	IniLineObject(std::wstring readLine);
 	//下面这个留着指定分隔符，上面那个用来判断变量相关的时候
-	IniLineObject(std::wstring readLine, std::wstring delimiter) {
-		int firstEqualIndex = (int)readLine.find_first_of(delimiter);
-		if (firstEqualIndex != std::wstring::npos) {
-			std::vector<std::wstring> lowerReadLineSplitList = MMTString_SplitString(readLine, delimiter);
-			std::wstring leftStr = lowerReadLineSplitList[0];
-			std::wstring rightStr = lowerReadLineSplitList[1];
-			LeftStr = leftStr;
-			RightStr = rightStr;
-			boost::algorithm::trim(leftStr);
-			boost::algorithm::trim(rightStr);
-			LeftStrTrim = leftStr;
-			RightStrTrim = rightStr;
-			valid = true;
-		}
-		else {
-			LeftStr = L"";
-			RightStr = L"";
-			LeftStrTrim = L"";
-			RightStrTrim = L"";
-			valid = false;
-		}
-	}
+	IniLineObject(std::wstring readLine, std::wstring delimiter);
 };
 
 
@@ -85,7 +33,7 @@ public:
 	std::wstring SectionName;
 	std::vector<std::wstring> SectionLineList;
 
-	M_SectionLine() {}
+	M_SectionLine();
 };
 
 
@@ -98,40 +46,27 @@ public:
 	std::wstring NamespacedVarName;
 	std::wstring Type; //global local normal
 
-	M_Variable() {
-
-	}
-
-	M_Variable(std::wstring InNameSpace, std::wstring InVariableName, std::wstring InType) {
-		this->NameSpace = InNameSpace;
-		this->VariableName = InVariableName;
-		this->NamespacedVarName = this->NameSpace + L"\\" + this->VariableName;
-		this->Type = InType;
-	}
-
-	M_Variable(std::wstring InNameSpace, std::wstring InVariableName, std::wstring InInitializeValue, std::wstring InType) {
-		this->NameSpace = InNameSpace;
-		this->VariableName = InVariableName;
-		this->NamespacedVarName = this->NameSpace + L"\\" + this->VariableName;
-		this->InitializeValue = InInitializeValue;
-		this->Type = InType;
-	}
+	M_Variable();
+	M_Variable(std::wstring InNameSpace, std::wstring InVariableName, std::wstring InType);
+	M_Variable(std::wstring InNameSpace, std::wstring InVariableName, std::wstring InInitializeValue, std::wstring InType);
 };
 
 
+//Condition代表一个条件，一个Condition中可以有多个对比表达式
+//比如 if $var == 1 && $var2 == 2 此时$var,1就是一个对比表达式，代表此Condition生效的条件之一
+//Condition_VarName_VarValue_Map即存储了此Condition生效的所有条件
+//一个ResourceReplace可以有多个M_Condition，这是正常的，这是因为if会有多个嵌套
+//我们每个Condition都代表一个if或else if后的对比表达式的组合，而不考虑嵌套问题，嵌套应该在TextureOverride解析时进行考虑。
 class M_Condition {
 public:
 	std::wstring NameSpace;
-	std::wstring ConditionVarName;
-	std::wstring ConditionVarValue;
+	std::unordered_map<std::wstring, std::wstring> Condition_VarName_VarValue_Map;
 
-	M_Condition() {}
+	void show();
 
-	M_Condition(std::wstring InNameSpace, std::wstring InConditionVarName, std::wstring InConditionVarValue) {
-		this->NameSpace = InNameSpace;
-		this->ConditionVarName = InConditionVarName;
-		this->ConditionVarValue = InConditionVarValue;
-	}
+	M_Condition();
+
+	M_Condition(std::wstring ConditionStr);
 };
 
 
@@ -150,6 +85,7 @@ public:
 	std::unordered_map<std::wstring, std::wstring> ActiveVariableName_ActiveValue_Map;
 };
 
+
 class M_DrawIndexed {
 public:
 	//例如DrawIndexed = 6,12,0 表示DrawStartIndex为0，DrawOffsetIndex为12，DrawNumber为6
@@ -161,7 +97,7 @@ public:
 
 	std::vector<M_Condition> ActiveConditionList;
 
-	M_DrawIndexed() {}
+	M_DrawIndexed();
 };
 
 
@@ -208,13 +144,10 @@ public:
 };
 
 
-class MigotoActiveMod {
+//TODO 要完全解析还是得参考原本的3Dmigoto解析流程，有空再研究吧。
+class M_CommandList {
 public:
+	std::wstring NameSpace = L"";
 
-	//首先得有资源列表吧，ResourceList来根据资源名称读取对应磁盘上的资源
-	std::vector<M_Resource> ResourceList;
-
-	//其次得有Key列表吧
-	std::vector<M_Key> KeyList;
 
 };

@@ -91,18 +91,13 @@ M_Key ModFormat_INI::Parse_Basic_KeySection(M_SectionLine m_sectionLine) {
             if (conditionLine.valid) {
                 IniLineObject conditionWorkLine(conditionLine.RightStrTrim, L"==");
                 if (conditionWorkLine.valid) {
-                    M_Condition m_condition(m_sectionLine.NameSpace,
-                        m_sectionLine.NameSpace + L"\\" + conditionWorkLine.LeftStrTrim.substr(1),
-                        conditionWorkLine.RightStrTrim
-                    );
+                    M_Condition m_condition(conditionLine.RightStrTrim);
+                    m_condition.NameSpace = m_sectionLine.NameSpace;
                     m_key.Condition = m_condition;
                 }
                 else if (conditionLine.RightStrTrim.starts_with(L"$")) {
-                    M_Condition m_condition(m_sectionLine.NameSpace,
-                        m_sectionLine.NameSpace + L"\\" + conditionLine.RightStrTrim.substr(1),
-                        L"1"
-                    );
-
+                    M_Condition m_condition(conditionLine.RightStrTrim);
+                    m_condition.NameSpace = m_sectionLine.NameSpace;
                     m_key.Condition = m_condition;
                 }
                 else {
@@ -197,11 +192,8 @@ M_TextureOverride ModFormat_INI::Parse_Basic_TextureOverrideSection(M_SectionLin
             //TODO 这里的解析是有问题的，没法处理使用&& 或者||的情况，需要抽象出单独的逻辑和变量解析。
             std::wstring conditionStr = lowerReadLine.substr(2);
             LOG.Info(L"Meet Condition: " + lowerReadLine);
-            IniLineObject conditionLine(conditionStr);
-            M_Condition m_condition;
+            M_Condition m_condition(conditionStr);
             m_condition.NameSpace = m_sectionLine.NameSpace;
-            m_condition.ConditionVarName = conditionLine.LeftStrTrim;
-            m_condition.ConditionVarValue = conditionLine.RightStrTrim;
             tmpActiveConditionList.push_back(m_condition);
             lastLogic = L"if";
         }
@@ -220,12 +212,8 @@ M_TextureOverride ModFormat_INI::Parse_Basic_TextureOverrideSection(M_SectionLin
 
             std::wstring conditionStr = lowerReadLine.substr(2);
             LOG.Info(L"Meet Condition: " + lowerReadLine);
-            IniLineObject conditionLine(conditionStr);
-
-            M_Condition m_condition;
+            M_Condition m_condition(conditionStr);
             m_condition.NameSpace = m_sectionLine.NameSpace;
-            m_condition.ConditionVarName = conditionLine.LeftStrTrim;
-            m_condition.ConditionVarValue = conditionLine.RightStrTrim;
             tmpActiveConditionList.push_back(m_condition);
             lastLogic = L"else if";
         }

@@ -530,6 +530,7 @@
             // 
             // Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem
             // 
+            this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Enabled = false;
             this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Name = "Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem";
             this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Text = "Reverse Lv4 Merged NameSpace";
@@ -542,6 +543,7 @@
             // 
             // Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem
             // 
+            this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Enabled = false;
             this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Name = "Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem";
             this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Text = "Reverse Lv4 3Dmigoto Simulator";

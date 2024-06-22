@@ -10,9 +10,6 @@
     <Filter Include="Utils\ThirdParty">
       <UniqueIdentifier>{c088ef43-21fc-40d3-9cbf-87a668aadd66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sword-Lv4">
-      <UniqueIdentifier>{7b111c10-a0b9-4c34-b1d9-10f95fed13b8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DataModel\IndexBuffer">
       <UniqueIdentifier>{64ff23be-f294-42af-9578-cf1187da023f}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="Sword-Lv3-Deprecated">
       <UniqueIdentifier>{fd2fc426-9f5c-4b0b-b253-d2f8a26e94e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reverse">
+      <UniqueIdentifier>{7b111c10-a0b9-4c34-b1d9-10f95fed13b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,10 +78,10 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="ModFormat_ParseSelf.cpp">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClCompile>
     <ClCompile Include="Reverse_Lv4_Merged_OutfitCompiler.cpp">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClCompile>
     <ClCompile Include="IndexBufferTxtFile.cpp">
       <Filter>DataModel\IndexBuffer</Filter>
@@ -150,22 +150,28 @@
       <Filter>Games\WuWa</Filter>
     </ClCompile>
     <ClCompile Include="Reverse_Lv4_Single.cpp">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClCompile>
     <ClCompile Include="Reverse_Lv4_Merged_Toggle.cpp">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClCompile>
     <ClCompile Include="Reverse_Lv4_Merged_NameSpace.cpp">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClCompile>
     <ClCompile Include="ModFormat_ParseUtil.cpp">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClCompile>
     <ClCompile Include="ModFormat_ParseBasic.cpp">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClCompile>
     <ClCompile Include="Reverse_Lv4_3Dmigoto_Simulator.cpp">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
+    </ClCompile>
+    <ClCompile Include="ModFormatExtra.cpp">
+      <Filter>Reverse</Filter>
+    </ClCompile>
+    <ClCompile Include="ModFormatBasic.cpp">
+      <Filter>Reverse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +207,7 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="ModFormatExtra.h">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClInclude>
     <ClInclude Include="GlobalFunctions.h" />
     <ClInclude Include="IndexBufferTxtFile.h">
@@ -244,7 +250,7 @@
       <Filter>Games\WuWa</Filter>
     </ClInclude>
     <ClInclude Include="ModFormatBasic.h">
-      <Filter>Sword-Lv4</Filter>
+      <Filter>Reverse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

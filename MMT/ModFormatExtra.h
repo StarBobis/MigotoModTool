@@ -48,7 +48,6 @@ public:
 
 	//功能性解析，不一定要使用
 	std::vector<std::unordered_map<std::wstring, std::wstring>> Parse_Util_Get_M_Key_Combination(std::vector<M_Key> cycleKeyList);
-	std::vector<M_DrawIndexed> Parse_Util_GetActiveDrawIndexedListByKeyCombination(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap, std::vector<M_DrawIndexed> DrawIndexedList);
 	std::wstring Parse_Util_Get_M_Key_Combination_String(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap);
 	std::vector<std::wstring> Parse_Util_GetRecursiveActivedIniFilePathList(std::wstring IncludePath);
 	std::vector<M_SectionLine> Parse_Util_ParseMigotoSectionLineList(std::wstring iniFilePath);

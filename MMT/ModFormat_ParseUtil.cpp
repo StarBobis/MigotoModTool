@@ -68,45 +68,6 @@ std::vector<std::unordered_map<std::wstring, std::wstring>> ModFormat_INI::Parse
 }
 
 
-
-std::vector<M_DrawIndexed> ModFormat_INI::Parse_Util_GetActiveDrawIndexedListByKeyCombination(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap, std::vector<M_DrawIndexed> DrawIndexedList) {
-    std::vector<M_DrawIndexed> activitedDrawIndexedList;
-    //这里要让DrawIndex的每个Condition都满足,才算是被激活了
-
-    for (M_DrawIndexed drawIndexed : DrawIndexedList) {
-
-        if (drawIndexed.AutoDraw) {
-            //如果没有条件，说明直接就是已激活的
-            activitedDrawIndexedList.push_back(drawIndexed);
-            //LOG.Info(L"Detect [auto draw drawindexed]");
-        }
-        else {
-            //LOG.Info(L"ActiveConditionList size: " + std::to_wstring(drawIndexed.ActiveConditionList.size()));
-            int activateNumber = 0;
-            for (M_Condition condition : drawIndexed.ActiveConditionList) {
-                //LOG.Info(condition.ConditionVarName);
-                //这里的condition需要获取一下NameSapced KeyName
-                std::wstring conditionNameSpacedKeyName = condition.NameSpace + L"\\" + condition.ConditionVarName.substr(1);
-                if (condition.ConditionVarValue == KeyCombinationMap[conditionNameSpacedKeyName]) {
-                    activateNumber++;
-                }
-                else {
-                    break;
-                }
-
-            }
-            if (activateNumber == drawIndexed.ActiveConditionList.size()) {
-                activitedDrawIndexedList.push_back(drawIndexed);
-                //LOG.Info(L"Activated");
-            }
-        }
-
-    }
-    //LOG.Error(L"Stop");
-    return activitedDrawIndexedList;
-}
-
-
 std::wstring ModFormat_INI::Parse_Util_Get_M_Key_Combination_String(std::unordered_map<std::wstring, std::wstring> KeyCombinationMap) {
     std::wstring combinationStr;
     int count = 1;
