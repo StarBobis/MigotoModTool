@@ -102,7 +102,7 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
         Reverse_Lv4_Single();
     }
     else if (G.RunCommand == L"reverseMerged") {
-        ReverseMerged();
+        Reverse_Lv4_Merged_Toggle();
     }
     else if (G.RunCommand == L"reverseMergedNameSpace") {
         Reverse_Lv4_Merged_NameSpace();
