@@ -13,16 +13,6 @@ Feature:
 
 This project is still work in process so make sure always use the latest release version.
 
-# Supported Game List
-- GameName						[ShortName]			Model Extract			Buffer Mod Generate		Mod Reverse		VertexLimitBreak
-- Honkai Impact 3				HI3					¡Ì						¡Ì						¡Ì				¡Ì
-- Genshin Impact				GI					¡Ì						¡Ì						¡Ì				¡Ì
-- Honkai StarRail				HSR					¡Ì						¡Ì						¡Ì				¡Ì
-- Zenless Zero Zone				ZZZ					¡Ì						¡Ì						¡Ì				¡Ì
-- Wuthering Wave (WIP)			WW					¡Ì						¡Ì						WIP				WIP
-- SnowBreak						SnB					¡Ì						¡Ì						WIP				WIP
-- Strinova(KALABIYAU)			KBY					¡Ì						¡Ì						WIP				WIP
-
 # How to use
 1.Put 3Dmigoto files in their 3Dmigoto folder,under Games\\[YourGameName]\\3Dmigoto\\
 
