@@ -84,6 +84,9 @@
             this.ColumnStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_GenerateMod = new System.Windows.Forms.Button();
             this.button_ExtractModel = new System.Windows.Forms.Button();
+            this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip4.SuspendLayout();
             this.groupBoxBasicMod.SuspendLayout();
             this.menuStrip8.SuspendLayout();
@@ -373,9 +376,12 @@
             this.Menu_Reverse_extractReverseModelToolStripMenuItem,
             this.toolStripSeparator1,
             this.Menu_Reverse_reverseSingleModToolStripMenuItem,
-            this.Menu_Reverse_reverseMergedModToolStripMenuItem,
             this.toolStripSeparator2,
-            this.Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem});
+            this.Menu_Reverse_reverseMergedModToolStripMenuItem,
+            this.Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem,
+            this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem});
             this.Menu_Reverse_ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Menu_Reverse_ToolStripMenuItem.Name = "Menu_Reverse_ToolStripMenuItem";
             this.Menu_Reverse_ToolStripMenuItem.Size = new System.Drawing.Size(67, 21);
@@ -384,39 +390,39 @@
             // Menu_Reverse_extractReverseModelToolStripMenuItem
             // 
             this.Menu_Reverse_extractReverseModelToolStripMenuItem.Name = "Menu_Reverse_extractReverseModelToolStripMenuItem";
-            this.Menu_Reverse_extractReverseModelToolStripMenuItem.Size = new System.Drawing.Size(382, 22);
+            this.Menu_Reverse_extractReverseModelToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.Menu_Reverse_extractReverseModelToolStripMenuItem.Text = "Extract Reverse Model";
             this.Menu_Reverse_extractReverseModelToolStripMenuItem.Click += new System.EventHandler(this.extractReverseModelToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(379, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(293, 6);
             // 
             // Menu_Reverse_reverseSingleModToolStripMenuItem
             // 
             this.Menu_Reverse_reverseSingleModToolStripMenuItem.Name = "Menu_Reverse_reverseSingleModToolStripMenuItem";
-            this.Menu_Reverse_reverseSingleModToolStripMenuItem.Size = new System.Drawing.Size(382, 22);
-            this.Menu_Reverse_reverseSingleModToolStripMenuItem.Text = "Reverse Single Mod";
+            this.Menu_Reverse_reverseSingleModToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.Menu_Reverse_reverseSingleModToolStripMenuItem.Text = "Reverse Lv4 Single";
             this.Menu_Reverse_reverseSingleModToolStripMenuItem.Click += new System.EventHandler(this.reverseSingleModToolStripMenuItem_Click);
             // 
             // Menu_Reverse_reverseMergedModToolStripMenuItem
             // 
             this.Menu_Reverse_reverseMergedModToolStripMenuItem.Name = "Menu_Reverse_reverseMergedModToolStripMenuItem";
-            this.Menu_Reverse_reverseMergedModToolStripMenuItem.Size = new System.Drawing.Size(382, 22);
-            this.Menu_Reverse_reverseMergedModToolStripMenuItem.Text = "Reverse Merged Mod";
+            this.Menu_Reverse_reverseMergedModToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.Menu_Reverse_reverseMergedModToolStripMenuItem.Text = "Reverse Lv4 Merged Toggle";
             this.Menu_Reverse_reverseMergedModToolStripMenuItem.Click += new System.EventHandler(this.reverseMergedModToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(379, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(293, 6);
             // 
             // Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem
             // 
             this.Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Name = "Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem";
-            this.Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Size = new System.Drawing.Size(382, 22);
-            this.Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Text = "Reverse OutfitCompiler Compressed Merged Mod";
+            this.Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Text = "Reverse Lv4 Merged OutfitCompiler";
             this.Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Click += new System.EventHandler(this.reverseOutfitCompilerCompressedMergedModToolStripMenuItem_Click);
             // 
             // DataGridView_BasicIBList
@@ -522,6 +528,25 @@
             this.button_ExtractModel.UseVisualStyleBackColor = false;
             this.button_ExtractModel.Click += new System.EventHandler(this.mergeToolStripMenuItem_Click);
             // 
+            // Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem
+            // 
+            this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Name = "Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem";
+            this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Text = "Reverse Lv4 Merged NameSpace";
+            this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Click += new System.EventHandler(this.Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(293, 6);
+            // 
+            // Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem
+            // 
+            this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Name = "Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem";
+            this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Text = "Reverse Lv4 3Dmigoto Simulator";
+            this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Click += new System.EventHandler(this.Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -596,6 +621,9 @@
         private System.Windows.Forms.ToolStripMenuItem Menu_Run_run3DmigotoLoaderByPassACEexeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem developedByNicoMicoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Menu_File_OpenTypesFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem;
     }
 }
 

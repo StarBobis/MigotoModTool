@@ -21,8 +21,11 @@ void UnityGenerate();
 void ExtractFromBuffer_VS_Reverse();
 
 //原神,崩坏:星穹铁道,崩坏三,绝区零(Unity系列游戏)		脚本式逆向提取Mod模型
-void Reverse_Lv4_Merged_OutfitCompiler();
 void Reverse_Lv4_Single();
+void Reverse_Lv4_Merged_OutfitCompiler();
+void Reverse_Lv4_Merged_Toggle();
+void Reverse_Lv4_Merged_NameSpace();
+void Reverse_Lv4_3Dmigoto_Simulator();
 
 //TODO Deprecated Reverse Method
 void ReverseMerged();

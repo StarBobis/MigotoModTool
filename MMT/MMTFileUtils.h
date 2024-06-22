@@ -28,7 +28,7 @@ std::unordered_map<int, std::vector<std::byte>> MMTFile_ReadBufMapFromFile(std::
 int MMTFile_GetFileSize(std::wstring FileName);
 
 //读取特殊的结尾被填充特别多0的文件的真实的不为0部分的文件大小
-int MMTFile_GetRealFileSize_NullTerminated(std::wstring FileName);
+uint64_t MMTFile_GetRealFileSize_NullTerminated(std::wstring FileName);
 
 std::wstring MMTFile_FindMaxPrefixedDirectory(const std::wstring& directoryPath, const std::wstring& prefix);
 

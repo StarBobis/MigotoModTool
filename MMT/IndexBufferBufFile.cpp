@@ -63,7 +63,7 @@ IndexBufferBufFile::IndexBufferBufFile(std::wstring FileReadPath, std::wstring F
     this->MaxNumber = tmpMaxNumber;
     this->MinNumber = tmpMinNumber;
     this->NumberCount = readCount;
-    this->UniqueVertexCount = uniqueNumberSet.size();
+    this->UniqueVertexCount = (uint32_t)uniqueNumberSet.size();
 }
 
 
@@ -114,7 +114,7 @@ void IndexBufferBufFile::SelfDivide(int FirstIndex, int IndexCount) {
     this->MinNumber = tmpMinNumber;
     this->MaxNumber = tmpMaxNumber;
     this->NumberCount = subCount;
-    this->UniqueVertexCount = uniqueNumberSet.size();
+    this->UniqueVertexCount = (uint32_t)uniqueNumberSet.size();
     this->NumberList = newNumberList;
 
 }

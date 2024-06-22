@@ -63,7 +63,7 @@ IndexBufferTxtFile::IndexBufferTxtFile(std::wstring fileName,bool readIBData) {
                 std::vector<std::wstring> splitLine = MMTString_SplitString(line,L" ");
                 if (splitLine.size() == 3) {
                     for (std::wstring splitLineStr: splitLine) {
-                        int tmpNumber = std::stoi(splitLineStr);
+                        uint32_t tmpNumber = std::stoi(splitLineStr);
                         this->IBTxtToBufMap[ib_read_number] = MMTFormat_IntToByteVector(tmpNumber);
                         ib_read_number++;
                         //LOG.Info(std::to_string(tmpNumber));

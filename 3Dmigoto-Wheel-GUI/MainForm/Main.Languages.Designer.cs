@@ -109,12 +109,13 @@ namespace NMBT_GUI
 
             //Reverse
             Menu_Reverse_ToolStripMenuItem.Text = "Reverse";
-            Menu_Reverse_reverseSingleModToolStripMenuItem.Text = "Reverse Single Mod";
-            Menu_Reverse_reverseMergedModToolStripMenuItem.Text = "Reverse Merged Mod";
-            Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Text = "Reverse OutfitCompiler Compressed Merged Mod";
             Menu_Reverse_extractReverseModelToolStripMenuItem.Text = "Extract Reverse Model";
 
-
+            Menu_Reverse_reverseSingleModToolStripMenuItem.Text = "Reverse Lv4 Single ";
+            Menu_Reverse_reverseMergedModToolStripMenuItem.Text = "Reverse Lv4 Merged Toggle";
+            Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Text = "Reverse Lv4 Merged OutfitCompiler";
+            Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Text = "Reverse Lv4 Merged NameSpace";
+            Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Text = "Reverse Lv4 3Dmigoto Simulator";
             //Run
             Menu_RunToolStripMenuItem.Text = "Run";
             Menu_Run_run3DmigotoLoaderexeToolStripMenuItem.Text = "Run 3Dmigoto Loader.exe";
@@ -178,10 +179,13 @@ namespace NMBT_GUI
 
             //Reverse
             Menu_Reverse_ToolStripMenuItem.Text = "逆向Mod";
+            Menu_Reverse_extractReverseModelToolStripMenuItem.Text = "从Dump文件中逆向提取Mod模型";
+            
             Menu_Reverse_reverseSingleModToolStripMenuItem.Text = "逆向普通单个Mod";
             Menu_Reverse_reverseMergedModToolStripMenuItem.Text = "逆向普通多合一切换Mod";
             Menu_Reverse_reverseOutfitCompilerCompressedMergedModToolStripMenuItem.Text = "逆向OutfitCompiler压缩后的多合一切换Mod";
-            Menu_Reverse_extractReverseModelToolStripMenuItem.Text = "提取Mod模型";
+            Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem.Text = "逆向使用NameSpace技术的多合一切换Mod";
+            Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem.Text = "逆向Mod终极解决方案: 完全模拟3Dmigoto执行逻辑批量递归逆向文件夹中所有Mod";
 
             //Run
             Menu_RunToolStripMenuItem.Text = "运行";

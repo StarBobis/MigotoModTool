@@ -36,11 +36,8 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
 
 #ifdef _DEBUG 
     LOG.NewLine();
-    //UnityExtractCS();
+    Reverse_Lv4_Merged_Toggle();
 
-    //ExtractFromBuffer_CS_WW();
-    ReverseOutfitCompilerCompressed();
-    //combineMods(L"");
 #else
     LOG.Info(L"Running Command: " + G.RunCommand);
     LOG.NewLine();
@@ -106,6 +103,12 @@ std::int32_t wmain(std::int32_t argc, wchar_t* argv[])
     }
     else if (G.RunCommand == L"reverseMerged") {
         ReverseMerged();
+    }
+    else if (G.RunCommand == L"reverseMergedNameSpace") {
+        Reverse_Lv4_Merged_NameSpace();
+    }
+    else if (G.RunCommand == L"reverse3DmigotoSimulator") {
+        Reverse_Lv4_3Dmigoto_Simulator();
     }
 
     LOG.Success();

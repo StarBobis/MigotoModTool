@@ -170,6 +170,7 @@
     <ClCompile Include="MMTFormatUtils.cpp" />
     <ClCompile Include="MMTJsonUtils.cpp" />
     <ClCompile Include="MMTStringUtils.cpp" />
+    <ClCompile Include="Reverse_Lv4_3Dmigoto_Simulator.cpp" />
     <ClCompile Include="Reverse_Lv4_Merged_Toggle.cpp" />
     <ClCompile Include="Reverse_Lv4_Merged_NameSpace.cpp" />
     <ClCompile Include="Reverse_Lv4_Merged_OutfitCompiler.cpp" />

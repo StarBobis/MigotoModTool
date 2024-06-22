@@ -168,14 +168,14 @@ int MMTFile_GetFileSize(std::wstring FileName) {
     return fileSize;
 }
 
-int MMTFile_GetRealFileSize_NullTerminated(std::wstring FileName) {
+uint64_t MMTFile_GetRealFileSize_NullTerminated(std::wstring FileName) {
     std::ifstream file(FileName, std::ios::binary);
     std::vector<char> data((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-    int end = data.size() - 1;
+    uint64_t end = data.size() - 1;
     while (end >= 0 && data[end] == 0) {
         end--;
     }
-    int length = end + 1;
+    uint64_t length = end + 1;
     file.close();
     return length;
 }

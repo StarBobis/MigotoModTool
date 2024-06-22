@@ -164,6 +164,9 @@
     <ClCompile Include="ModFormat_ParseBasic.cpp">
       <Filter>Sword-Lv4</Filter>
     </ClCompile>
+    <ClCompile Include="Reverse_Lv4_3Dmigoto_Simulator.cpp">
+      <Filter>Sword-Lv4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MMTFileUtils.h">

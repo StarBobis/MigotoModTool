@@ -678,5 +678,46 @@ namespace NMBT_GUI
                 Process.Start(TypeDirStr);
             }
         }
+
+        private void Menu_Reverse_reverseLv4MergedNameSpaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(CurrentGameName))
+            {
+                ShowMessageBox("Please select your current game before reverse.", "在逆向Mod之前请选择当前要进行格式转换的二创模型的所属游戏");
+                return;
+            }
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = folderBrowserDialog1.SelectedPath;
+                string json = File.ReadAllText(this.Path_RunInputJson); // 读取文件内容
+                JObject runInputJson = JObject.Parse(json);
+                runInputJson["GameName"] = CurrentGameName;
+                runInputJson["ReverseFilePath"] = filePath;
+                File.WriteAllText(this.Path_RunInputJson, runInputJson.ToString());
+
+                runCommand("reverseMergedNameSpace");
+            }
+        }
+
+        private void Menu_Reverse_reverseLv43DmigotoSimulatorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(CurrentGameName))
+            {
+                ShowMessageBox("Please select your current game before reverse.", "在逆向Mod之前请选择当前要进行格式转换的二创模型的所属游戏");
+                return;
+            }
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = folderBrowserDialog1.SelectedPath;
+                string json = File.ReadAllText(this.Path_RunInputJson); // 读取文件内容
+                JObject runInputJson = JObject.Parse(json);
+                runInputJson["GameName"] = CurrentGameName;
+                runInputJson["ReverseFilePath"] = filePath;
+                File.WriteAllText(this.Path_RunInputJson, runInputJson.ToString());
+
+                runCommand("reverse3DmigotoSimulator");
+            }
+        }
+
     }
 }
