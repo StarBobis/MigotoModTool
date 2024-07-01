@@ -1,4 +1,6 @@
 # MMT-Community
+It's a tool developed only for fun, if you find MMT can't work good on specific game, try to switch to other tool instead.
+
 It's designed to works with our modified fork version of blender_3dmigoto.py forked from DarkStarSword's 3DFix repo, download link: https://github.com/StarBobis/MMT-Blender-Plugin
 
 It's designed to works with our modified fork version of 3Dmigoto originally forked from 3Dmigoto repo, download link: https://github.com/StarBobis/3Dmigoto-GameMod-Fork
@@ -24,6 +26,11 @@ MMT.zip can be downloaded from : https://github.com/StarBobis/MMT-Blender-Plugin
 You will need to pack the MMT folder into MMT.zip to install it into blender or download it from latest release.
 
 # Technique support
-Welcome to open a issue if you find a bug or have any advice,any feedback or have some cool idea or cool feature need to add into MMT.
-
 Discord: https://discord.gg/Cz577BcRf5
+
+# Credit 
+MMT's code learned from lots of similar projects and make improvement and upgrade, here is a list for main of them:
+- https://github.com/SpectrumQT/WWMI-TOOLS/tree/main
+- https://github.com/SilentNightSound/GI-Model-Importer
+- https://github.com/SilentNightSound/SR-Model-Importer
+- https://github.com/SilentNightSound/HI-Model-Importer
