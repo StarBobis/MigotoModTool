@@ -32,6 +32,17 @@ You will need to pack the MMT folder into MMT.zip to install it into blender or 
 # Technique support
 Discord: [https://discord.gg/eCXdNyVnsM](https://discord.gg/eCXdNyVnsM)
 
+# Under Reconstruct
+MMT's is write with shit code so it's under reconstruct and still WIP, new code will be open source later.
+![image](https://github.com/user-attachments/assets/e1684d03-96e9-4209-915e-a7dad0b9ba8d)
+
+
+MMT's dependency code is seperate out and open source in different repository for reuse purpose:
+
+[https://github.com/StarBobis/MMT-Common](https://github.com/StarBobis/MMT-Common)
+
+[https://github.com/StarBobis/MMT-Utils](https://github.com/StarBobis/MMT-Utils)
+
 # Credit 
 MMT's code keep learned from lots of similar projects and make improvement and upgrade, here is a list for main of them.
 - https://github.com/SpectrumQT/WWMI-TOOLS/tree/main
