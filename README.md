@@ -1,51 +1,60 @@
-# MMT-Community
-It's a tool developed only for fun, if you find MMT can't work good on specific game, try to switch to other tool instead.
-
-It's designed to works with our modified fork version of blender_3dmigoto.py forked from DarkStarSword's 3DFix repo, download link: https://github.com/StarBobis/MMT-Blender-Plugin
-
-It's designed to works with our modified fork version of 3Dmigoto originally forked from 3Dmigoto repo, download link: https://github.com/StarBobis/3Dmigoto-GameMod-Fork
-(Our d3d11.dll has stop to develop and maintain due to no enough time, try SinsOfSeven and SpectrumQT's new open source code instead: https://github.com/SinsOfSeven/3Dmigoto)
-
-特性列表:
-- Reverse 3Dmigoto mod with a simple click, reverse extract mod model from game dump files. (Reverse function has been hide since V1.0.4.8 to avoid abuse and drama, you need to verify a MMT-Reverse role in our discord to unlock it.)
-- Support multiple game's model extract and buffer mod make as it can.
-- Save your time with user frendly GUI.
-- Detailed log system, easy to debug and solve problems.
-- Compatible with other similar tools.
-- Fast POC.
-
-This project is still work in process so make sure always use the latest release version,I only have less than 2 hours everyday to maintain it, so be patient and welcome to send me feedback.
-
-# 如何使用
-1.Download files from https://github.com/StarBobis/3Dmigoto-Loaders which is different game loader i have preconfigured dedicated for MMT usage,
-then copy Games folder and put it to where our MMT.exe located, then you can run MMT-GUI.exe to start play.
-
-2.Use IndexBuffer Hash copied from press Numpad9 in Hunting GUI to make mod.
-
-3.Use MMT.zip as your blender's 3Dmigoto plugin, it's work on Blender 3.6 LTS (official release).
-MMT.zip can be downloaded from : https://github.com/StarBobis/MMT-Blender-Plugin
-
-You will need to pack the MMT folder into MMT.zip to install it into blender or download it from latest release.
-
-4.How to easily upgrade to new version? Just copy all your new version MMT files and folders to your older version's directory and replace them all.
-
-# 技术支持
-Discord: [https://discord.gg/eCXdNyVnsM](https://discord.gg/eCXdNyVnsM)
-
-# 架构图
-
+# MMT-Community MMT社区版
 ![image](https://github.com/user-attachments/assets/e1684d03-96e9-4209-915e-a7dad0b9ba8d)
 
+本工具的开发仅为娱乐性质，如果你发现MMT不太好用，请切换到其它专业的Mod工具。
 
-MMT's dependency code is seperate out and open source in different repository for reuse purpose:
+MMT需配套MMT的Blender插件使用，下载地址：[https://github.com/StarBobis/MMT-Blender-Plugin](https://github.com/StarBobis/MMT-Blender-Plugin)
+
+MMT需配套我们的3Dmigoto-Armor版本的d3d11.dll使用，部分技术已开源至[https://github.com/StarBobis/3Dmigoto-GameMod-Fork](https://github.com/StarBobis/3Dmigoto-GameMod-Fork)
+
+特性列表:
+- 一键逆向提取任意3Dmigoto Mod中的模型，从游戏Dump中逆向提取Mod模型
+- 支持多个游戏，但只需一套简单的操作流程。
+- 全图形化界面操作，方便易上手
+- 详细的日志系统，便于排查问题。
+- 和大部分其它Mod工具兼容。
+- 快速迭代开发。
+
+此项目仍在不断开发测试改进中，仅使用我业余时间为爱发电开发，如有疑问和建议以及BUG提交，请联系我或在Github的issue中反馈，谢谢。
+
+# 如何使用
+1.从[https://github.com/StarBobis/3Dmigoto-Loaders](https://github.com/StarBobis/3Dmigoto-Loaders)这里下载我提前准备好的各个游戏的加载器，
+然后把里面的Games文件夹复制到MMT.exe所在位置，运行MMT-GUI.exe即可使用。
+
+2.MMT使用IndexBuffer来工作，小键盘0打开Hunting界面，小键盘7和8查找IB，小键盘9复制IB的Hash值，填到MMT里来用。
+
+3.MMT需要安装我们配套的Blender插件来使用：[https://github.com/StarBobis/MMT-Blender-Plugin](https://github.com/StarBobis/MMT-Blender-Plugin)
+你可以从Release里下载已经打包好的稳定版或者从master中下载MMT文件夹手动打包为MMT.zip来安装开发板。
+
+4.旧版本MMT如何一键升级到新版本MMT?
+把新版本MMT中所有文件直接复制并覆盖旧版本对应文件即可。
+
+# 技术支持
+中文技术支持：
+
+加入BiliBili上的粉丝群获取技术支持，注意QQ等级及综合素质达标才能加入，你也可以直接在赞助平台联系我获取直接的技术支持。
+
+English Support:
+
+Discord: [https://discord.gg/eCXdNyVnsM](https://discord.gg/eCXdNyVnsM)
+
+
+# 部分开源声明
+由于MMT重构后的新架构特别易于开发维护，为避免国内出现直接性的源码复制和工具倒卖行为，新版本MMT核心逻辑代码将不会开源，
+新版本MMT只开源部分了公用数据类型和底层工具类，作为理解底层实现的意义已经足够，也可以作为你项目的依赖节省大量底层数据结构抽象时间。
+相信你也可以理解这是为了防止直接性的和潜在的不遵守开源协议的商业使用情况出现，另外，请遵守开源协议使用MMT所有相关内容。
 
 [https://github.com/StarBobis/MMT-Common](https://github.com/StarBobis/MMT-Common)
 
 [https://github.com/StarBobis/MMT-Utils](https://github.com/StarBobis/MMT-Utils)
 
-# 参考资料
-MMT's code keep learned from lots of similar projects and make improvement and upgrade, here is a list for main of them.
-- https://github.com/SpectrumQT/WWMI-TOOLS/tree/main
-- https://github.com/SilentNightSound/GI-Model-Importer
-- https://github.com/SilentNightSound/SR-Model-Importer
-- https://github.com/SilentNightSound/HI-Model-Importer
+旧版本MMT源码在master分支中基于GPL3.0协议开源，不再更新，仅用于教学参考意义。
+
+由于中文语言用户占据了95%以上，后续将不再提供英文版README，参考资料，代码注释等，请自行使用AI翻译软件阅读理解。
+
+# 注意事项
+
+为方便使用和增加功能集成，Release中将含有第三方闭源工具和闭源代码，如有介意，请勿使用。
+
+
+
