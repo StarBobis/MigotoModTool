@@ -1,4 +1,4 @@
-# MMT-Community MMT社区版
+# MMT社区版
 ![image](https://github.com/user-attachments/assets/e1684d03-96e9-4209-915e-a7dad0b9ba8d)
 
 本工具的开发仅为娱乐性质，如果你发现MMT不太好用，请切换到其它专业的Mod工具。
