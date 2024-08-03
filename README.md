@@ -8,7 +8,6 @@ MMT需配套MMT的Blender插件使用，下载地址：[https://github.com/StarB
 MMT需配套我们的3Dmigoto-Armor版本的d3d11.dll使用，部分技术已开源至[https://github.com/StarBobis/3Dmigoto-GameMod-Fork](https://github.com/StarBobis/3Dmigoto-GameMod-Fork)
 
 特性列表:
-- 一键逆向提取任意3Dmigoto Mod中的模型，从游戏Dump中逆向提取Mod模型
 - 支持多个游戏，但只需一套简单的操作流程。
 - 全图形化界面操作，方便易上手
 - 详细的日志系统，便于排查问题。
